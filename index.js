@@ -35,7 +35,7 @@ function kyun(seconds){
   var seconds = Math.floor(seconds % 60);
 
   //return pad(hours) + ':' + pad(minutes) + ':' + pad(seconds)
-  return `${pad(hours)} Jam ${pad(minutes)} Menit ${pad(seconds)} Detik`
+  return `${pad(hours)} Horas ${pad(minutes)} Minutos ${pad(seconds)} Segundos`
 }
 
 async function starts() {
@@ -108,7 +108,7 @@ async function starts() {
 			const type = Object.keys(mek.message)[0]
 			const apiKey = setting.apiKey // contact me on whatsapp wa.me/6285892766102
 			const { text, extendedText, contact, location, liveLocation, image, video, sticker, document, audio, product } = MessageType
-			const time = moment.tz('Asia/Jakarta').format('DD/MM HH:mm:ss')
+			const time = moment.tz('Mexico/Cancun').format('DD/MM HH:mm:ss')
 			body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption.startsWith(prefix) ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text.startsWith(prefix) ? mek.message.extendedTextMessage.text : ''
 			budy = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : ''
 			const command = body.slice(1).trim().split(/ +/).shift().toLowerCase()
@@ -117,7 +117,7 @@ async function starts() {
 
 			mess = {
 				wait: '⌛ *𝗘𝗻 𝗽𝗿𝗼𝗰𝗲𝘀𝗼* ⌛',
-				success: '✔️ *𝗙𝘂𝗻𝗰𝗶𝗼𝗻𝗮* ✔️',
+				success: '✔️ *Listo* ✔️',
 				error: {
 					stick: '❌ _𝗙𝗮𝗹𝗹𝗼́, 𝘀𝗲 𝗽𝗿𝗼𝗱𝘂𝗷𝗼 𝘂𝗻 𝗲𝗿𝗿𝗼𝗿 𝗮𝗹 𝗰𝗼𝗻𝘃𝗲𝗿𝘁𝗶𝗿 𝗹𝗮 𝗶𝗺𝗮𝗴𝗲𝗻 𝗮 𝘀𝘁𝗶𝗰𝗸𝗲𝗿_ ❌',
 					Iv: '❌ Enlace inválido ❌'
@@ -172,7 +172,7 @@ async function starts() {
 			if (authorname != undefined) { } else { authorname = groupName }	
 			
 			function addMetadata(packname, author) {	
-				if (!packname) packname = 'WABot'; if (!author) author = 'Samu330 Created by: NyanBot';	
+				if (!packname) packname = 'WABot'; if (!author) author = 'Samu NyanBot';	
 				author = author.replace(/[^a-zA-Z0-9]/g, '');	
 				let name = `${author}_${packname}`
 				if (fs.existsSync(`./src/stickers/${name}.exif`)) return `./src/stickers/${name}.exif`
@@ -323,7 +323,7 @@ async function starts() {
 							})
 							.on('end', function () {
 								console.log('Finish')
-								exec(`webpmux -set exif ${addMetadata('Samu330 Created by: NyanBot', authorname)} ${ran} -o ${ran}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('Samu NyanBot', authorname)} ${ran} -o ${ran}`, async (error) => {
 									if (error) return reply(mess.error.stick)
 									client.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 									fs.unlinkSync(media)	
@@ -354,7 +354,7 @@ async function starts() {
 							})
 							.on('end', function () {
 								console.log('Finish')
-								exec(`webpmux -set exif ${addMetadata('Samu330 Created by: NyanBot', authorname)} ${ran} -o ${ran}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('Samu NyanBot', authorname)} ${ran} -o ${ran}`, async (error) => {
 									if (error) return reply(mess.error.stick)
 									client.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 									fs.unlinkSync(media)
@@ -383,7 +383,7 @@ async function starts() {
 							exec(`ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${ranw}`, (err) => {
 								fs.unlinkSync(ranp)
 								if (err) return reply(mess.error.stick)
-								exec(`webpmux -set exif ${addMetadata('Samu330 Created by: NyanBot', authorname)} ${ranw} -o ${ranw}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('Samu NyanBot', authorname)} ${ranw} -o ${ranw}`, async (error) => {
 									if (error) return reply(mess.error.stick)
 									client.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
 									fs.unlinkSync(ranw)
@@ -435,10 +435,18 @@ async function starts() {
 			const pint = await linp.json()
             let erest = pint[Math.floor(Math.random() * pint.length) + 1]
 			console.log(erest)
-            await client.sendFileFromUrl(from, erest, '', 'Fueron muchos pero espero que les guste la imagen que elegí ^^!')
+            await client.sendMessage(from, image, {quoted: mek, caption: ':D'})
 			.catch(() => {
                 client.reply(from, 'No se ha recibido ninguna imagen o el servidor está desconectado, inténtalo más tarde.')
             })
+            break
+	case 'porn':
+            const porn = await fetch('https://meme-api.herokuapp.com/gimme/porn')
+            client.sendMessage(from, porn.data.url, '', porn.data.title)
+            } else {
+				const porn = await fetch('https://meme-api.herokuapp.com/gimme/porn')
+				client.sendMessage(from, porn.data.url, '', porn.data.title)
+			}
             break
 				case 'meme':
 					meme = await fetchJson('https://kagchi-api.glitch.me/meme/memes', { method: 'get' })
