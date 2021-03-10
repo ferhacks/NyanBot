@@ -440,14 +440,6 @@ async function starts() {
                 client.reply(from, 'No se ha recibido ninguna imagen o el servidor está desconectado, inténtalo más tarde.')
             })
             break
-	case 'porn':
-            const porn = await fetch('https://meme-api.herokuapp.com/gimme/porn')
-            client.sendMessage(from, porn.data.url, '', porn.data.title)
-            } else {
-				const porn = await fetch('https://meme-api.herokuapp.com/gimme/porn')
-				client.sendMessage(from, porn.data.url, '', porn.data.title)
-			}
-            break
 				case 'meme':
 					meme = await fetchJson('https://kagchi-api.glitch.me/meme/memes', { method: 'get' })
 					buffer = await getBuffer(`https://imgur.com/${meme.hash}.jpg`)
