@@ -227,10 +227,12 @@ async function starts() {
 					break
 				case 'nyan':
 				case 'bot':
+					case 'loli':
 					loli.getSFWLoli(async (err, res) => {
 						reply(mess.bot)
 						buffer = await getBuffer(res.url)
 						client.sendMessage(from, buffer, image, {quoted: mek, caption: '*Hola, Soy NyanBot🐬, un pequeño ptroyecto de Samu330.*\n\nEspero serte de ayuda, mis funciones no son muchas, son basicas, pero apeas estoy empezando a crecer:D\n\n_Saludos👑✨_'})
+					})
 					break
 				case 'blocklist':
 					teks = 'This is list of blocked number :\n'
