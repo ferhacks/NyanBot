@@ -23,6 +23,7 @@ const welkom = JSON.parse(fs.readFileSync('./src/welkom.json'))
 const nsfw = JSON.parse(fs.readFileSync('./src/nsfw.json'))
 const samih = JSON.parse(fs.readFileSync('./src/simi.json'))
 const setting = JSON.parse(fs.readFileSync('./src/settings.json'))
+const yts = require('yt-search')
 prefix = setting.prefix
 blocked = []
 
@@ -306,6 +307,7 @@ async function starts() {
 					break
 				case 'stiker':
 				case 'sticker':
+				case 's':
 					if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
 						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
 						const media = await client.downloadAndSaveMediaMessage(encmedia)
@@ -322,9 +324,10 @@ async function starts() {
 							})
 							.on('end', function () {
 								console.log('Finish')
-								exec(`webpmux -set exif ${addMetadata('Samu330:D', authorname)} ${ran} -o ${ran}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('𝗦𝗮𝗺𝘂𝟯𝟯𝟬', authorname)} ${ran} -o ${ran}`, async (error) => {
 									if (error) return reply(mess.error.stick)
 									client.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
+									return reply(mess.success)
 									fs.unlinkSync(media)	
 									fs.unlinkSync(ran)	
 								})
@@ -353,15 +356,15 @@ async function starts() {
 							})
 							.on('end', function () {
 								console.log('Finish')
-								exec(`webpmux -set exif ${addMetadata('SAMU330ByNyanBot', authorname)} ${ran} -o ${ran}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('𝗦𝗮𝗺𝘂𝟯𝟯𝟬ByNyanBot', authorname)} ${ran} -o ${ran}`, async (error) => {
 									if (error) return reply(mess.error.stick)
 									client.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 									fs.unlinkSync(media)
 									fs.unlinkSync(ran)
 								})
-								/*client.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
+								client.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 								fs.unlinkSync(media)
-								fs.unlinkSync(ran)*/
+								fs.unlinkSync(ran)
 							})
 							.addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
 							.toFormat('webp')
@@ -387,10 +390,10 @@ async function starts() {
 									client.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
 									fs.unlinkSync(ranw)
 								})
-							//	client.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
+								client.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
 							})
 						})
-					/*} else if ((isMedia || isQuotedImage) && colors.includes(args[0])) {
+					} else if ((isMedia || isQuotedImage) && colors.includes(args[0])) {
 						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
 						const media = await client.downloadAndSaveMediaMessage(encmedia)
 						ran = getRandom('.webp')
@@ -410,7 +413,7 @@ async function starts() {
 							})
 							.addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=${args[0]}@0.0, split [a][b]; [a] palettegen=reserve_transparent=off; [b][p] paletteuse`])
 							.toFormat('webp')
-							.save(ran)*/
+							.save(ran)
 					} else {
 						reply(`Envía fotos con subtítulos ${prefix}sticker o etiquetas de imagen que ya se han enviado`)
 					}
@@ -428,7 +431,7 @@ async function starts() {
 						fs.unlinkSync(ranm)
 					})
 					break
-	case 'image':
+	case 'imagen':
             if (args.length == 0) return reply('Que quiere buscar!')
             const linp = await fetch(`https://api.fdci.se/sosmed/rep.php?gambar=${body.slice(7)}`)
 			const pint = await linp.json()
@@ -452,11 +455,11 @@ async function starts() {
 					fs.writeFileSync('./src/settings.json', JSON.stringify(setting, null, '\t'))
 					reply(`El prefijo se ha cambiado correctamente a : ${prefix}`)
 					break
-				/*case 'loli':
+				case 'loli':
 					loli.getSFWLoli(async (err, res) => {
 						if (err) return reply('❌ *ERROR* ❌')
 						buffer = await getBuffer(res.url)
-						client.sendMessage(from, buffer, image, {quoted: mek, caption: 'Ingat! Citai Lolimu'})
+						client.sendMessage(from, buffer, image, {quoted: mek, caption: ':D'})
 					})
 					break
 				case 'nsfwloli':
@@ -464,9 +467,9 @@ async function starts() {
 					loli.getNSFWLoli(async (err, res) => {
 						if (err) return reply('❌ *ERROR* ❌')
 						buffer = await getBuffer(res.url)
-						client.sendMessage(from, buffer, image, {quoted: mek, caption: 'Jangan jadiin bahan buat comli om'})
+						client.sendMessage(from, buffer, image, {quoted: mek, caption: ':D'})
 					})
-					break*/
+					break
 				case ':v':
 					if (args.length < 1) return reply('¿Dónde está el texto?')
 					anu = await fetchJson(`https://mhankbarbars.herokuapp.com/api/hilih?teks=${body.slice(7)}`, {method: 'get'})
