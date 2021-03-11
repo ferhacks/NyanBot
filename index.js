@@ -7,6 +7,7 @@ const {
 } = require('@adiwajshing/baileys')
 const { color, bgcolor } = require('./lib/color')
 const { help } = require('./src/help')
+const { bot } = require('./src/bot.png')
 const { wait, simih, getBuffer, h2k, generateMessageID, getGroupAdmins, getRandom, banner, start, info, success, close } = require('./lib/functions')
 const { fetchJson, fetchText } = require('./lib/fetcher')
 const { recognize } = require('./lib/ocr')
@@ -226,9 +227,7 @@ async function starts() {
 					break
 				case 'nyan':
 				case 'bot':
-					teks = `*Hola, Soy NyanBot🐬, un pequeño ptroyecto de Samu330.*\n\nEspero serte de ayuda, mis funciones no son muchas, son basicas, pero apeas estoy empezando a crecer:D\n\n_Saludos👑✨_`
-					buffer = await getBuffer('./src/bot.png')
-					client.sendMessage(from, buffer, image, {caption: teks})
+					client.sendMessage(from, bot, image, {quoted: mek, caption: '*Hola, Soy NyanBot🐬, un pequeño ptroyecto de Samu330.*\n\nEspero serte de ayuda, mis funciones no son muchas, son basicas, pero apeas estoy empezando a crecer:D\n\n_Saludos👑✨_'})
 					break
 				case 'blocklist':
 					teks = 'This is list of blocked number :\n'
