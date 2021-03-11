@@ -54,7 +54,7 @@ const help = (prefix) => {
 |
 |⚠ *USA ESTE COMANDO BAJO TU RESPONSABILIDAD!!* ⚠ 
 └──────────────────────────────
-🔥ஜீ۞ஜீ🐬•.¸¸.•*`*•.•ஜீ☼۞☼ஜீ•.•*`*•.¸¸.•🐬ஜீ۞ஜீ🔥
+🔥ஜீ۞ஜீ🐬•.¸¸.•*``*•.¸¸.•🐬ஜீ۞ஜீ🔥
 *No son todos los comandos, este bot esta apenas desarrollandose, por lo tanto solo puedes hacer uso de esos comandos*
 
 _*Para alguna duda o aclaracion, comunicate con el propietario*_
