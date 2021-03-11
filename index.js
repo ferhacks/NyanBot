@@ -7,7 +7,6 @@ const {
 } = require('@adiwajshing/baileys')
 const { color, bgcolor } = require('./lib/color')
 const { help } = require('./src/help')
-const { help } = require('./src/bot.png')
 const { wait, simih, getBuffer, h2k, generateMessageID, getGroupAdmins, getRandom, banner, start, info, success, close } = require('./lib/functions')
 const { fetchJson, fetchText } = require('./lib/fetcher')
 const { recognize } = require('./lib/ocr')
@@ -423,19 +422,6 @@ async function starts() {
 					} else {
 						reply(`Envía fotos con comentario ${prefix}sticker o etiquetas de imagen que ya se han enviado`)
 					}
-					break
-				case 'gtts':
-					if (args.length < 1) return client.sendMessage(from, 'Kode bahasanya mana om?', text, {quoted: mek})
-					const gtts = require('./lib/gtts')(args[0])
-					if (args.length < 2) return client.sendMessage(from, 'Textnya mana om', text, {quoted: mek})
-					dtt = body.slice(9)
-					ranm = getRandom('.mp3')
-					dtt.length > 600
-					? reply('Textnya kebanyakan om')
-					: gtts.save(ranm, dtt, function() {
-						client.sendMessage(from, fs.readFileSync(ranm), audio, {quoted: mek, mimetype: 'audio/mp4', ptt:true})
-						fs.unlinkSync(ranm)
-					})
 					break
 				case 'gtts':
 					if (args.length < 1) return client.sendMessage(from, '¿Qué código de idioma es?', text, {quoted: mek})
