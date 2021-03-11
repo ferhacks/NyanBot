@@ -710,7 +710,7 @@ async function starts() {
 					loli.getSFWLoli(async (err, res) => {
 						reply(mess.bot)
 						buffer = await getBuffer(res.url)
-						client.sendMessage(from, buffer, image, {quoted: mek, caption: '*Hola, Soy NyanBot🐬, un pequeño ptroyecto de Samu330.*\n\nEspero serte de ayuda, mis funciones no son muchas, son basicas, pero apeas estoy empezando a crecer:D\n\n_Saludos👑✨_'})
+						client.sendMessage(from, buffer, image, {quoted: mek, caption: '*Hola, Soy NyanBot🐬, un pequeño ptroyecto de Samu330.*\n\nEspero serte de ayuda, mis funciones no son muchas, son basicas, pero apenas estoy empezando a crecer:D\n\n_Saludos👑✨_'})
 					})
 					break
 				case 'idioma':
