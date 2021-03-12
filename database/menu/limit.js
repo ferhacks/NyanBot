@@ -1,29 +1,30 @@
 const limit = (prefix, botName, ownerName) => {
         return `
-┏ *〈 ${botName} 〉*
-╿
-┷┯ *〈 BOT INFO 〉*
-   ╽
-   ┠≽ *Prefix* : 「  ${prefix}  」
-   ┠≽ *Creator* : ${ownerName}
-   ┠≽ *Version* : 0.0.5
-   ╿
-┯┷ *〈 ABOUT 〉*
-╽
-┠≽ *${prefix}info* (error)
-┃ *Desc* : Show Bot Details
-┠──────────────╼
-┠≽ *${prefix}blocklist*
-┃ *Desc* : Show Blocked User
-┠──────────────╼
-┠≽ *${prefix}chatlist* (error)
-┃ *Desc* : Show All Chat User
-┠──────────────╼
-┠≽ *${prefix}ping*
-┃ *Desc* : Show Connection Bot Speed
-┠──────────────╼
-┠≽ *${prefix}bugreport* <text>
-┃ *Desc* : Report Bug To Owner Bot
+╔ *🔥 ${botName} 🔥*
+║
+➥ *〈 BOT INFO 〉*
+🐬 ║
+🐬 ║♡ *Prefijo* : 「  ${prefix}  」
+🐬 ║♡ *Creador* : ${ownerName}
+🐬 ║♡ *Version* : 0.0.2
+🐬 ║
+🔥>ԑ̮̑ঙ< *𝗡𝘆𝗮𝗻𝗕𝗼𝘁* >ԑ̮̑ঙ<🔥
+ *〈 ABOUT 〉*
+║
+║≽ *${prefix}info* (error)
+║ *Desc* : Informacion del bot
+║──────────────╼
+║≽ *${prefix}blocklist*
+║ *Desc* : Usuarios bloqueados del usuario
+║──────────────╼
+║≽ *${prefix}chatlist* (error)
+║ *Desc* : Muestra todos los chats del usuario
+║──────────────╼
+║≽ *${prefix}ping*
+║ *Desc* : Velocidad del bot
+║──────────────╼
+║≽ *${prefix}bugreport* <text>
+║ *Desc* : Report Bug To Owner Bot
 ╿
 ┷┯ *〈 LIMIT 〉*
    ╽
@@ -38,7 +39,7 @@ const limit = (prefix, botName, ownerName) => {
    ╿ *${ownerName}*,
    ╰╼≽ *Developer © ${botName}
 --------------------------------
-Note: Kamu bisa membeli limit dengan cara mengumpulkan uang terlebih dahulu. Cek uang kamu dengan cara mengetikan perintah *${prefix}bal* , harga 1 limit = 1000 uang.
-Note2: Kamu bisa mengumpulkan uang dengan cara chat dengan teman segroup atau bisa dengan naik level.`
+Nota: Puedes comprar un límite recolectando dinero primero. Verifique su dinero escribiendo el comando  *${prefix}bal*, el precio de 1 límite = 1000.
+Nota2: Puede recolectar dinero charlando con amigos del grupo o subiendo de nivel.`
 }
 exports.limit = limit
