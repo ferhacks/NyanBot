@@ -1,44 +1,46 @@
-const downloader = (prefix, botName, ownerName) => {
+const downloader = (prefix) => {
 	return `
-┏ *〈 ${botName} 〉*
-╿
-┷┯ *〈 BOT INFO 〉*
-   ╽
-   ┠≽ *Prefix* : 「  ${prefix}  」
-   ┠≽ *Creator* : ${ownerName}
-   ┠≽ *Version* : 0.0.5
-   ╿
-┯┷ *〈 ABOUT 〉*
-╽
-┠≽ *${prefix}info* (error)
-┃ *Desc* : Show Bot Details
-┠──────────────╼
-┠≽ *${prefix}blocklist*
-┃ *Desc* : Show Blocked User
-┠──────────────╼
-┠≽ *${prefix}chatlist* (error)
-┃ *Desc* : Show All Chat User
-┠──────────────╼
-┠≽ *${prefix}ping*
-┃ *Desc* : Show Connection Bot Speed
-┠──────────────╼
-┠≽ *${prefix}bugreport* <text>
-┃ *Desc* : Report Bug To Owner Bot
-╿
-┷┯ *〈 DOWNLOADER 〉*
-   ╽
-   ┠≽ *${prefix}pinterest* <query>
-   ┃ *Desc* : Download Image From Pinterest
-   ┠──────────────╼
-   ┠≽ *${prefix}ytmp3* <linkyt>
-   ┃ *Desc* : Download Youtube Video to Mp3
-   ┠──────────────╼
-   ┠≽ *${prefix}ytmp4* <linkyt>
-   ┃ *Desc* : Download Youtube Video
-   ┠──────────────╼
-   ┠≽ *${prefix}tiktok* <linktiktok>
-   ┃ *Desc* : Download TikTok Video
-   ╿ *${ownerName}*,
-   ╰╼≽ *Developer © ${botName}`
+╔ *🔥 𝗡𝘆𝗮𝗻𝗕𝗼𝘁 🔥*
+║
+➥ *〈 BOT INFO 〉*
+🐬 ║
+🐬 ║♡ *Prefijo* : 「  ${prefix}  」
+🐬 ║♡ *Creador* : _*Samu330*_
+🐬 ║♡ *Version* : 0.0.2
+🐬 ║
+🔥>ԑ̮̑ঙ< *𝗡𝘆𝗮𝗻𝗕𝗼𝘁* >ԑ̮̑ঙ<🔥
+ *〈 ABOUT 〉*
+║
+║≽ *${prefix}info* (error)
+║ *Desc* : Informacion del bot
+║──────────────╼
+║≽ *${prefix}blocklist*
+║ *Desc* : Usuarios bloqueados del usuario
+║──────────────╼
+║≽ *${prefix}chatlist* (error)
+║ *Desc* : Muestra todos los chats del usuario
+║──────────────╼
+║≽ *${prefix}ping*
+║ *Desc* : Velocidad del bot
+║──────────────╼
+║≽ *${prefix}bugreport* <text>
+║ *Desc* : Report Bug To Owner Bot
+║
+┷┯ *🔥 DOWNLOADER 🔥*
+   ║
+   ║≽ *${prefix}pinterest* <algo:v>
+   ║ *Desc* : Descarga imagen de Pinterest
+   ║──────────────╼
+   ║≽ *${prefix}ytmp3* <link>
+   ║ *Desc* : Descarga musica de youtube
+   ║──────────────╼
+   ║≽ *${prefix}ytmp4* <link>
+   ║ *Desc* : Descarga videos de youtube
+   ║──────────────╼
+   ║≽ *${prefix}tiktok* <linktiktok>
+   ║ *Desc* : Descarga videos de tiktok
+   ║──────────────╼
+   ║ *Samu330*,
+   ╚≽ *Developer ©𝗡𝘆𝗮𝗻𝗕𝗼𝘁`
 }
 exports.downloader = downloader
