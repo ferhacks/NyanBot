@@ -54,7 +54,7 @@ const yts = require('yt-search')
 
 const option = JSON.parse(fs.readFileSync('./options/option.json'))
 const { ind } = require('./options/language')
-//const { eng } = require('./options/language')
+const { eng } = require('./options/language')
 const {
     botName,
     ownerName,
@@ -75,7 +75,6 @@ const { fun } = require('./database/menu/fun')
 const { group } = require('./database/menu/group')
 const { imagemaker } = require('./database/menu/imagemaker')
 const { information } = require('./database/menu/information')
-const { islam } = require('./database/menu/islam')
 const { kerang } = require('./database/menu/kerang')
 const { meme } = require('./database/menu/meme')
 const { music } = require('./database/menu/music')
@@ -101,8 +100,8 @@ const vcard = 'BEGIN:VCARD\n' // metadata of the contact card
 
 prefix = setting.prefix
 blocked = []
-imitawal = userDefaultLimit
-cr = 'LOL~4NK3R-EROR'
+limitawal = userDefaultLimit
+cr = 'S4MU-3RROE'
 memberlimit = memberLimitss
 
 // Functions
