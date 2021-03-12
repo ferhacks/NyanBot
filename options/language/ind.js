@@ -3,7 +3,7 @@ exports.wait = () => {
 }
 
 exports.timeEnd = () => {
-        return `Waktu Habis`
+        return `Se acabó el tiempo`
 }
 
 exports.succsess = () => {
@@ -11,7 +11,7 @@ exports.succsess = () => {
 }
 
 exports.levelon = () => {
-        return `❬ ✔ ❭ *leveling telah aktif*`
+        return `❬ ✔ ❭ *la nivelación está activa*`
 }
 
 exports.levelnoton = () => {
@@ -51,15 +51,15 @@ exports.Badmin = () => {
 }
 
 exports.daftarB = (prefix) => {
-        return `──「 BELUM REGISTER 」──\nHalo kak !\nKamu belum Register nih, register dulu yuk... \n\nCommand : ${prefix}register nama|umur\nContoh : ${prefix}register Nazwa|16`
+        return `──「 BELUM REGISTER 」──\nHola!\nAún no te has registrado, registremos primero... \n\nCommand : ${prefix}register nama|umur\nContoh : ${prefix}register Nazwa|16`
 }
 
 exports.daftarD = () => {
-        return `*「 SUDAH REGISTER 」*\n\n*kamu sudah register di database bot*`
+        return `*「 SUDAH REGISTER 」*\n\n*te has registrado en la base de datos del bot*`
 }
 
 exports.wrongf = () => {
-        return`*format salah/text kosong*`
+        return`*Formato incorrecto / texto en blanco*`
 }
 
 exports.clears = () => {
@@ -67,15 +67,15 @@ exports.clears = () => {
 }
 
 exports.pc = () => {
-        return`*「 REGISTRASI 」*\n\nuntuk mengetahui apa kamu sudah terdaftar silahkah check message yang saya kirim \n\nNOTE:\n*jika kamu belum mendapatkan pesan. berarti kamu belum menyimpan nomer bot*`
+        return`*「 REGISTRO 」*\n\nPara saber si se ha registrado, consulte el mensaje que le envié \n\nNOTA:\n*si no ha recibido el mensaje. significa que no ha guardado su número de bot*`
 }
 
 exports.registered = (namaUser, umurUser, serialUser, time, sender) => {
-        return`*「 DATA REGISTER 」*\n\nkamu sudah terdaftar dengan data \n\n◪ *DATA* \n  │ \n  ├─ ❏ Name : ${namaUser} \n  ├─ ❏ Number : wa.me/${sender.split("@")[0]} \n  ├─ ❏ Age : ${umurUser} \n  ├─ ❏ Register Time : ${time} \n  │ \n └─ ❏ NS : ${serialUser} \n\n ❏ NOTE : \n JANGAN SAMPAI LUPA NOMOR INI KARENA INI PENTING:v`
+        return`*「 DATA REGISTER 」*\n\nte has registrado con los datos: \n\n◪ *DATA* \n  │ \n  ├─ ❏ Name : ${namaUser} \n  ├─ ❏ Number : wa.me/${sender.split("@")[0]} \n  ├─ ❏ Age : ${umurUser} \n  ├─ ❏ Register Time : ${time} \n  │ \n └─ ❏ NS : ${serialUser} \n\n ❏ NOTE : \n NO OLVIDE ESTE NÚMERO PORQUE ES IMPORTANTE:v`
 }
 
 exports.cmdnf = (prefix, command) => {
-        return`command *${prefix}${command}* tidak di temukan\coba tulis *${prefix}menu*`
+        return`command *${prefix}${command}* no encontrado, intenta escribir *${prefix}menu*`
 }
 
 exports.owneresce = (pushname) => {
