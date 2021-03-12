@@ -1250,7 +1250,7 @@ async function starts() {
 					anu = await fetchJson(`https://mhankbarbar.tech/api/tiktok?url=${args[0]}&apiKey=${BarBarKey}`, {method: 'get'})
 					if (anu.error) return reply(anu.error)
 					buffer = await getBuffer(anu.result)
-					anker.sendMessage(from, buffer, video, {quoted: mek})
+					client.sendMessage(from, buffer, video, {quoted: mek})
                                         await limitAdd(sender)
 					break
 				case 'tiktokstalk':
@@ -1460,7 +1460,7 @@ async function starts() {
 				if (!isQuotedImage) return reply(`Envie comando ${prefix}setbotpp o etiquetas de imagen que ya se han enviado`)
 					if (!isOwner) return reply(mess.only.ownerB)
 					enmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
-					media = await anker.downloadAndSaveMediaMessage(enmedia)
+					media = await client.downloadAndSaveMediaMessage(enmedia)
 					await client.updateProfilePicture(botNumber, media)
 					reply('Gracias por el nuevo perfil😊')
 					break
@@ -1667,7 +1667,7 @@ async function starts() {
 	              if (!isOwner) return reply(mess.only.ownerB)
 	               const cmd = body.slice(5)
 	               exec(cmd, (err, stdout) => {
-		           if(err) return anker.sendMessage(from, "Comando incorrecto", text, { quoted: mek })
+		           if(err) return client.sendMessage(from, "Comando incorrecto", text, { quoted: mek })
 		           if (stdout) {
 			       client.sendMessage(from, stdout, text, { quoted: mek })
 		           }
