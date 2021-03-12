@@ -1,11 +1,11 @@
-const adult = (prefix, botName, ownerName) => {
+const adult = (prefix) => {
         return `
-╔ *🔥 ${botName} 🔥*
+╔ *🔥 𝗡𝘆𝗮𝗻𝗕𝗼𝘁 🔥*
 ║
 ➥ *〈 BOT INFO 〉*
 🐬 ║
 🐬 ║♡ *Prefijo* : 「  ${prefix}  」
-🐬 ║♡ *Creador* : ${ownerName}
+🐬 ║♡ *Creador* : _*Samu330*_
 🐬 ║♡ *Version* : 0.0.2
 🐬 ║
 🔥>ԑ̮̑ঙ< *𝗡𝘆𝗮𝗻𝗕𝗼𝘁* >ԑ̮̑ঙ<🔥
@@ -36,7 +36,7 @@ const adult = (prefix, botName, ownerName) => {
    ║──────────────╼
    ║≽ *${prefix}nsfwneko*
    ║ *Desc* : Envío de una imagen NSFW aleatoria de Neko
-   ║ *${ownerName}*,
-   ╚≽ *Developer © ${botName}`
+   ║ *Samu330*,
+   ╚≽ *Developer ©𝗡𝘆𝗮𝗻𝗕𝗼𝘁`
 }
 exports.adult = adult
