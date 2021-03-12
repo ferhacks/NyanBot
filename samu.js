@@ -293,7 +293,6 @@ function kyun(seconds){
 async function starts() {
 	const client = new WAConnection()
 	client.logger.level = 'warn'
-	console.log(banner.string)
 	client.on('qr', () => {
 		console.log(color('[','white'), color('!','red'), color(']','white'), color(' Scan the qr code above'))
 	})
