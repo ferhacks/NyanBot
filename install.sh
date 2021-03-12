@@ -12,6 +12,7 @@ npm i imgbb-uploader
 npm cache clean -f
 npm install
 npm install imgbb-uploader
+npm install futoin-hkdf
 npm i got
 
 echo "[INFO] All dependencies have been installed, please run the command \"npm start\" to immediately start the script"
