@@ -11,6 +11,7 @@ wget -O ~/../usr/share/tessdata/ind.traineddata "https://github.com/tesseract-oc
 npm i imgbb-uploader
 npm cache clean -f
 npm install
+npm install imgbb-uploader
 npm i got
 
 echo "[INFO] All dependencies have been installed, please run the command \"npm start\" to immediately start the script"
