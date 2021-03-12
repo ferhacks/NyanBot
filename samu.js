@@ -101,7 +101,7 @@ const vcard = 'BEGIN:VCARD\n' // metadata of the contact card
 prefix = setting.prefix
 blocked = []
 limitawal = userDefaultLimit
-cr = 'S4MU-3RROE'
+cr = 'SAMU-NyanBot'
 memberlimit = memberLimitss
 
 // Functions
@@ -778,7 +778,7 @@ async function starts() {
 			  case 'wame':
   client.updatePresence(from, Presence.composing) 
       options = {
-          text: `『 *AUTO WHATSAPP* 』\n\n_Pedido by_ : *@${sender.split("@s.whatsapp.net")[0]}\n\nTu link de WhatsApp : *wa.me/${sender.split("@s.whatsapp.net")[0]}*\n*Or ( / )*\n*api.whatsapp.com/send?phone=${sender.split("@")[0]}*`,
+          text: `『 *AUTO WHATSAPP* 』\n\n_Pedido by_ : *@${sender.split("@s.whatsapp.net")[0]}\n\nTu link de WhatsApp : *wa.me/${sender.split("@s.whatsapp.net")[0]}*\n* ( / )*\n*api.whatsapp.com/send?phone=${sender.split("@")[0]}*`,
           contextInfo: { mentionedJid: [sender] }
     }
     client.sendMessage(from, options, text, { quoted: mek } )
@@ -1060,7 +1060,7 @@ async function starts() {
 							})
 							.on('end', function () {
 								console.log('Finish')
-								exec(`webpmux -set exif ${addMetadata('𝙎𝙖𝙢𝙪𝟯𝟯𝟬', authorname)} ${ran} -o ${ran}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('BySamu330', authorname)} ${ran} -o ${ran}`, async (error) => {
 									if (error) return reply(mess.error.stick)
 									client.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 									fs.unlinkSync(media)	
@@ -1087,11 +1087,11 @@ async function starts() {
 								console.log(`Error : ${err}`)
 								fs.unlinkSync(media)
 								tipe = media.endsWith('.mp4') ? 'video' : 'gif'
-								reply(`❌ Falló, en el momento de la conversión ${tipe} ke stiker`)
+								reply(`❌ Falló, en el momento de la conversión ${tipe} del stiker`)
 							})
 							.on('end', function () {
 								console.log('Finish')
-								exec(`webpmux -set exif ${addMetadata('𝐒𝐚𝐦𝐮𝟑𝟑𝟎byNyanBot', authorname)} ${ran} -o ${ran}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('StMvBySamu330NyanBot', authorname)} ${ran} -o ${ran}`, async (error) => {
 									if (error) return reply(mess.error.stick)
 									client.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 									fs.unlinkSync(media)
@@ -1115,12 +1115,12 @@ async function starts() {
 							fs.unlinkSync(media)
 							let buffer = Buffer.from(res.base64img, 'base64')
 							fs.writeFileSync(ranp, buffer, (err) => {
-								if (err) return reply('Falló, se produjo un error. Vuelva a intentarlo más tarde.')
+								if (err) return reply('Falló, se produjo un error, inténtelo de nuevo más tarde.')
 							})
 							exec(`ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${ranw}`, (err) => {
 								fs.unlinkSync(ranp)
 								if (err) return reply(mess.error.stick)
-								exec(`webpmux -set exif ${addMetadata('𝐒𝐚𝐦𝐮𝟑𝟑𝟎', authorname)} ${ranw} -o ${ranw}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('Samu330', authorname)} ${ranw} -o ${ranw}`, async (error) => {
 									if (error) return reply(mess.error.stick)
 									client.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
 									fs.unlinkSync(ranw)
@@ -1150,10 +1150,10 @@ async function starts() {
 							.toFormat('webp')
 							.save(ran)*/
 					} else {
-						reply(`Envía fotos con comentario ${prefix}sticker o etiquetas de imagen que ya se han enviado`)
+						reply(`Use el comando ${prefix}sticker y etiquete una imagen`)
 					}
 					break
-				case 'gtts':
+				case 'tts':
 					if (args.length < 1) return client.sendMessage(from, '¿Qué código de idioma es?', text, {quoted: mek})
 					const gtts = require('./lib/gtts')(args[0])
 					if (args.length < 2) return client.sendMessage(from, 'Y el texto?', text, {quoted: mek})
@@ -1457,7 +1457,7 @@ async function starts() {
 			case 'setppbot':
 				client.updatePresence(from, Presence.composing) 
 				if (!isQuotedImage) return reply(`Envie comando ${prefix}setbotpp o etiquetas de imagen que ya se han enviado`)
-					if (!isOwner) return reply(mess.only.ownerB)
+					if (!isGroup) return reply(mess.only.ownerB)
 					enmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
 					media = await client.downloadAndSaveMediaMessage(enmedia)
 					await client.updateProfilePicture(botNumber, media)
