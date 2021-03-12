@@ -1,29 +1,30 @@
 const xp = (prefix, botName, ownerName) => {
         return `
-┏ *〈 ${botName} 〉*
-╿
-┷┯ *〈 BOT INFO 〉*
-   ╽
-   ┠≽ *Prefix* : 「  ${prefix}  」
-   ┠≽ *Creator* : ${ownerName}
-   ┠≽ *Version* : 0.0.5
-   ╿
-┯┷ *〈 ABOUT 〉*
-╽
-┠≽ *${prefix}info* (error)
-┃ *Desc* : Show Bot Details
-┠──────────────╼
-┠≽ *${prefix}blocklist*
-┃ *Desc* : Show Blocked User
-┠──────────────╼
-┠≽ *${prefix}chatlist* (error)
-┃ *Desc* : Show All Chat User
-┠──────────────╼
-┠≽ *${prefix}ping*
-┃ *Desc* : Show Connection Bot Speed
-┠──────────────╼
-┠≽ *${prefix}bugreport* <text>
-┃ *Desc* : Report Bug To Owner Bot
+╔ *🔥 ${botName} 🔥*
+║
+➥ *〈 BOT INFO 〉*
+🐬 ║
+🐬 ║♡ *Prefijo* : 「  ${prefix}  」
+🐬 ║♡ *Creador* : ${ownerName}
+🐬 ║♡ *Version* : 0.0.2
+🐬 ║
+🔥>ԑ̮̑ঙ< *𝗡𝘆𝗮𝗻𝗕𝗼𝘁* >ԑ̮̑ঙ<🔥
+ *〈 ABOUT 〉*
+║
+║≽ *${prefix}info* (error)
+║ *Desc* : Informacion del bot
+║──────────────╼
+║≽ *${prefix}blocklist*
+║ *Desc* : Usuarios bloqueados del usuario
+║──────────────╼
+║≽ *${prefix}chatlist* (error)
+║ *Desc* : Muestra todos los chats del usuario
+║──────────────╼
+║≽ *${prefix}ping*
+║ *Desc* : Velocidad del bot
+║──────────────╼
+║≽ *${prefix}bugreport* <text>
+║ *Desc* : Report Bug To Owner Bot
 ╿
 ┷┯ *〈 LEVEL 〉*
    ╽
@@ -41,6 +42,6 @@ const xp = (prefix, botName, ownerName) => {
    ╿ *${ownerName}*,
    ╰╼≽ *Developer © ${botName}
 --------------------------------
-Note: Kamu bisa mengumpulkan xp dan menaikan levelmu dengan cara chat dengan siapapun di dalam grup yang telah di aktifkan fitur leveling.`
+Note: Puedes acumular XP y subir de nivel conversando con cualquier persona del grupo que haya activado la función de nivelación..`
 }
 exports.xp = xp
