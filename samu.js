@@ -54,7 +54,7 @@ const yts = require('yt-search')
 
 const option = JSON.parse(fs.readFileSync('./options/option.json'))
 const { ind } = require('./options/language')
-const { eng } = require('./options/language')
+///const { eng } = require('./options/language')
 const {
     botName,
     ownerName,
@@ -2471,7 +2471,7 @@ async function starts() {
 						console.log(muehe)
 						reply(muehe)
 					} else {
-						return //console.log(color('[WARN]','red'), 'Unregistered Command from', color(sender.split('@')[0]))
+						console.log(color('[WARN]','red'), 'Unregistered Command from', color(sender.split('@')[0]))
 					}
                            }
 		} catch (e) {
