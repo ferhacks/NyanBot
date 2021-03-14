@@ -570,10 +570,6 @@ async function starts() {
 			                const uangku = checkATMuser(sender)
                                         await costum(help(pushname, prefix, botName, ownerName, reqXp, uangku), text, tescuk, cr)
                                         break
-				case 'waspp':
-                                        if (!isRegister) return reply(mess.only.daftarB)
-                                        await costum(waspp(prefix), text, tescuk, cr)
-                                        break
                                 case '18+menu':
 				case '1':
                                         if (!isRegister) return reply(mess.only.daftarB)
@@ -1050,7 +1046,7 @@ async function starts() {
 				case 's':
 					if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
 						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
-						const media = await anker.downloadAndSaveMediaMessage(encmedia)
+						const media = await client.downloadAndSaveMediaMessage(encmedia)
                                                 if (!isRegister) return reply(mess.only.daftarB)
                                                 if (isLimit(sender)) return reply(ind.limitend(pusname))
 						ran = getRandom('.webp')
@@ -1075,7 +1071,7 @@ async function starts() {
 							.save(ran)
 						} else if ((isMedia && mek.message.videoMessage.seconds < 11 || isQuotedVideo && mek.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage.seconds < 11) && args.length == 0) {
 						const encmedia = isQuotedVideo ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
-						const media = await anker.downloadAndSaveMediaMessage(encmedia)
+						const media = await client.downloadAndSaveMediaMessage(encmedia)
 						ran = getRandom('.webp')
 						reply(mess.wait)
 						await ffmpeg(`./${media}`)
@@ -1092,7 +1088,7 @@ async function starts() {
 							.on('end', function () {
 								console.log('Finish')
 								buff = fs.readFileSync(ran)
-								anker.sendMessage(from, buff, sticker)
+								client.sendMessage(from, buff, sticker)
 								fs.unlinkSync(media)
 								fs.unlinkSync(ran)
 							})
