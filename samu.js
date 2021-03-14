@@ -101,7 +101,7 @@ const vcard = 'BEGIN:VCARD\n' // metadata of the contact card
 prefix = setting.prefix
 blocked = []
 limitawal = userDefaultLimit
-cr = 'SAMU-NyanBot'
+cr = 'WhatsApp Support'
 memberlimit = memberLimitss
 
 // Functions
@@ -347,8 +347,8 @@ async function starts() {
 
 	client.on('chat-update', async (mek) => {
 		try {
-                        if (!mek.hasNewMessage) return
-                        mek = JSON.parse(JSON.stringify(mek)).messages[0]
+            if (!mek.hasNewMessage) return
+            mek = mek.messages.all()[0]
 			if (!mek.message) return
 			if (mek.key && mek.key.remoteJid == 'status@broadcast') return
 			if (mek.key.fromMe) return
@@ -357,17 +357,15 @@ async function starts() {
 			const content = JSON.stringify(mek.message)
 			const from = mek.key.remoteJid
 			const type = Object.keys(mek.message)[0]
+			const apiKey = setting.apiKey // contact me on whatsapp wa.me/6285892766102
 			const { text, extendedText, contact, location, liveLocation, image, video, sticker, document, audio, product } = MessageType
 			const time = moment.tz('Asia/Jakarta').format('DD/MM HH:mm:ss')
-                        const timi = moment.tz('Asia/Jakarta').add(30, 'days').calendar();
-                        const timu = moment.tz('Asia/Jakarta').add(20, 'days').calendar();
-			const date = moment.tz('Asia/Jakarta').format('DD,MM,YY')
 			body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption.startsWith(prefix) ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text.startsWith(prefix) ? mek.message.extendedTextMessage.text : ''
 			budy = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : ''
 			const command = body.slice(1).trim().split(/ +/).shift().toLowerCase()
 			const args = body.trim().split(/ +/).slice(1)
 			const isCmd = body.startsWith(prefix)
-                        const tescuk = ["0@s.whatsapp.net"]
+			const tescuk = ["0@s.whatsapp.net"]
                         const q = args.join(' ')
 
 			mess = {
@@ -571,6 +569,10 @@ async function starts() {
                                         const reqXp  = 5000 * (Math.pow(2, getLevelingLevel(sender)) - 1)
 			                const uangku = checkATMuser(sender)
                                         await costum(help(pushname, prefix, botName, ownerName, reqXp, uangku), text, tescuk, cr)
+                                        break
+				case 'waspp':
+                                        if (!isRegister) return reply(mess.only.daftarB)
+                                        await costum(waspp(prefix, botName, ownerName), text, tescuk, cr)
                                         break
                                 case '18+menu':
 				case '1':
