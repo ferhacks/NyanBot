@@ -572,7 +572,7 @@ async function starts() {
                                         break
 				case 'waspp':
                                         if (!isRegister) return reply(mess.only.daftarB)
-                                        await costum(waspp(prefix, botName, ownerName), text, tescuk, cr)
+                                        await costum(waspp(prefix), text, tescuk, cr)
                                         break
                                 case '18+menu':
 				case '1':
