@@ -218,7 +218,6 @@ async function starts() {
 
 			}
 			switch(command) {
-				switch(command) {
 				case 'help':
 				case 'menu':
 					client.sendMessage(from, help(prefix), text, tescuk, cr)
