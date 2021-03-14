@@ -271,7 +271,7 @@ async function starts() {
 						teks = teks.replace(/<br>/g, '\n')
 						return reply(teks)
 					} else if (args.length < 2) {
-						return reply('Y el texto?
+						return reply('Y el texto?')
 					}
 					reply(mess.wait)
 					anu = `https://mhankbarbar.moe/api/textpro?pack=${args[0]}&text=${body.slice(3+args[0].length+1)}&apiKey=${apiKey}`
