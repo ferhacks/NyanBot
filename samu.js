@@ -1062,7 +1062,7 @@ async function starts() {
 							})
 							.on('end', function () {
 								console.log('Finish')
-								anker.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
+								client.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 								fs.unlinkSync(media)
 								fs.unlinkSync(ran)
 							})
