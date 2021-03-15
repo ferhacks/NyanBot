@@ -22,12 +22,13 @@ const lolis = require('lolis.life')
 const loli = new lolis()
 const welkom = JSON.parse(fs.readFileSync('./src/welkom.json'))
 const nsfw = JSON.parse(fs.readFileSync('./src/nsfw.json'))
+const google = require('google-it')
 const samih = JSON.parse(fs.readFileSync('./src/simi.json'))
 const setting = JSON.parse(fs.readFileSync('./src/settings.json'))
-const isQuotedAudio = quotedMsg && quotedMsg.type === 'audio'
-        const isQuotedVoice = quotedMsg && quotedMsg.type === 'ptt'
-        const isAudio = type === 'audio'
-        const isVoice = type === 'ptt'
+const isQuotedAudio = 'audio'
+        const isQuotedVoice = 'ptt'
+        const isAudio = 'audio'
+        const isVoice = 'ptt'
 prefix = setting.prefix
 blocked = []
 cr = 'Samu330~NyanBot'
@@ -173,6 +174,16 @@ async function starts() {
 			const isQuotedImage = type === 'extendedTextMessage' && content.includes('imageMessage')
 			const isQuotedVideo = type === 'extendedTextMessage' && content.includes('videoMessage')
 			const isQuotedSticker = type === 'extendedTextMessage' && content.includes('stickerMessage')
+	const isQuotedImage = quotedMsg && quotedMsg.type === 'image'
+        const isQuotedVideo = quotedMsg && quotedMsg.type === 'video'
+        const isQuotedSticker = quotedMsg && quotedMsg.type === 'sticker'
+        const isQuotedGif = quotedMsg && quotedMsg.mimetype === 'image/gif'
+        const isQuotedAudio = quotedMsg && quotedMsg.type === 'audio'
+        const isQuotedVoice = quotedMsg && quotedMsg.type === 'ptt'
+        const isImage = type === 'image'
+        const isVideo = type === 'video'
+        const isAudio = type === 'audio'
+        const isVoice = type === 'ptt'
 			if (!isGroup && isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32mEXEC\x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
 			if (!isGroup && !isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;31mRECV\x1b[1;37m]', time, color('Message'), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
 			if (isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32mEXEC\x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
@@ -241,10 +252,9 @@ async function starts() {
 					client.sendMessage(from, buffer, image, {caption: teks, contextInfo:{mentionedJid: [me.jid]}})
 					break
 				case 'bass':
-            if (args.length == 0) return client.reply(from, `Etiqueta el audio y usa el comando: ${prefix}bass\n\nejemplo: ${prefix}bass 10\n\n*El maximode es de 80.*`)
                 if (isMedia && isAudio || isQuotedAudio || isVoice || isQuotedVoice) {
                     if (args.length !== 1) return await reply(mess.error)
-                    await client.reply(mess.wait)
+                    await reply(mess.wait)
                     const encryptMedia = isQuotedAudio || isQuotedVoice ? quotedMsg : message
                     console.log(color('[WAPI]', 'green'), 'Downloading and decrypting media...')
                     const mediaData = await decryptMedia(encryptMedia, uaOverride)
@@ -262,7 +272,6 @@ async function starts() {
                             .on('end', async () => {
                                 console.log(color('[FFmpeg]', 'green'), 'Processing finished!')
                                 await client.sendPtt(from, fileOutputPath, id)
-                                await client.reply(mess.success)
                                 console.log(color('[WAPI]', 'green'), 'Success sending audio!')
                                 setTimeout(() => {
                                     fs.unlinkSync(fileInputPath)
@@ -272,7 +281,23 @@ async function starts() {
                             .save(fileOutputPath)
                     })
                 } else {
+                    await reply(mess.error)
                 }
+            break
+				case 'google':
+                await reply(mess.wait)
+                google({ 'query': q, 'no-display': true })
+                    .then(async (results) => {
+                        let txt = `🐬[ *GOOGLE SEARCH* ]🐬🐬\n\n_*Search results for: ${q}*_`
+                        for (let i = 0; i < results.length; i++) {
+                            txt += `\n\n➸ *Title*: ${results[i].title}\n➸ *Desc*: ${results[i].snippet}\n➸ *Link*: ${results[i].link}\n\n🔥🛑🔥🛑🔥🛑🔥🛑🔥🛑🔥🛑🔥`
+                        }
+                        await reply(from, txt)
+                    })
+                    .catch(async (err) => {
+                        console.error(err)
+                        await reply('ERROR')
+                    })
             break
 				case 'blocklist':
 					teks = 'Esta es la lista de números bloqueados :\n'
