@@ -221,7 +221,7 @@ async function starts() {
 			switch(command) {
 				case 'help':
 				case 'menu':
-					await costum(help(prefix), text, tescuk, cr)
+					client.sendMessage(help(prefix), text, tescuk, cr)
 					break
 				case 'nyan':
 				case 'bot':
@@ -230,7 +230,7 @@ async function starts() {
                                         anu = await fetchJson(`https://tobz-api.herokuapp.com/api/randomloli?apikey=BotWeA`, {method: 'get'})
                                         buffer = await getBuffer(anu.result)
 						client.sendMessage(from, buffer, image, {quoted: mek, caption: '*Hola, Soy NyanBot🐬, un pequeño ptroyecto de Samu330.*\n\nEspero serte de ayuda, mis funciones no son muchas, son basicas, pero apenas estoy empezando a crecer:D\n\n_Saludos👑✨_'})
-					})
+					break
 					case 'info':
 					me = client.user
 					uptime = process.uptime()
@@ -425,7 +425,7 @@ async function starts() {
 					var gbl8 = gh.split("|")[1];
 					if (args.length < 1) return reply(`Escriba el comando ${prefix}snowwrite text1|text2, ejemplo ${prefix}snowwrite Samu|330`)
 					reply(mess.wait)
-					anu = await fetchJson(`https://zeksapi.herokuapp.com/api/snowwrite?text1=${gbl7}&text2=${gbl8}&apikey=apivinz`, {method: 'get'})
+					anu = await Json(`https://zeksapi.herokuapp.com/api/snowwrite?text1=${gbl7}&text2=${gbl8}&apikey=apivinz`, {method: 'get'})
 					buffer = await getBuffer(anu.result)
 					client.sendMessage(from, buffer, image, {quoted: mek})
 					break
@@ -433,7 +433,7 @@ async function starts() {
 					var gh = body.slice(12)
 					if (args.length < 1) return reply(`Escriba el comando ${prefix}marvellogo text, ejemplo ${prefix}marvellogo Samu 330`)
 					reply(mess.wait)
-					anu = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=snow&text=${gh}&apikey=BotWeA`, {method: 'get'})
+					anu = await Json(`https://tobz-api.herokuapp.com/api/textpro?theme=snow&text=${gh}&apikey=BotWeA`, {method: 'get'})
 					buffer = await getBuffer(anu.result)
 					client.sendMessage(from, buffer, image, {quoted: mek})
 					break
@@ -491,9 +491,9 @@ async function starts() {
 					tels = body.slice(7)
 					if (tels.length > 15) return reply('Maximo 20 caracteres')
 					reply(mess.wait)
-					anu = await fetchJson(`https://kocakz.herokuapp.com/api/flamingtext/water?text=${tels}`, {method: 'get'})
+					anu = await Json(`https://kocakz.herokuapp.com/api/flamingtext/water?text=${tels}`, {method: 'get'})
 					buffer = await getBuffer(anu.result)
-					client.sendMessage(from, buffer, image, {quoted: mek}))
+					client.sendMessage(from, buffer, image, {quoted: mek})
 					break
 			case 'translate':
                                         aruga = body.slice(10)
