@@ -24,6 +24,10 @@ const welkom = JSON.parse(fs.readFileSync('./src/welkom.json'))
 const nsfw = JSON.parse(fs.readFileSync('./src/nsfw.json'))
 const samih = JSON.parse(fs.readFileSync('./src/simi.json'))
 const setting = JSON.parse(fs.readFileSync('./src/settings.json'))
+const isQuotedAudio = quotedMsg && quotedMsg.type === 'audio'
+        const isQuotedVoice = quotedMsg && quotedMsg.type === 'ptt'
+        const isAudio = type === 'audio'
+        const isVoice = type === 'ptt'
 prefix = setting.prefix
 blocked = []
 cr = 'Samu330~NyanBot'
@@ -123,9 +127,7 @@ async function starts() {
 				wait: '⌛ *𝗘𝗻 𝗽𝗿𝗼𝗰𝗲𝘀𝗼* ⌛',
 				success: '✔️ *Listo* ✔️',
 				bot: '_*𝗟𝗼𝗮𝗱𝗶𝗻𝗴 𝗕𝗼𝘁 𝗜𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻...*_',
-				levelon: '❰❗❱ *Habilitar leveling*',
-				leveloff: '❰❗❱ *Deshabilitar leveling*',
-				levelnoton: '❰ ❌ ❱ *leveling no activo*',
+				error: '❰❗❱ *Ocurrio un error, verifica que el comando este bien escrito, eh intenta otra vez:D*',
 				error: {
 					stick: '❌ _𝗙𝗮𝗹𝗹𝗼́, 𝘀𝗲 𝗽𝗿𝗼𝗱𝘂𝗷𝗼 𝘂𝗻 𝗲𝗿𝗿𝗼𝗿 𝗮𝗹 𝗰𝗼𝗻𝘃𝗲𝗿𝘁𝗶𝗿 𝗹𝗮 𝗶𝗺𝗮𝗴𝗲𝗻 𝗮 𝘀𝘁𝗶𝗰𝗸𝗲𝗿_ ❌',
 					Iv: '❌ Enlace inválido ❌'
@@ -226,7 +228,7 @@ async function starts() {
 				case 'nyan':
 				case 'bot':
 					gatauda = body.slice(6)
-                                        reply(mess.wait)
+                                        reply(mess.bot)
                                         anu = await fetchJson(`https://tobz-api.herokuapp.com/api/randomloli?apikey=BotWeA`, {method: 'get'})
                                         buffer = await getBuffer(anu.result)
 						client.sendMessage(from, buffer, image, {quoted: mek, caption: '*Hola, Soy NyanBot🐬, un pequeño ptroyecto de Samu330.*\n\nEspero serte de ayuda, mis funciones no son muchas, son basicas, pero apenas estoy empezando a crecer:D\n\n_Saludos👑✨_'})
@@ -238,6 +240,40 @@ async function starts() {
 					buffer = await getBuffer(me.imgUrl)
 					client.sendMessage(from, buffer, image, {caption: teks, contextInfo:{mentionedJid: [me.jid]}})
 					break
+				case 'bass':
+            if (args.length == 0) return client.reply(from, `Etiqueta el audio y usa el comando: ${prefix}bass\n\nejemplo: ${prefix}bass 10\n\n*El maximode es de 80.*`)
+                if (isMedia && isAudio || isQuotedAudio || isVoice || isQuotedVoice) {
+                    if (args.length !== 1) return await reply(mess.error)
+                    await client.reply(mess.wait)
+                    const encryptMedia = isQuotedAudio || isQuotedVoice ? quotedMsg : message
+                    console.log(color('[WAPI]', 'green'), 'Downloading and decrypting media...')
+                    const mediaData = await decryptMedia(encryptMedia, uaOverride)
+                    const temp = './temp'
+                    const name = new Date() * 1
+                    const fileInputPath = path.join(temp, `${name}.mp3`)
+                    const fileOutputPath = path.join(temp, 'audio', `${name}.mp3`)
+                    fs.writeFile(fileInputPath, mediaData, (err) => {
+                        if (err) return console.error(err)
+                        ffmpeg(fileInputPath)
+                            .audioFilter(`equalizer=f=40:width_type=h:width=50:g=${args[0]}`)
+                            .format('mp3')
+                            .on('start', (commandLine) => console.log(color('[FFmpeg]', 'green'), commandLine))
+                            .on('progress', (progress) => console.log(color('[FFmpeg]', 'green'), progress))
+                            .on('end', async () => {
+                                console.log(color('[FFmpeg]', 'green'), 'Processing finished!')
+                                await client.sendPtt(from, fileOutputPath, id)
+                                await client.reply(mess.success)
+                                console.log(color('[WAPI]', 'green'), 'Success sending audio!')
+                                setTimeout(() => {
+                                    fs.unlinkSync(fileInputPath)
+                                    fs.unlinkSync(fileOutputPath)
+                                }, 30000)
+                            })
+                            .save(fileOutputPath)
+                    })
+                } else {
+                }
+            break
 				case 'blocklist':
 					teks = 'Esta es la lista de números bloqueados :\n'
 					for (let block of blocked) {
