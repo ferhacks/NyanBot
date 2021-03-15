@@ -1,6 +1,7 @@
 const {
     WAConnection,
     MessageType,
+    waChatKey,
     Presence,
     Mimetype,
     GroupSettingChange
@@ -36,13 +37,12 @@ function kyun(seconds){
   var seconds = Math.floor(seconds % 60);
 
   //return pad(hours) + ':' + pad(minutes) + ':' + pad(seconds)
-  return `${pad(hours)} Jam ${pad(minutes)} Menit ${pad(seconds)} Detik`
+  return `${pad(hours)} Horas ${pad(minutes)} Minutos ${pad(seconds)} Segundos`
 }
 
 async function starts() {
 	const client = new WAConnection()
 	client.logger.level = 'warn'
-	console.log(banner.string)
 	client.on('qr', () => {
 		console.log(color('[','white'), color('!','red'), color(']','white'), color(' Scan the qr code above'))
 	})
@@ -221,7 +221,7 @@ async function starts() {
 			switch(command) {
 				case 'help':
 				case 'menu':
-					client.sendMessage(from, help(prefix), text, tescuk, cr)
+					await costum(help(prefix), text, tescuk, cr)
 					break
 				case 'nyan':
 				case 'bot':
