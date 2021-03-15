@@ -52,4 +52,7 @@ _ESTE BOT APENAS ESTA CRECIENDO, FUE CREADO POR SAMU330 HACE NO MAS DE 3 DIAS, S
 *┃┗┛┗┳━┻┓┏┛*
 *┃┏━┓┃┏┓┃┃*
 *┃┗━┛┃┗┛┃┗┓*
-*┗━━━┻━━┻━┛*
+*┗━━━┻━━┻━┛*`
+}
+
+exports.help = help
