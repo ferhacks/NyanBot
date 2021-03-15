@@ -221,7 +221,7 @@ async function starts() {
 			switch(command) {
 				case 'help':
 				case 'menu':
-					client.sendMessage(help(prefix), text, tescuk, cr)
+					client.sendMessage(from, help(prefix), text, tescuk, cr)
 					break
 				case 'nyan':
 				case 'bot':
@@ -476,7 +476,7 @@ async function starts() {
 					if (!isQuotedVideo) return reply('❰❗❱ Etiqueta un video ❰❗❱')
 					reply(mess.wait)
 					encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
-					media = await anker.downloadAndSaveMediaMessage(encmedia)
+					media = await client.downloadAndSaveMediaMessage(encmedia)
 					ran = getRandom('.mp4')
 					exec(`ffmpeg -i ${media} ${ran}`, (err) => {
 						fs.unlinkSync(media)
@@ -485,6 +485,10 @@ async function starts() {
 						client.sendMessage(from, buffer, audio, {mimetype: 'audio/mp4', quoted: mek})
 						fs.unlinkSync(ran)
 					})
+					break
+				case 'chat':
+					client.loadConversation ("xyz-abc@g.us", 25) // query the last 25 messages (replace 25 with the number of messages you want to query)
+					.then (messages => console.log("got back " + messages.length + " messages"))
 					break
 			case 'water':
 					if (args.length < 1) return reply(mess.blank)
