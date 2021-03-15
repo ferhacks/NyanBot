@@ -8,6 +8,6 @@ npm install
 npm install ffmpeg
 npm install fluent-ffmpeg
 npm install imagemagick
-npm install 
+npm install imgbb-uploader
 
 echo "[*] All dependencies have been installed, please run the command \"npm start\" to immediately start the script"
