@@ -17,8 +17,8 @@ const help = (prefix) => {
 ▎•҉➢ *${prefix}demote* = _Quita admin_
 ▎•҉➢ *${prefix}kick* = _Elimina participantes del grupo_
 ▎•҉➢ *${prefix}add* = _Añade participantes al grupo_
-▎•҉➢ *${prefix}simih 1/0 
-▎•҉➢ *${prefix}welcome 1/0
+▎•҉➢ *${prefix}simih* 1/0 
+▎•҉➢ *${prefix}welcome* 1/0
  * • • ◕◕════♣♣════◕◕ • •*
 
 ╔════════════════╗
