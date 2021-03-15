@@ -225,10 +225,10 @@ async function starts() {
 					break
 				case 'nyan':
 				case 'bot':
-					case 'loli':
-					loli.getSFWLoli(async (err, res) => {
-						reply(mess.bot)
-						buffer = await getBuffer(res.url)
+					gatauda = body.slice(6)
+                                        reply(mess.wait)
+                                        anu = await fetchJson(`https://tobz-api.herokuapp.com/api/randomloli?apikey=BotWeA`, {method: 'get'})
+                                        buffer = await getBuffer(anu.result)
 						client.sendMessage(from, buffer, image, {quoted: mek, caption: '*Hola, Soy NyanBot🐬, un pequeño ptroyecto de Samu330.*\n\nEspero serte de ayuda, mis funciones no son muchas, son basicas, pero apenas estoy empezando a crecer:D\n\n_Saludos👑✨_'})
 					})
 					case 'info':
@@ -419,6 +419,96 @@ async function starts() {
 						reply(`Envie imagen con el comando ${prefix}sticker o etiquete una imagen`)
 					}
 					break
+			case 'snowwrite':
+					var gh = body.slice(11)
+					var gbl7 = gh.split("|")[0];
+					var gbl8 = gh.split("|")[1];
+					if (args.length < 1) return reply(`Escriba el comando ${prefix}snowwrite text1|text2, ejemplo ${prefix}snowwrite Samu|330`)
+					reply(mess.wait)
+					anu = await fetchJson(`https://zeksapi.herokuapp.com/api/snowwrite?text1=${gbl7}&text2=${gbl8}&apikey=apivinz`, {method: 'get'})
+					buffer = await getBuffer(anu.result)
+					client.sendMessage(from, buffer, image, {quoted: mek})
+					break
+				case 'marvellogo':
+					var gh = body.slice(12)
+					if (args.length < 1) return reply(`Escriba el comando ${prefix}marvellogo text, ejemplo ${prefix}marvellogo Samu 330`)
+					reply(mess.wait)
+					anu = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=snow&text=${gh}&apikey=BotWeA`, {method: 'get'})
+					buffer = await getBuffer(anu.result)
+					client.sendMessage(from, buffer, image, {quoted: mek})
+					break
+			case 'setppbot':
+				client.updatePresence(from, Presence.composing) 
+				if (!isQuotedImage) return reply(`Etiquete una imagen y escriba ${prefix}setbotpp`)
+					if (!isOwner) return reply(mess.only.ownerB)
+					enmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
+					media = await client.downloadAndSaveMediaMessage(enmedia)
+					await client.updateProfilePicture(botNumber, media)
+					reply('Se actualizo la foto del bot😊')
+					break
+			case 'closegc':
+					client.updatePresence(from, Presence.composing) 
+					if (!isGroup) return reply(mess.only.group)
+					if (!isGroupAdmins) return reply(mess.only.admin)
+					if (!isBotGroupAdmins) return reply(mess.only.Badmin)
+					var nomor = mek.participant
+					const close = {
+					text: `El grupo fue cerrado por @${nomor.split("@s.whatsapp.net")[0]}\nAhora solo *los administradores* podran enviar mensajes`,
+					contextInfo: { mentionedJid: [nomor] }
+					}
+					client.groupSettingChange (from, GroupSettingChange.messageSend, true);
+					reply(close)
+					break
+                case 'opengc':
+					client.updatePresence(from, Presence.composing) 
+					if (!isGroup) return reply(mess.only.group)
+					if (!isGroupAdmins) return reply(mess.only.admin)
+					if (!isBotGroupAdmins) return reply(mess.only.Badmin)
+					open = {
+					text: `El grupo fue abierto por @${sender.split("@")[0]}\nYa pueden ingresar al chat`,
+					contextInfo: { mentionedJid: [sender] }
+					}
+					client.groupSettingChange (from, GroupSettingChange.messageSend, false)
+					client.sendMessage(from, open, text, {quoted: mek})
+					break
+			case 'tomp3':
+                	client.updatePresence(from, Presence.composing)
+					if (!isQuotedVideo) return reply('❰❗❱ Etiqueta un video ❰❗❱')
+					reply(mess.wait)
+					encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
+					media = await anker.downloadAndSaveMediaMessage(encmedia)
+					ran = getRandom('.mp4')
+					exec(`ffmpeg -i ${media} ${ran}`, (err) => {
+						fs.unlinkSync(media)
+						if (err) return reply('❰❗❱ *Error* ❰❗❱')
+						buffer = fs.readFileSync(ran)
+						client.sendMessage(from, buffer, audio, {mimetype: 'audio/mp4', quoted: mek})
+						fs.unlinkSync(ran)
+					})
+					break
+			case 'water':
+					if (args.length < 1) return reply(mess.blank)
+					tels = body.slice(7)
+					if (tels.length > 15) return reply('Maximo 20 caracteres')
+					reply(mess.wait)
+					anu = await fetchJson(`https://kocakz.herokuapp.com/api/flamingtext/water?text=${tels}`, {method: 'get'})
+					buffer = await getBuffer(anu.result)
+					client.sendMessage(from, buffer, image, {quoted: mek}))
+					break
+			case 'translate':
+                                        aruga = body.slice(10)
+                                        lang = aruga.split("|")[0];
+                                        teksnya = aruga.split("|")[1];
+                                        if (args.length < 1) return reply(`Y el codigo del idioma?\nEjemplo: ${prefix}translate en|Hola que tal`)
+                                        if (args.length < 2) return reply(`Y el texto?\nEjemplo: ${prefix}translate en| Hola que tal`)
+                                        anu = await fetchJson(`https://arugaz.my.id/api/edu/translate?lang=${lang}&text=${teksnya}`, {method: 'get'})
+                                        arteks = `*TRANSLATE*\n➣ Text : ${teksnya} \n ➣ Translate : ${anu.text} \n ➣ *Pronunciation* : ${anu.pronunciation}`
+                                        client.sendMessage(from, arteks, text)
+                                        break
+			case 'getstatus':
+					client.getStatus ("@c.us") // leave empty to get your own
+					.then ((json, q) => console.log("status: " + json.status))
+					break
 				case 'tts':
 					if (args.length < 1) return client.sendMessage(from, 'Qué código de idioma es?', text, {quoted: mek})
 					const gtts = require('./lib/gtts')(args[0])
@@ -446,12 +536,12 @@ async function starts() {
 					reply(`El prefijo se ha cambiado correctamente a : ${prefix}`)
 					break
 				case 'loli':
-					loli.getSFWLoli(async (err, res) => {
-						if (err) return reply('❌ *ERROR* ❌')
-						buffer = await getBuffer(res.url)
-						client.sendMessage(from, buffer, image, {quoted: mek, caption: 'Ingat! Citai Lolimu'})
-					})
-					break
+                                        gatauda = body.slice(6)
+                                        reply(mess.wait)
+                                        anu = await fetchJson(`https://tobz-api.herokuapp.com/api/randomloli?apikey=BotWeA`, {method: 'get'})
+                                        buffer = await getBuffer(anu.result)
+                                        client.sendMessage(from, buffer, image, {quoted: mek})
+                                        break
 				case 'nsfwloli':
 					if (!isNsfw) return reply('❌ *FALSE* ❌')
 					loli.getNSFWLoli(async (err, res) => {
