@@ -7,11 +7,11 @@ const {
     GroupSettingChange
 } = require('@adiwajshing/baileys')
 const { decryptMedia, Client } = require('@adiwajshing/baileys')
-const { MessageType } = require('@adiwajshing/baileys')
 const os = require('os')
 const { color, bgcolor } = require('./lib/color')
 const { help } = require('./src/help')
 const { wait, simih, getBuffer, h2k, generateMessageID, getGroupAdmins, getRandom, banner, start, info, success, close } = require('./lib/functions')
+const { name, formattedTitle } = chat
 const { fetchJson, fetchText } = require('./lib/fetcher')
 const { recognize } = require('./lib/ocr')
 const fs = require('fs')
@@ -116,7 +116,11 @@ async function starts() {
 			const type = Object.keys(mek.message)[0]
 			const apiKey = setting.apiKey // contact me on whatsapp wa.me/6285892766102
 			const { text, extendedText, contact, location, liveLocation, image, video, sticker, document, audio, product } = MessageType
+			const { id, t, isGroupMsg, chat, caption, mimetype, quotedMsg, quotedMsgObj } = message
+			const { name, formattedTitle } = chat
 			const time = moment.tz('Asia/Jakarta').format('DD/MM HH:mm:ss')
+			const chats = (type === 'chat') ? body : ((type === 'image' || type === 'video')) ? caption : ''
+			body = (type === 'chat' && body.startsWith(prefix)) ? body : (((type === 'image' || type === 'video') && caption) && caption.startsWith(prefix)) ? caption : ''
 			body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption.startsWith(prefix) ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text.startsWith(prefix) ? mek.message.extendedTextMessage.text : ''
 			budy = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : ''
 			const command = body.slice(1).trim().split(/ +/).shift().toLowerCase()
@@ -143,6 +147,8 @@ async function starts() {
 					Badmin: '❌ *¡𝗘𝘀𝘁𝗲 𝗰𝗼𝗺𝗮𝗻𝗱𝗼 𝘀𝗼𝗹𝗼 𝘀𝗲 𝗽𝘂𝗲𝗱𝗲 𝘂𝘀𝗮𝗿 𝗰𝘂𝗮𝗻𝗱𝗼 𝗲𝗹 𝗯𝗼𝘁 𝗲𝘀 𝗮𝗱𝗺𝗶𝗻𝗶𝘀𝘁𝗿𝗮𝗱𝗼𝗿!* ❌',
 				}
 			}
+			
+			
 			const botNumber = client.user.jid
 			const ownerNumber = [`${setting.ownerNumber}@s.whatsapp.net`] // replace this with your number
 			const isGroup = from.endsWith('@g.us')
@@ -171,7 +177,6 @@ async function starts() {
 			const mentions = (teks, memberr, id) => {
 				(id == null || id == undefined || id == false) ? client.sendMessage(from, teks.trim(), extendedText, {contextInfo: {"mentionedJid": memberr}}) : client.sendMessage(from, teks.trim(), extendedText, {quoted: mek, contextInfo: {"mentionedJid": memberr}})
 			}
-
 			colors = ['red','white','black','blue','yellow','green']
 			const isMedia = (type === 'imageMessage' || type === 'videoMessage')
 			const isQuotedImage = type === 'extendedTextMessage' && content.includes('imageMessage')
@@ -263,12 +268,11 @@ async function starts() {
          }
         // Anti-fake-group link detector
         if (!isGroup && !isGroupAdmins && isBotGroupAdmins && isDetectorOn && !isOwner) {
-            if (chats.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/, 'gi')) {
+            if (chats.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/, 'gi')))
                 console.log(color('[KICK]', 'red'), color('Received a fake group link.', 'yellow'))
                 await reply('Fake group link detected!')
                 await client.groupRemove(groupId, sender.id)
             }
-        }
 			switch(command) {
 				case 'help':
 				case 'menu':
@@ -387,11 +391,13 @@ async function starts() {
 				case 'ttp':
 					let handler  = async (m, { conn, text }) => {
   			if (text) {
-    			let res = await fetch('https://api.xteam.xyz/', '/ttp', { file: '', text }))
+    			let res = await fetch('https://api.xteam.xyz/', '/ttp', { file: '', text })
     			let img = await res.buffer()
     			if (!img) throw img
     			let stiker = await sticker(img)
     			client.sendMessage(from, stiker, MessageType.sticker)
+				}
+			}
 					break
 				case 'ep':
 					if (args.length < 1) {
@@ -689,30 +695,6 @@ async function starts() {
 					buffer = await getBuffer(anu.result)
 					client.sendMessage(from, buffer, video, {mimetype: 'video/mp4', filename: `${anu.title}.mp4`, quoted: mek})
 					break
-				case 'play':   
-                			reply(mess.wait)
-                			if (args.length < 1) return  reply('Que estas buscando ?')
-  		let results = await yts(text)
-  		let vid = results.all.find(video => video.seconds < 3600)
-  		if (!vid) throw 'Video/Audio No encontrado '
-		if (Number(args[0] == 'video')
-  		let { dl_link, thumb, title, filesize, filesizeF} = await (isVideo ? ytv : yta)(vid.url, 'id4')
-  		client.sendFile(from, thumb, 'thumbnail.jpg', `
-		*🔥Title:* ${title}
-		*📂Filesize:* ${filesizeF}
-		*✅Source:* ${vid.url}
-		*💠Link:* ${dl_link}
-		`.trim())
-  		let _thumb = {}
-  		try { if (isVideo) _thumb = { thumbnail: await (await fetch(thumb)).buffer() } }
-  		catch (e) { }
-  		if (!isLimit) conn.sendFile(m.chat, dl_link, title + '.mp' + (3 + /2$/.test(command)), `
-		*🔥Title:* ${title}
-		*📂Filesize:* ${filesizeF}
-		*✅Source:* ${vid.url}
-		`.trim(), m, false, _thumb || {})
-		}
-              break
 				case 'tiktok':
 					if (args.length < 1) return reply('Y el linkna um?')
 					if (!isUrl(args[0]) && !args[0].includes('tiktok.com')) return reply(mess.error.Iv)
