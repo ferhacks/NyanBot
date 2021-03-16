@@ -25,6 +25,7 @@ const welkom = JSON.parse(fs.readFileSync('./src/welkom.json'))
 const nsfw = JSON.parse(fs.readFileSync('./src/nsfw.json'))
 const google = require('google-it')
 const samih = JSON.parse(fs.readFileSync('./src/simi.json'))
+const _antilink = JSON.parse(fs.readFileSync('./database/group/antilink.json'))
 const setting = JSON.parse(fs.readFileSync('./src/settings.json'))
 
 prefix = setting.prefix
@@ -176,7 +177,7 @@ async function starts() {
 			const isQuotedSticker = type === 'extendedTextMessage' && content.includes('stickerMessage')
         const isQuotedGif = 'extendedTextMessage' && content.includes('image/gif')
         const isQuotedAudio = 'extendedTextMessage' && content.includes('audio')
-        const isQuotedVoice = 'extendedTextMessage' && content.includes8('ptt')
+        const isQuotedVoice = 'extendedTextMessage' && content.includes('ptt')
         const isImage = type === 'image'
         const isVideo = type === 'video'
         const isAudio = type === 'audio'
