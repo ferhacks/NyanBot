@@ -6,6 +6,7 @@ const {
     Mimetype,
     GroupSettingChange
 } = require('@adiwajshing/baileys')
+const { decryptMedia, Client } = require('@adiwajshing/baileys')
 const { color, bgcolor } = require('./lib/color')
 const { help } = require('./src/help')
 const { wait, simih, getBuffer, h2k, generateMessageID, getGroupAdmins, getRandom, banner, start, info, success, close } = require('./lib/functions')
@@ -25,10 +26,7 @@ const nsfw = JSON.parse(fs.readFileSync('./src/nsfw.json'))
 const google = require('google-it')
 const samih = JSON.parse(fs.readFileSync('./src/simi.json'))
 const setting = JSON.parse(fs.readFileSync('./src/settings.json'))
-const isQuotedAudio = 'audio'
-        const isQuotedVoice = 'ptt'
-        const isAudio = 'audio'
-        const isVoice = 'ptt'
+
 prefix = setting.prefix
 blocked = []
 cr = 'Samu330~NyanBot'
@@ -128,6 +126,7 @@ async function starts() {
 				wait: '⌛ *𝗘𝗻 𝗽𝗿𝗼𝗰𝗲𝘀𝗼* ⌛',
 				success: '✔️ *Listo* ✔️',
 				bot: '_*𝗟𝗼𝗮𝗱𝗶𝗻𝗴 𝗕𝗼𝘁 𝗜𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻...*_',
+				link: '_*Link detectado\n\nEliminando participante...*_',
 				error: '❰❗❱ *Ocurrio un error, verifica que el comando este bien escrito, eh intenta otra vez:D*',
 				error: {
 					stick: '❌ _𝗙𝗮𝗹𝗹𝗼́, 𝘀𝗲 𝗽𝗿𝗼𝗱𝘂𝗷𝗼 𝘂𝗻 𝗲𝗿𝗿𝗼𝗿 𝗮𝗹 𝗰𝗼𝗻𝘃𝗲𝗿𝘁𝗶𝗿 𝗹𝗮 𝗶𝗺𝗮𝗴𝗲𝗻 𝗮 𝘀𝘁𝗶𝗰𝗸𝗲𝗿_ ❌',
@@ -154,6 +153,7 @@ async function starts() {
 			const isGroupAdmins = groupAdmins.includes(sender) || false
 			const isWelkom = isGroup ? welkom.includes(from) : false
 			const isNsfw = isGroup ? nsfw.includes(from) : false
+			const isDetectorOn = isGroup ? _antilink.includes(from) : false
 			const isSimi = isGroup ? samih.includes(from) : false
 			const isOwner = ownerNumber.includes(sender)
 			const isUrl = (url) => {
@@ -174,12 +174,9 @@ async function starts() {
 			const isQuotedImage = type === 'extendedTextMessage' && content.includes('imageMessage')
 			const isQuotedVideo = type === 'extendedTextMessage' && content.includes('videoMessage')
 			const isQuotedSticker = type === 'extendedTextMessage' && content.includes('stickerMessage')
-	const isQuotedImage = quotedMsg && quotedMsg.type === 'image'
-        const isQuotedVideo = quotedMsg && quotedMsg.type === 'video'
-        const isQuotedSticker = quotedMsg && quotedMsg.type === 'sticker'
-        const isQuotedGif = quotedMsg && quotedMsg.mimetype === 'image/gif'
-        const isQuotedAudio = quotedMsg && quotedMsg.type === 'audio'
-        const isQuotedVoice = quotedMsg && quotedMsg.type === 'ptt'
+        const isQuotedGif = 'extendedTextMessage' && content.includes('image/gif')
+        const isQuotedAudio = 'extendedTextMessage' && content.includes('audio')
+        const isQuotedVoice = 'extendedTextMessage' && content.includes8('ptt')
         const isImage = type === 'image'
         const isVideo = type === 'video'
         const isAudio = type === 'audio'
@@ -231,6 +228,35 @@ async function starts() {
 				})	
 
 			}
+			// Anti-group link detector
+        if (!isGroup && !isGroupAdmins && isBotGroupAdmins && isDetectorOn && !isOwner) {
+            if (chats.match(new RegExp(/(https:\/\/chat.whatsapp.com)/gi))) {
+                const valid = await client.inviteInfo(chats)
+                if (valid) {
+                    console.log(color('[KICK]', 'red'), color('Received a group link and it is a valid link!', 'yellow'))
+                    await client.reply(mess.link)
+                    await client.removeParticipant(groupId, sender.id)
+                } else {
+                    console.log(color('[WARN]', 'yellow'), color('Received a group link but is not a valid link!', 'yellow'))
+                }
+            }
+        }
+
+        // Simple anti virtext, sorted by chat length, by: VideFrelan
+        if (!isGroup && !isGroupAdmins && isBotGroupAdmins && !isOwner) {
+            if (chats.length > 5000) {
+                await client.sendTextWithMentions(from, `Lo siento @${sender.id} Pero no se aceptan mensajes largos\nBye:D!`)
+                await client.removeParticipant(groupId, sender.id)
+             }
+         }
+        // Anti-fake-group link detector
+        if (!isGroup && !isGroupAdmins && isBotGroupAdmins && isDetectorOn && !isOwner) {
+            if (chats.match(new RegExp(/(https:\/\/chat.(?!whatsapp.com))/gi))) {
+                console.log(color('[KICK]', 'red'), color('Received a fake group link.', 'yellow'))
+                await reply('Fake group link detected!')
+                await client.removeParticipant(groupId, sender.id)
+            }
+        }
 			switch(command) {
 				case 'help':
 				case 'menu':
@@ -251,11 +277,12 @@ async function starts() {
 					buffer = await getBuffer(me.imgUrl)
 					client.sendMessage(from, buffer, image, {caption: teks, contextInfo:{mentionedJid: [me.jid]}})
 					break
-				case 'bass':
+	case 'bass':
                 if (isMedia && isAudio || isQuotedAudio || isVoice || isQuotedVoice) {
-                    if (args.length !== 1) return await reply(mess.error)
-                    await reply(mess.wait)
-                    const encryptMedia = isQuotedAudio || isQuotedVoice ? quotedMsg : message
+                    client.updatePresence(from, Presence.composing)
+		if (args.length !== 1) return reply('❰❗❱ Etiqueta un audio ❰❗❱')
+		reply(mess.wait)
+                    const encryptMedia = isQuotedAudio || isQuotedVoice ? content.includes : message
                     console.log(color('[WAPI]', 'green'), 'Downloading and decrypting media...')
                     const mediaData = await decryptMedia(encryptMedia, uaOverride)
                     const temp = './temp'
@@ -271,7 +298,7 @@ async function starts() {
                             .on('progress', (progress) => console.log(color('[FFmpeg]', 'green'), progress))
                             .on('end', async () => {
                                 console.log(color('[FFmpeg]', 'green'), 'Processing finished!')
-                                await client.sendPtt(from, fileOutputPath, id)
+                                await client.sendPtt(from, fileOutputPath)
                                 console.log(color('[WAPI]', 'green'), 'Success sending audio!')
                                 setTimeout(() => {
                                     fs.unlinkSync(fileInputPath)
@@ -282,6 +309,23 @@ async function starts() {
                     })
                 } else {
                     await reply(mess.error)
+                }
+            break
+	case 'antilink':
+                if (!isGroup) return await reply(mess.only.group)
+                if (!isGroupAdmins) return await reply(mess.only.admin)
+                if (!isBotGroupAdmins) return await reply(mess.only.Badmin)
+                if (Number(args[0]) === 1) {
+                    if (isDetectorOn) return await reply('Tod@ pemdej@, el antilink ya esta activo.... JAJAJAJA imbecil🙄')
+                    _antilink.push(from)
+                    fs.writeFileSync('./database/group/antilink.json', JSON.stringify(_antilink))
+                    await reply('Antilink activado')
+                } else if (Number(args[0]) === 0) {
+                    _antilink.splice(from, 1)
+                    fs.writeFileSync('./database/group/antilink.json', JSON.stringify(_antilink))
+                    await reply('Antilink desactivado')
+                } else {
+                    await reply('1 para activar, 0 para desactivar')
                 }
             break
 				case 'google':
