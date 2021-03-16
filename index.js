@@ -11,7 +11,6 @@ const os = require('os')
 const { color, bgcolor } = require('./lib/color')
 const { help } = require('./src/help')
 const { wait, simih, getBuffer, h2k, generateMessageID, getGroupAdmins, getRandom, banner, start, info, success, close } = require('./lib/functions')
-const { name, formattedTitle } = chat
 const { fetchJson, fetchText } = require('./lib/fetcher')
 const { recognize } = require('./lib/ocr')
 const fs = require('fs')
@@ -116,8 +115,6 @@ async function starts() {
 			const type = Object.keys(mek.message)[0]
 			const apiKey = setting.apiKey // contact me on whatsapp wa.me/6285892766102
 			const { text, extendedText, contact, location, liveLocation, image, video, sticker, document, audio, product } = MessageType
-			const { id, t, isGroupMsg, chat, caption, mimetype, quotedMsg, quotedMsgObj } = message
-			const { name, formattedTitle } = chat
 			const time = moment.tz('Asia/Jakarta').format('DD/MM HH:mm:ss')
 			const chats = (type === 'chat') ? body : ((type === 'image' || type === 'video')) ? caption : ''
 			body = (type === 'chat' && body.startsWith(prefix)) ? body : (((type === 'image' || type === 'video') && caption) && caption.startsWith(prefix)) ? caption : ''
