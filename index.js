@@ -7,6 +7,8 @@ const {
     GroupSettingChange
 } = require('@adiwajshing/baileys')
 const { decryptMedia, Client } = require('@adiwajshing/baileys')
+const { MessageType } = require('@adiwajshing/baileys')
+const os = require('os')
 const { color, bgcolor } = require('./lib/color')
 const { help } = require('./src/help')
 const { wait, simih, getBuffer, h2k, generateMessageID, getGroupAdmins, getRandom, banner, start, info, success, close } = require('./lib/functions')
@@ -229,14 +231,23 @@ async function starts() {
 				})	
 
 			}
+			
+			// AUTO REPLY 
+       
+        if (chats == '/menu') {
+            text: `Hola @${sender.split("@")[0]} que tal, amm, quieres usar el bot? ok mira, Yo soy *NyanBot*, mi prefijo es: ${prefix}`
+	    contextInfo: { mentionedJid: [sender] }
+		client.sendMessage(from, text, {quoted: mek})
+        }
+			
 			// Anti-group link detector
         if (!isGroup && !isGroupAdmins && isBotGroupAdmins && isDetectorOn && !isOwner) {
-            if (chats.match(new RegExp(/(https:\/\/chat.whatsapp.com)/gi))) {
-                const valid = await client.inviteInfo(chats)
+            if (chats.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/, 'gi'))) {
+                const valid = await (isUrl)
                 if (valid) {
                     console.log(color('[KICK]', 'red'), color('Received a group link and it is a valid link!', 'yellow'))
-                    await client.reply(mess.link)
-                    await client.removeParticipant(groupId, sender.id)
+                    await reply(mess.link)
+                    await client.groupRemove(groupId, sender.id)
                 } else {
                     console.log(color('[WARN]', 'yellow'), color('Received a group link but is not a valid link!', 'yellow'))
                 }
@@ -246,16 +257,16 @@ async function starts() {
         // Simple anti virtext, sorted by chat length, by: VideFrelan
         if (!isGroup && !isGroupAdmins && isBotGroupAdmins && !isOwner) {
             if (chats.length > 5000) {
-                await client.sendTextWithMentions(from, `Lo siento @${sender.id} Pero no se aceptan mensajes largos\nBye:D!`)
-                await client.removeParticipant(groupId, sender.id)
+                await reply('Lo siento @${sender.id} Pero no se aceptan mensajes largos\nBye:D!')
+                await client.groupRemove(groupId, sender.id)
              }
          }
         // Anti-fake-group link detector
         if (!isGroup && !isGroupAdmins && isBotGroupAdmins && isDetectorOn && !isOwner) {
-            if (chats.match(new RegExp(/(https:\/\/chat.(?!whatsapp.com))/gi))) {
+            if (chats.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/, 'gi')) {
                 console.log(color('[KICK]', 'red'), color('Received a fake group link.', 'yellow'))
                 await reply('Fake group link detected!')
-                await client.removeParticipant(groupId, sender.id)
+                await client.groupRemove(groupId, sender.id)
             }
         }
 			switch(command) {
@@ -312,12 +323,15 @@ async function starts() {
                     await reply(mess.error)
                 }
             break
+	case 'status':
+                await client.sendMessage(`*RAM*: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB / ${Math.round(os.totalmem / 1024 / 1024)} MB\n*CPU*: ${os.cpus()[0].model}`)
+            break
 	case 'antilink':
                 if (!isGroup) return await reply(mess.only.group)
                 if (!isGroupAdmins) return await reply(mess.only.admin)
                 if (!isBotGroupAdmins) return await reply(mess.only.Badmin)
                 if (Number(args[0]) === 1) {
-                    if (isDetectorOn) return await reply('Tod@ pemdej@, el antilink ya esta activo.... JAJAJAJA imbecil🙄')
+                    if (isDetectorOn) return await reply('*Tod@ pendej@*, el antilink ya esta activo.... JAJAJAJA imbecil🙄')
                     _antilink.push(from)
                     fs.writeFileSync('./database/group/antilink.json', JSON.stringify(_antilink))
                     await reply('Antilink activado')
@@ -370,26 +384,14 @@ async function starts() {
 						reply('Necesitas una foto')
 					}
 					break
-				case 'tp':
-					if (args.length < 1) {
-						return reply('Elige el tema, 1 - 162')
-					} else if (args[0].toLowerCase() === 'list') {
-						teks = await fetchText('https://mhankbarbar.moe/api/textpro/listtheme')
-						teks = teks.replace(/<br>/g, '\n')
-						return reply(teks)
-					} else if (args.length < 2) {
-						return reply('Y el texto?')
-					}
-					reply(mess.wait)
-					anu = `https://mhankbarbar.moe/api/textpro?pack=${args[0]}&text=${body.slice(3+args[0].length+1)}&apiKey=${apiKey}`
-					voss = await fetch(anu)	
-					ftype = require('file-type')	
-					vuss = await ftype.fromStream(voss.body)
-					if (vuss !== undefined) {
-						client.sendMessage(from, await getBuffer(anu), image, { caption: mess.success, quoted: mek })
-					} else {
-						reply('Ocurrió un error, elija otro tema')
-					}
+				case 'ttp':
+					let handler  = async (m, { conn, text }) => {
+  			if (text) {
+    			let res = await fetch('https://api.xteam.xyz/', '/ttp', { file: '', text }))
+    			let img = await res.buffer()
+    			if (!img) throw img
+    			let stiker = await sticker(img)
+    			client.sendMessage(from, stiker, MessageType.sticker)
 					break
 				case 'ep':
 					if (args.length < 1) {
@@ -689,15 +691,28 @@ async function starts() {
 					break
 				case 'play':   
                 			reply(mess.wait)
-                			play = body.slice(5)
-                			anu = await fetchJson(`https://api.zeks.xyz/api/ytplaymp3?q=${play}&apikey=apivinz`)
-               				if (anu.error) return reply(anu.error)
-                 			infomp3 = `*Canción encontrada!!!*\nTítulo : ${anu.result.title}\nSource : ${anu.result.source}\nTamaño : ${anu.result.size}\n\n*ENVIANDO AUDIO...*`
-                			buffer = await getBuffer(anu.result.thumbnail)
-                			lagu = await getBuffer(anu.result.url_audio)
-                			anker.sendMessage(from, buffer, image, {quoted: mek, caption: infomp3})
-                			anker.sendMessage(from, lagu, audio, {mimetype: 'audio/mp4', filename: `${anu.title}.mp3`, quoted: mek})
-                			break
+                			if (args.length < 1) return  reply('Que estas buscando ?')
+  		let results = await yts(text)
+  		let vid = results.all.find(video => video.seconds < 3600)
+  		if (!vid) throw 'Video/Audio No encontrado '
+		if (Number(args[0] == 'video')
+  		let { dl_link, thumb, title, filesize, filesizeF} = await (isVideo ? ytv : yta)(vid.url, 'id4')
+  		client.sendFile(from, thumb, 'thumbnail.jpg', `
+		*🔥Title:* ${title}
+		*📂Filesize:* ${filesizeF}
+		*✅Source:* ${vid.url}
+		*💠Link:* ${dl_link}
+		`.trim())
+  		let _thumb = {}
+  		try { if (isVideo) _thumb = { thumbnail: await (await fetch(thumb)).buffer() } }
+  		catch (e) { }
+  		if (!isLimit) conn.sendFile(m.chat, dl_link, title + '.mp' + (3 + /2$/.test(command)), `
+		*🔥Title:* ${title}
+		*📂Filesize:* ${filesizeF}
+		*✅Source:* ${vid.url}
+		`.trim(), m, false, _thumb || {})
+		}
+              break
 				case 'tiktok':
 					if (args.length < 1) return reply('Y el linkna um?')
 					if (!isUrl(args[0]) && !args[0].includes('tiktok.com')) return reply(mess.error.Iv)
