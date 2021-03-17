@@ -1,6 +1,6 @@
 
 
-//--Whatsapp Connecting
+//Conectando Whatsapp:D
 const {
   WAConnection,
   MessageType,
@@ -16,10 +16,12 @@ const {
   mentionedJid,
   processTime,
   ChatModification,
-} = require('@adiwajshing/baileys');
-//--
+} = require('@adiwajshing/baileys');//I love Baileys xd
+//
 
-//--File js
+//Ai que acomodar todo asi bien chido, por que luego ni yo le entiendo Ahre:)
+
+//Archivos js
 const {color, bgcolor} = require('./lib/color');
 const {bahasa} = require('./src/bahasa');
 const {negara} = require('./src/kodenegara');
@@ -27,9 +29,9 @@ const {wait, simih, getBuffer, h2k, generateMessageID, getGroupAdmins, getRandom
 const {fetchJson} = require('./lib/fetcher');
 const {recognize} = require('./lib/ocr');
 
-//--
+//
 
-//--Pakage Npm
+//Paquetes Npm
 const fs = require('fs');
 const moment = require('moment-timezone');
 const {exec} = require('child_process');
@@ -46,34 +48,34 @@ const cd = 4.32e+7 ;
 const crypto = require('crypto');
 const qrcode = require("qrcode-terminal");
 const axios = require('axios');
-//--
+//
 
-//--File json bot
+//File json bot
 const welkom = JSON.parse(fs.readFileSync('./data/welkom.json'));
 const up = JSON.parse(fs.readFileSync('./data/settings.json'));
 const samih = JSON.parse(fs.readFileSync('./data/simi.json'))
-//--
+//
 
-//--File json temp
+//File json temp
 const setiker = JSON.parse(fs.readFileSync('./temp/stik.json'))
 const videonye = JSON.parse(fs.readFileSync('./temp/vid.json'))
 const audionye = JSON.parse(fs.readFileSync('./temp/vn.json'))
 const imagenye = JSON.parse(fs.readFileSync('./temp/image.json'))
 
-//--File json user
+//File json user
 /*const _limit = JSON.parse(fs.readFileSync('./datauser/limit.json'));
 const uang = JSON.parse(fs.readFileSync('./datauser/uang.json'));*/
 const _registered = JSON.parse(fs.readFileSync('./datauser/registered.json'));
-//--
+//
 
-//--File json data
+//File json data
 const trut = JSON.parse(fs.readFileSync('./data/truth.json'));
 const fak = JSON.parse(fs.readFileSync('./data/dare.json'));
 const dare = JSON.parse(fs.readFileSync('./data/fakta.json'));
-//--
+//
 
 
-//--Setting
+//Setting
 prefix = up.prefix
 //const limitawal = up.limit;
 const memberlimit = up.memberlimit;
@@ -83,44 +85,27 @@ const NamaBot = up.NamaBot;
 const Ig = up.Ig;
 const Wa1 = up.Wa1;
 const Wa2 = up.Wa2;
-const Ovo = up.Ovo;
-const Pulsa = up.Pulsa;
-const Dana = up.Dana;
 const blocked = [];
 const ownerNumber = up.ownerNumber;
-//--
+//
 
-//--Apikey
+//Apikey Thanks to Bar:D
 BarBarKey = up.BarBarKey;
 vKey = up.Vhtearkey;
 viKey = up.Vinzapi
 meKey = up.Itsmeikyapi
 lolKey = up.LolHumanKey
-//--
+//
 
-//--Kontak
+//Contac
 const vcard = 'BEGIN:VCARD\n'
 + 'VERSION:3.0\n'
-+ 'FN:-·=»‡«=·- 𝕤𝔸Ｔ𝐚Ⓝ -·=»‡«=·-\n' // Nama
-+ 'ORG:♞☞  𝕊𝓐тคŇ  🐲🏆;\n' // Nama bot
-+ 'TEL;type=CELL;type=VOICE;waid=50373488366:+503 7348-8366\n' // Nomor bot
++ 'FN:👑𝙎𝙖𝙢𝙪𝟯𝟯𝟬👑\n' // Nombre
++ 'ORG:🐬𝖭𝗒𝖺𝗇𝖡𝗈𝗍🐬;\n' // Nama bot
++ 'TEL;type=CELL;type=VOICE;waid=529984907794:+52 998490-7794\n' // Numero del bot
 + 'END:VCARD' 
 
 
-//--Datauser
-
-/*const getLimit = (sender) => {
-  let position = false
-  Object.keys(limit).forEach ((i) => {
-if (limit[position].id === sender) {
-  position = i
-}
-  })
-  if (position !== false) {
-return limit[position].limit
-  }
-}
-*/
 const getRegisteredRandomId = () => {
   return _registered[Math.floor(Math.random() * _registered.length)].id
 }
@@ -152,81 +137,7 @@ if (_registered[i].id === sender) {
 }
 
 
-/*const addATM = (sender) => {
-  const obj = {
-id: sender, uang: 0
-  }
-  uang.push(obj)
-  fs.writeFileSync('./datauser/uang.json',
-JSON.stringify(uang))
-}
-
-const addKoinUser = (sender, amount) => {
-  let position = false
-  Object.keys(uang).forEach((i) => {
-if (uang[i].id === sender) {
-  position = i
-}
-  })
-  if (position !== false) {
-uang[position].uang += amount
-fs.writeFileSync('./datauser/uang.json', JSON.stringify(uang))
-  }
-}
-
-const checkATMuser = (sender) => {
-  let position = false
-  Object.keys(uang).forEach((i) => {
-if (uang[i].id === sender) {
-  position = i
-}
-  })
-  if (position !== false) {
-return uang[position].uang
-  }
-}
-
-const bayarLimit = (sender, amount) => {
-  let position = false
-  Object.keys(_limit).forEach((i) => {
-if (_limit[i].id === sender) {
-  position = i
-}
-  })
-  if (position !== false) {
-_limit[position].limit -= amount
-fs.writeFileSync('./datauser/limit.json', JSON.stringify(_limit))
-  }
-}
-
-const confirmATM = (sender, amount) => {
-  let position = false
-  Object.keys(uang).forEach((i) => {
-if (uang[i].id === sender) {
-  position = i
-}
-  })
-  if (position !== false) {
-uang[position].uang -= amount
-fs.writeFileSync('./datauser/uang.json', JSON.stringify(uang))
-  }
-}
-
-const limitAdd = (sender) => {
-  let position = false
-  Object.keys(_limit).forEach((i) => {
-if (_limit[i].id == sender) {
-  position = i
-}
-  })
-  if (position !== false) {
-_limit[position].limit += 1
-fs.writeFileSync('./datauser/limit.json', JSON.stringify(_limit))
-  }
-}
-*/
-
-//--Waktu
+//Tiempo
 function kyun(seconds){
   function pad(s){
     return (s < 10 ? '0' : '') + s;
@@ -236,69 +147,68 @@ function kyun(seconds){
   var second = Math.floor(seconds % 60);
   return `${pad(hours)}:${pad(minutes)}:${pad(second)}`;
 }
-//--
+//
 
 
-//--Whatsapp start connect
+//Whatsapp start connect
 async function starts() {
-	const Lxa = new WAConnection()
-	Lxa.logger.level = 'warn'
-	console.log(banner.string)
-	Lxa.on('qr', () => {
+	const Samu = new WAConnection()
+	Samu.logger.level = 'warn'
+	Samu.on('qr', () => {
 		console.log(color('[','white'), color('!','red'), color(']','white'), color(' Scan the qr code above'))
 	})
 
-	fs.existsSync('./Lexa.json') && Lxa.loadAuthInfo('./Lexa.json')
-	Lxa.on('connecting', () => {
+	fs.existsSync('./Samu.json') && Samu.loadAuthInfo('./Samu.json')
+	Samu.on('connecting', () => {
 		start('2', 'Connecting...')
 	})
-	Lxa.on('open', () => {
+	Samu.on('open', () => {
 		success('2', 'Connected')
 	})
-	await Lxa.connect({timeoutMs: 30*1000})
-        fs.writeFileSync('./Lexa.json', JSON.stringify(Lxa.base64EncodedAuthInfo(), null, '\t'))
+	await Samu.connect({timeoutMs: 30*1000})
+        fs.writeFileSync('./Lexa.json', JSON.stringify(Samu.base64EncodedAuthInfo(), null, '\t'))
 
 
-	Lxa.on('group-participants-update', async (anu) => {
+	Samu.on('group-participants-update', async (anu) => {
 		if (!welkom.includes(anu.jid)) return
 		try {
-			const mdata = await Lxa.groupMetadata(anu.jid)
+			const mdata = await Samu.groupMetadata(anu.jid)
 			console.log(anu)
 			if (anu.action == 'add') {
 				num = anu.participants[0]
-				teks = `Hola @${num.split('@')[0]}
+				teks = `Hola:D @${num.split('@')[0]}
 Bienvenid@ a 
 *${mdata.subject}*
-────────────────
+
 ┏━━━━━━━━━━━━━━━━━━━━
-┃──────〘  *Intro* 〙───────
-┃━━━━━━━━━━━━━━━━━━━━
-┠⊷️ *Nombre* :
-┠⊷️ *Edad* :
-┠⊷️ *Pais* :
-┠⊷️ *Género* :
+║─────🔥〘  *Info* 〙🔥──────
+║━━━━━━━━━━━━━━━━━━━━
+║✏ *🙍🏻‍♂️Nombre* :
+║✏ *♻Edad* :
+║✏ *🗺Pais* :
+║✏ *🧬Género* :
 ┗━━━━━━━━━━━━━━━━━━━━
 
 Usa ${prefix}verify para verificarte y poder usar el bot.`
-				Lxa.sendMessage(mdata.id, teks, MessageType.text, { contextInfo: {"mentionedJid": [num]}})
+				Samu.sendMessage(mdata.id, teks, MessageType.text, { contextInfo: {"mentionedJid": [num]}})
 			} else if (anu.action == 'remove') {
 				num = anu.participants[0]
 				teks = `Le falto odio a @${num.split('@')[0]} bye Aborto 👋`
-				Lxa.sendMessage(mdata.id, teks, MessageType.text, {contextInfo: {"mentionedJid": [num]}})
+				Samu.sendMessage(mdata.id, teks, MessageType.text, {contextInfo: {"mentionedJid": [num]}})
 			}
 		} catch (e) {
 			console.log('Error : %s', color(e, 'red'))
 		}
 	})
 
-	Lxa.on('CB:Blocklist', json => {
+	Samu.on('CB:Blocklist', json => {
             if (blocked.length > 2) return
 	    for (let i of json[1].blocklist) {
 	    	blocked.push(i.replace('c.us','s.whatsapp.net'))
 	    }
 	})
 
-	Lxa.on('chat-update', async (mek) => {
+	Samu.on('chat-update', async (mek) => {
 		try {
             if (!mek.hasNewMessage) return
             mek = mek.messages.all()[0]
@@ -319,30 +229,30 @@ Usa ${prefix}verify para verificarte y poder usar el bot.`
 			const isCmd = body.startsWith(prefix)
       const is = budy.slice(0).trim().split(/ +/).shift().toLowerCase()
 			mess = {
-  wait: '⏳ Espera ',
-  success: '🎉 Con exito',
-  Public: '🛡 Modo privado activado',
+  wait: '⏳ *𝗘𝗡 𝗣𝗥𝗢𝗖𝗘𝗦𝗢* ⏳',
+  success: '🎉 *𝗟𝗜𝗦𝗧𝗢* 🎉',
+  Public: '🛡 *Modo privado activado* 🛡',
   ferr: 'Lo siento ocurrio un error',
   limitend: 'El tiempo se agoto',
   error: {
-  stick: 'Intentalo al rato :(',
-  Iv: 'Error en el link'
+  stick: '*Intentalo de nuevo, puede que a la primera de error:D*',
+  Iv: '🛑 _Error en el link_'
   },
   only: {
-    group: 'Este comando solo puede ser usado en grupos',
-    ownerG: 'Este comando solo puede ser usado por el dueño del grupo',
-    ownerB: 'Este comando solo puede ser usado por el dueño del bot',
-    admin: 'Debes de ser admin para este comando',
-    Badmin: 'El bot debe ser admin para este comando',
-    daftarB: `Hola, usa *${prefix}verify* para poder usar el bot`
+    group: '❌ ¡Este comando solo se puede usar en grupos! ❌',
+    ownerG: '❌ ¡Este comando solo puede ser utilizado por el propietario del grupo! ❌',
+    ownerB: '❌ ¡Este comando solo puede ser utilizado por el propietario del bot! ❌',
+    admin: '❌ ¡Este comando solo puede ser utilizado por administradores del grupo! ❌',
+    Badmin: '❌ ¡Este comando solo se puede usar cuando el bot es administrador! ❌',
+    daftarB: `🔥Hola, usa *${prefix}verify* para poder usar el bot`
   }
 }
-      const totalchat = await Lxa.chats.all()
-			const botNumber = Lxa.user.jid
+      const totalchat = await Samu.chats.all()
+			const botNumber = Samu.user.jid
 			const ownerNumber = [`${up.ownerNumber}@s.whatsapp.net`] // replace this with your number
 			const isGroup = from.endsWith('@g.us')
 			const sender = isGroup ? mek.participant : mek.key.remoteJid
-			const groupMetadata = isGroup ? await Lxa.groupMetadata(from) : ''
+			const groupMetadata = isGroup ? await Samu.groupMetadata(from) : ''
 			const groupName = isGroup ? groupMetadata.subject : ''
 			const groupId = isGroup ? groupMetadata.jid : ''
 			const groupMembers = isGroup ? groupMetadata.participants : ''
@@ -355,23 +265,23 @@ Usa ${prefix}verify para verificarte y poder usar el bot.`
       const isRegister = checkRegisteredUser(sender)
       const q = args.join(' ')
       const tescuk = ["0@s.whatsapp.net"]
-			let pushname = Lxa.contacts[sender] != undefined ? Lxa.contacts[sender].vname || Lxa.contacts[sender].notify: undefined
+			let pushname = Samu.contacts[sender] != undefined ? Samu.contacts[sender].vname || Samu.contacts[sender].notify: undefined
 			const isUrl = (url) => {
 			    return url.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/, 'gi'))
 			}
 			
-//--Balasan bot
+//Balasan bot
 			const reply = (teks) => {
-				Lxa.sendMessage(from, teks, text, {quoted:mek})
+				Samu.sendMessage(from, teks, text, {quoted:mek})
 			}
 			const sendMess = (hehe, teks) => {
-				Lxa.sendMessage(hehe, teks, text)
+				Samu.sendMessage(hehe, teks, text)
 			}
 			const mentions = (teks, memberr, id) => {
-				(id == null || id == undefined || id == false) ? Lxa.sendMessage(from, teks.trim(), extendedText, {contextInfo: {"mentionedJid": memberr}}) : Lxa.sendMessage(from, teks.trim(), extendedText, {quoted: mek, contextInfo: {"mentionedJid": memberr}})
+				(id == null || id == undefined || id == false) ? Samu.sendMessage(from, teks.trim(), extendedText, {contextInfo: {"mentionedJid": memberr}}) : Samu.sendMessage(from, teks.trim(), extendedText, {quoted: mek, contextInfo: {"mentionedJid": memberr}})
 			}
 			const costum = (pesan, tipe, target, target2) => {
-      Lxa.sendMessage(from, pesan, tipe, {quoted: {key: {fromMe: false, participant: `${target}`, ...(from ? {
+      Samu.sendMessage(from, pesan, tipe, {quoted: {key: {fromMe: false, participant: `${target}`, ...(from ? {
   remoteJid: from
 }: {})
   }, message: {
@@ -379,12 +289,12 @@ conversation: `${target2}`
   }}})
 }
 const sendPtt = (teks) => {
-  Lxa.sendMessage(from, audio, mp3, {
+  Samu.sendMessage(from, audio, mp3, {
 quoted: mek
   })
 }
 			
-//--MessageType
+//MessageType
 			const isMedia = (type === 'imageMessage' || type === 'videoMessage')
 			const isQuotedText = type === 'extendedTextMessage' && content.includes('textMessage')
 const isQuotedImage = type === 'extendedTextMessage' && content.includes('imageMessage')
@@ -392,18 +302,18 @@ const isQuotedVideo = type === 'extendedTextMessage' && content.includes('videoM
 const isQuotedAudio = type === 'extendedTextMessage' && content.includes('audioMessage')
 const isQuotedSticker = type === 'extendedTextMessage' && content.includes('stickerMessage')
 
-//--Colors
+//Colors
       colors = ['red','white','black','blue','yellow','green']
 
-//--Console log grup
+//Console log grup
 			if (!isGroup && isCmd) console.log('\x1b[1;37m>', time, color(command), 'from', color(pushname), 'args :', (args.length))
 			
-//--Console log chat pribadi
+//Console log chat pribadi
 			if (isCmd && isGroup) console.log('\x1b[1;37m>', time, color(command), 'from', (groupName), 'args :', color(args.length))
 
-//---Metadata stiker
+//Metadata stiker
 			function addMetadata(packname, author) {	
-				if (!packname) packname = '♞☞  𝕊𝓐тคŇ  🐲🏆 Admin'; if (!author) author = 'Bot-Satan';	
+				if (!packname) packname = '🗽Samu330☣'; if (!author) author = '🐬NyanBot♚';	
 				author = author.replace(/[^a-zA-Z0-9]/g, '');	
 				let name = `${author}_${packname}`
 				if (fs.existsSync(`./src/stickers/${name}.exif`)) return `./src/stickers/${name}.exif`
@@ -443,78 +353,16 @@ const isQuotedSticker = type === 'extendedTextMessage' && content.includes('stic
 
 			}
 
-//----limit
-/*const isLimit = (sender) => {
-  let position = false
-  for (let i of _limit) {
-if (i.id === sender) {
-  let limits = i.limit
-  if (limits >= limitawal) {
-position = true
-return true
-  } else {
-_limit
-position = true
-return false
-  }
-}
-  }
-  if (position === false) {
-const obj = {
-  id: sender,
-  limit: 1
-}
-_limit.push(obj)
-fs.writeFileSync('./datauser/limit.json', JSON.stringify(_limit))
-return false
-  }
-}
 
-//--check limit user
-const checkLimit = (sender) => {
-      let found = false
-     for (let lmt of _limit) {
-     if (lmt.id === sender) {
-      limitCounts = limitawal - lmt.limit
-     if (limitCounts <= 0) return Lxa.sendMessage(from, `Maaf limit kamu telah habis, silahkan lakukan pembelian ulang`, text,{ quoted: mek})
-      Lxa.sendMessage(from, `〘  *Limit* 〙
-Sisa limit anda : *${limitCounts}*
-_Penggunaan limit hanya pada fitur-fitur tertentu_`, text, { quoted : mek})
-      found = true
-                                }
-                        }
-      if (found === false) {
-      let obj = { id: sender, limit: 1 }
-      _limit.push(obj)
-     fs.writeFileSync('./datauser/limit.json', JSON.stringify(_limit))
-     Lxa.sendMessage(from, `〘  *Limit* 〙
-Sisa limit anda : *${limitCounts}*
-_Penggunaan limit hanya pada fitur-fitur tertentu_`, text, { quoted : mek})
-                        }
-                }
-
-//--Balance
-if (isRegister && isGroup) {
-  const checkATM = checkATMuser(sender)
-  try {
-if (checkATM === undefined) addATM(sender)
-const uangsaku = Math.floor(Math.random() * 10) + 90
-addKoinUser(sender, uangsaku)
-  } catch (err) {
-console.error(err)
-  }
-}
-*/
-
-//--Member limit
+//Member limit
 if (isGroup) {
   try {
 const getmemex = groupMembers.length
 if (getmemex <= memberlimit) {
-  Lxa.sendMessage(from, `Los miembros de este grupo son insuficientes ${memberlimit}, para usar este bot`, text)
+  Samu.sendMessage(from, `Los miembros de este grupo son insuficientes ${memberlimit}, para usar este bot`, text)
 
   setTimeout(() => {
-Lxa.groupLeave(from) // ur cods
+Samu.groupLeave(from) // ur cods
   }, 5000) // 1000 = 1s,
 }
   } catch {
@@ -523,35 +371,35 @@ console.error(err)
 }
 
 
-//--Other Function
-const apakah = ['Ya',
-  'Tidak',
-  'Mungkin']
-const bisakah = ['Bisa',
-  'Tidak Bisa',
-  'Mungkin']
-const kapankah = ['Hari Lagi',
-  'Minggu Lagi',
-  'Bulan Lagi',
-  'Tahun Lagi']
+//Other Function
+const apakah = ['Si',
+  'No',
+  'Quizás']
+const bisakah = ['Puede',
+  'No puede',
+  'Quizás']
+const kapankah = ['Otro día',
+  'Otro domingo',
+  'Otro mes',
+  'Otro año']
 
 
 
-//--Auto respon
-if(budy.match('Satan')){
+//Auto respon 1
+if(budy.match('Samu')){
 result = fs.readFileSync(`./temp/stick/emm.webp`)
-  Lxa.sendMessage(from, result, sticker, {
+  Samu.sendMessage(from, result, sticker, {
 quoted: mek
   })
 }
 
-//--End auto respon 1
+//End auto respon 1
 
-//--Auto respon 2
+//Auto respon 2
 switch(is) {
-  case 'bot':
+  case 'test':
 buf = fs.readFileSync(`./temp/audio/onichan.mp3`)
-Lxa.sendMessage(from, buf, audio, {
+Samu.sendMessage(from, buf, audio, {
   mimetype: 'audio/mp4', quoted: mek, ptt: true
 })
 break
@@ -565,7 +413,7 @@ case '/help':
 case 'help':
 case 'menu':
 hasil = `        ────────────────
-Hola *${pushname}* usa este comando ${prefix}menu
+😙Hola *${pushname}* usa este comando ${prefix}menu
         ────────────────`
 reply(hasil)
         break
@@ -578,317 +426,301 @@ case '?':
   if (!isRegister) return reply(mess.only.daftarB)
   uptime = process.uptime()
   const Menu = {
-text: `♞☞  𝕊𝓐тคŇ  🐲🏆
+text: `♻Samu330♻
 
-Hola *${pushname}* 
+♻Hola *${pushname}* 
 
-〘 *BOT* 〙
-‣ Prefijo:「 ${prefix} 」
-‣ Yo soy: ♞☞  𝕊𝓐тคŇ  🐲🏆
-‣ Tiempo encencido: *${kyun(uptime)}*
-‣ Modo: *ON*
-‣ Grupo:  *${groupName}*
-‣ Número de grupos: *${_registered.length}*
-‣ Número de chats: *${totalchat.length}*
-‣ Numero del Dueño wa.me/50373488366 
+▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+▏🐬 *NyanBot* 🐬
+▏∘ ✏Prefijo:「 ${prefix} 」
+▏∘ 🙍🏻‍♂️Yo soy: 🗽NyanBot:D
+▏∘ 🕐Tiempo encencido: *${kyun(uptime)}*
+▏∘ ✅Estado: *ON*
+▏∘ ✨Grupo:  *${groupName}*
+▏∘ 📲Número de grupos: *${_registered.length}*
+▏∘ 💻Número de chats: *${totalchat.length}*
+▏∘ 👑Numero del Dueño wa.me/+529985907794 
+▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
 
-‣ GRUPO OFICIAL https://chat.whatsapp.com/JyD8Vj11LPu1TofWhWnYMA
+*𝗠𝗶 𝗖𝗮𝗻𝗮𝗹 𝗱𝗲 𝗬𝗼𝘂𝗧𝘂𝗯𝗲*
+https://www.youtube.com/channel/UCHD4T8Pfcv5PFVzsAbfAPZA
+
+╔〨〨〨〨〨〨〨〨〨〨〨〨〨〨
+╠▢ *☢Samu330☢* ▢
+╠━━━━━━━━━━━━━━━━━━━━
+╠〄 *${prefix}Info*
+╠ _Información del bot_
+╠〄 *${prefix}Owner*
+╠ _Dueño del bot_
+╠〄 *${prefix}Ping*
+╠ _Velocidad_
+━━━━━━━━━━━━━━━━━━━━
+
+
+
+*📲 GRUP 📲*
+┏━━━━━━━━━━━━━━━━━━━━
+╠❏ *${prefix}Listadmin*
+╠ _Lista de los admin_
+╠❏ *${prefix}Listonline*
+╠ _Lista de los miembros en linea_
+╠❏ *${prefix}Closegc*
+╠ _Cerrar grupo_
+╠❏ *${prefix}Opengc*
+╠ _Abrir grupo_
+╠❏ *${prefix}Promote*
+╠ _Dar admin_
+╠❏ *${prefix}Demote*
+╠ _Quitar admin_
+╠❏ *${prefix}Setname*
+╠ _Establecer nombre del grupo_
+╠❏ *${prefix}Setdesk*
+╠ _Establecer descripción del grupo_
+╠❏ *${prefix}Add (Nuero)*
+╠ _Añadir miembro_
+╠❏ *${prefix}Kick*
+╠ _Etiqueta a un miembro para eliminarlo_
+╠❏ *${prefix}all (2, 3, 4, 5)*
+╠ _Mencionar a todos_
+╠❏ *${prefix}Linkgc*
+╠ _Link del grupo_
+╠❏ *${prefix}Leave*
+╠ _Eliminar al bot😖_
+╠❏ *${prefix}Notif*
+╠ _Notificación a todos_
+╠❏ *${prefix}Welcome*
+╠ _On/off_
+╠❏ *${prefix}Delete*
+╠ _Eliminar mensaje del bot_
+┗━━━━━━━━━━━━━━━━━━━━
+*『 FUN 』*
+┏━━━━━━━━━━━━━━━━━━━━
+╠❏ *${prefix}Reverse (Texto)*
+╠ _Escribir al reves_
+╠❏ *${prefix}Itsme*
+╠ _Tu perfil_
+╠❏ *${prefix}Tagme*
+╠ _As que te mencione:v_
+┗━━━━━━━━━━━━━━━━━━━━
+*『 MEDIA 』*
+┏━━━━━━━━━━━━━━━━━━━━
+╠❏ *${prefix}listvn*
+╠ _Lista de sonidos_
+╠❏ *${prefix}listimg*
+╠ _Lista de fotos_
+╠❏ *${prefix}liststik*
+╠ _Lista de sticker_
+╠❏ *${prefix}listvid*
+╠ _Lista de videos_
+┗━━━━━━━━━━━━━━━━━━━━
+*『 ANIME 』*
+┏━━━━━━━━━━━━━━━━━━━━
+╠❏ *${prefix}Kusonime (Nombre)*
+╠ _Información de animes_
+╠❏ *${prefix}Neonime (Nombre)*
+╠ _Información de neoanimes_
+╠❏ *${prefix}Charnime (Nombre)*
+╠ _Personajes de anime_
+╠❏ *${prefix}Anime*
+╠ _Imagen aleatoria de anime_
+╠❏ *${prefix}Loli*
+╠ _Imagen aleatoria de loli_
+╠❏ *${prefix}Neko*
+╠ _Imagen aleatoria de neko_
+┗━━━━━━━━━━━━━━━━━━━━
 
 ┏━━━━━━━━━━━━━━━━━━━━
-┃───〘 ♞☞  𝕊𝓐тคŇ  🐲🏆 〙───
-┃━━━━━━━━━━━━━━━━━━━━
-┠⊷️ *${prefix}Info*
-┃ _Información del bot_
-┠⊷️ *${prefix}Owner*
-┃ _Dueño del bot_
-┠⊷️ *${prefix}Ping*
-┃ _Velocidad_
+╠❏ *${prefix}Rate (Texto)*
 ┗━━━━━━━━━━━━━━━━━━━━
+*『 TOOLS 』*
 ┏━━━━━━━━━━━━━━━━━━━━
-┃─────〘  *List menu* 〙─────
+╠❏ *${prefix}Tomp3*
+╠ _Video a Audio_
+╠❏ *${prefix}Tts (Texto)*
+╠ _Texto a voz_
+╠❏ *${prefix}Wame*
+╠ _Link en wa.me_
+╠❏ *${prefix}Ocr*
+╠ _Texto en imagen_
+╠❏ *${prefix}Wait*
+╠ _Busca una serie de anime solo con una foto:D_
 ┗━━━━━━━━━━━━━━━━━━━━
-*〘 GRUP 〙*
+*『 IMAGENES 』*
 ┏━━━━━━━━━━━━━━━━━━━━
-┠⊷️ *${prefix}Listadmin*
-┃ _Lista de los admin_
-┠⊷️ *${prefix}Listonline*
-┃ _Lista de los miembros en linea_
-┠⊷️ *${prefix}Closegc*
-┃ _Cerrar grupo_
-┠⊷️ *${prefix}Opengc*
-┃ _Abrir grupo_
-┠⊷️ *${prefix}Promote*
-┃ _Dar admin_
-┠⊷️ *${prefix}Demote*
-┃ _Quitar admin_
-┠⊷️ *${prefix}Setname*
-┃ _Establecer nombre del grupo_
-┠⊷️ *${prefix}Setdesk*
-┃ _Establecer descripción del grupo_
-┠⊷️ *${prefix}Add*
-┃ _Añadir miembro_
-┠⊷️ *${prefix}Kick*
-┃ _Eliminar miembro_
-┠⊷️ *${prefix}Tagall*
-┃ _Mencionar a todos_
-┠⊷️ *${prefix}Linkgc*
-┃ _Link del grupo_
-┠⊷️ *${prefix}Leave*
-┃ _Eliminar bot_
-┠⊷️ *${prefix}Notif*
-┃ _Notificación a todos_
-┠⊷️ *${prefix}Welcome*
-┃ _On/off Bienvenida_
-┠⊷️ *${prefix}Delete*
-┃ _Eliminar mensaje del bot_
+╠❏ *${prefix}Cogan*
+╠ _Foto aleatoria de un hombre:(_
+╠❏ *${prefix}Cecan*
+╠ _Foto aleatoria de una mujer Ahre:D_
+╠❏ *${prefix}Wp*
+╠ _Imagen aleatoria_
+╠❏ *${prefix}Img (gatos:D)*
+╠ _Imagen de Google_
+╠❏ *${prefix}Google (Texto)*
+╠ _Busqueda en google_
 ┗━━━━━━━━━━━━━━━━━━━━
-*〘 FUN 〙*
+*『 Codigos 』*
 ┏━━━━━━━━━━━━━━━━━━━━
-┠⊷️ *${prefix}Reverse (Texto)*
-┃ _Escribir al reves_
-┠⊷️ *${prefix}Itsme*
-┃ _Tu perfil_
-┠⊷️ *${prefix}Tagme*
-┃ _Mencionarte_
+╠❏ *${prefix}idiomas*
+╠ _Codigo de idiomas para el comando tts_
+╠❏ *${prefix}pais*
+╠ _Codigo de país_
 ┗━━━━━━━━━━━━━━━━━━━━
-*〘 MEDIA 〙*
+*『 OTRO 』*
 ┏━━━━━━━━━━━━━━━━━━━━
-┠⊷️ *${prefix}listvn*
-┃ _Lista de sonidos_
-┠⊷️ *${prefix}listimg*
-┃ _Lista de fotos_
-┠⊷️ *${prefix}liststik*
-┃ _Lista de sticker_
-┠⊷️ *${prefix}listvid*
-┃ _Lista de videos_
+╠❏ *${prefix}Lirik (Nombre de una cancion)*
+╠ _Letra de canciones_
+╠❏ *${prefix}Map (Zona)*
+╠ _Muestra el mapa de la zona_
+╠❏ *${prefix}Gplaystore*
+╠ _Busqueda en playstore_
 ┗━━━━━━━━━━━━━━━━━━━━
-*〘 ANIME 〙*
+*『 DESCARGAS 』*
 ┏━━━━━━━━━━━━━━━━━━━━
-┠⊷️ *${prefix}Kusonime (Nombre)*
-┃ _Información de animes_
-┠⊷️ *${prefix}Neonime (Nombre)*
-┃ _Información de neoanimes_
-┠⊷️ *${prefix}Charnime (Nombre)*
-┃ _Personajes de anime_
-┠⊷️ *${prefix}Anime*
-┃ _Imagen aleatoria de anime_
-┠⊷️ *${prefix}Loli*
-┃ _Imagen aleatoria de loli_
-┠⊷️ *${prefix}Neko*
-┃ _Imagen aleatoria de neko_
+╠❏ *${prefix}Ytmp3 (Link)*
+╠ _Descargar audios de YT, usa ${prefix}play_
+╠_para buscar una cancion_
+╠❏ *${prefix}Ytmp4 (Link)*
+╠ _Descargar video de YT_
+╠❏ *${prefix}Fb (Link)*
+╠ _Descargar de FB_
+╠❏ *${prefix}Ig (Link)*
+╠ _Descargar de IG_
+╠❏ *${prefix}Scdl (Link)*
+╠ _Descargador de Soundcloud_
+╠❏ *${prefix}Tik (Link)*
+╠ _Descargar videos o imagenes de Tiktok_
+╠❏ *${prefix}Pin (Link)*
+╠ _Imagen de Pinterest_
+╠❏ *${prefix}Joox (Nombre de la Canción)
+╠ _Descargar canciones_
 ┗━━━━━━━━━━━━━━━━━━━━
-*〘 Porcentaje 〙*
+*『 Owner Bot 』*
 ┏━━━━━━━━━━━━━━━━━━━━
-┠⊷ *${prefix}Rate (Texto)*
-┗━━━━━━━━━━━━━━━━━━━━
-*〘 TOOLS 〙*
-┏━━━━━━━━━━━━━━━━━━━━
-┠⊷️ *${prefix}Tomp3*
-┃ _Audio de video_
-┃ _Canciones_
-┠⊷️ *${prefix}Tts (Texto)*
-┃ _Texto a sonido_
-┠⊷️ *${prefix}Wame*
-┃ _Link de wa.me_
-┠⊷️ *${prefix}Ocr*
-┃ _Texto en imagen_
-┠⊷️ *${prefix}Wait*
-┗━━━━━━━━━━━━━━━━━━━━
-*〘 IMAGENES 〙*
-┏━━━━━━━━━━━━━━━━━━━━
-┠⊷️ *${prefix}Cogan*
-┃ _Foto aleatoria de un hombre_
-┠⊷️ *${prefix}Cecan*
-┃ _Foto aleatoria de una mujer_
-┠⊷️ *${prefix}Wp*
-┃ _Imagen aleatoria_
-┠⊷️ *${prefix}Img (texto)*
-┃ _Imagen_
-┠⊷️ *${prefix}Google (Texto)*
-┃ _Buscar cosas en google_
-┗━━━━━━━━━━━━━━━━━━━━
-*〘 Codigos 〙*
-┏━━━━━━━━━━━━━━━━━━━━
-┠⊷️ *${prefix}Kodebahasa*
-┃ _Codigo de idioma_
-┠⊷️ *${prefix}Kodenegara*
-┃ _Codigo de país_
-┗━━━━━━━━━━━━━━━━━━━━
-*〘 OTRO 〙*
-┏━━━━━━━━━━━━━━━━━━━━
-┠⊷️ *${prefix}Lirik (Nombre)*
-┃ _Letra de canciones_
-┠⊷️ *${prefix}Map (Area)*
-┃ _Un mapa_
-┠⊷️ *${prefix}Gplaystore*
-┃ _Busqueda en playstore_
-┗━━━━━━━━━━━━━━━━━━━━
-*〘 DESCARGAS 〙*
-┏━━━━━━━━━━━━━━━━━━━━
-┠⊷️ *${prefix}Ytmp3 (Link)*
-┃ _Descargar audios de YT, es mejor con play_
-┠⊷️ *${prefix}Ytmp4 (Link)*
-┃ _Descargar video de YT_
-┠⊷️ *${prefix}Fb (Link)*
-┃ _Descargar de FB_
-┠⊷️ *${prefix}Ig (Link)*
-┃ _Descargar de IG_
-┠⊷️ *${prefix}Scdl (Link)*
-┃ _Descargador de Soundcloud_
-┠⊷️ *${prefix}Tik (Link)*
-┃ _Descargar Tiktok_
-┠⊷️ *${prefix}Pin (Link)*
-┃ _Descargar Pinterest_
-┠⊷️ *${prefix}Joox (Canción)
-┃ _Descargar canciones_
-┗━━━━━━━━━━━━━━━━━━━━
-*〘 Dueño 〙*
-┏━━━━━━━━━━━━━━━━━━━━
-┠⊷️ *${prefix}Clone*
-┃ _Clonacion de perfil_
-┠⊷️ *${prefix}Block*
-┃ _Bloquear_
-┠⊷️ *${prefix}Unblock*
-┃ _Desbloquear_
-┠⊷️ *${prefix}Bc*
-┃ _Anuncio_
-┠⊷️ *${prefix}Blocklist*
-┃ _Lista de usuarios bloqueados_
+╠❏ *${prefix}Clone*
+╠ _Cambia el perfil del bot:0_
+╠❏ *${prefix}Block*
+╠ _Bloquear a alguien:v_
+╠❏ *${prefix}Unblock*
+╠ _Desbloquear al que bloquie:D_
+╠❏ *${prefix}Bc*
+╠ _Broadcast_
+╠❏ *${prefix}Blocklist*
+╠ _Lista de usuarios bloqueados_
 ┗━━━━━━━━━━━━━━━━━━━━`,
 
 contextInfo: {
   mentionedJid: [sender]
 }
   }
-  Lxa.sendMessage(from, Menu, text, {
-quoted: { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc", "mimetype": "image/jpeg", "caption": "♞☞  𝕊𝓐тคŇ  🐲🏆", "fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=", "fileLength": "28777", "height": 1080, "width": 1079, "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=", "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=", "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69", "mediaKeyTimestamp": "1610993486", "jpegThumbnail": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABERERESERMVFRMaHBkcGiYjICAjJjoqLSotKjpYN0A3N0A3WE5fTUhNX06MbmJiboyiiIGIosWwsMX46/j///8BERERERIRExUVExocGRwaJiMgICMmOiotKi0qOlg3QDc3QDdYTl9NSE1fToxuYmJujKKIgYiixbCwxfjr+P/////CABEIADoAUQMBIgACEQEDEQH/xAAsAAEAAwEBAQAAAAAAAAAAAAAAAgMFBAYBAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAADwYAAAAAEo2EoeggYctbsPMX7XIZPycABZWNvLoHTfnjTo4x0c4AAAAAAAf//EAC0QAAMAAgEDAwIDCQAAAAAAAAECAwQRAAUSMRMhImGSFCCRJEBBQlBRUmOx/9oACAEBAAE/AP3dFLsqjW2IA2QB+p5PHvUoJxdy7FU7VJ7iPcgcM6AMxRtKwVjrwT4B4Y2Hdub/ABRXb28K2tE/Q74+Nead7yZV+BHcNbDglSPodcKsp0wIOgf14mLeisyKCFAJII/ipf8A4vCrKFJBAYbH1Hj8kXWdFdpJUD+RywB+0g8z8N4dXtiQgHxlo5STuyy2qbbmXTHxhjt2SZ6I4yISuzy/17IZudWImmKoT0bvH9pkHc+DpAQxbma/bTqUE2hwEAlUO/eQjiXMARsnTUvAX/EZxgS7vtUQIAF03OjXcdSxJnbLS0kPzddbPbsFCOUFQQKBge1dBv8AEjY/JJ1m4ZpJQDfwbYB+0g8yOvXybpZ8eHm21AfTesgRuXrOpUpjzj9ELnf3luWyTe+Tek0L2ZmPkBSx3teX6lW4uTKS0v7Wou9v7huY/VDj+l24sG9K5vLff8GOv7NzEy/wl43WEneWivd3a7g2w3sRzKyGybeqyKnwRAq70AihB5/on//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AR//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AR//Z", "scansSidecar": "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw==" } } } })
+  Samu.sendMessage(from, Menu, text, {
+quoted: { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc", "mimetype": "image/jpeg", "caption": "❤Samu330❤", "fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=", "fileLength": "28777", "height": 1080, "width": 1079, "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=", "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=", "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69", "mediaKeyTimestamp": "1610993486", "jpegThumbnail": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABERERESERMVFRMaHBkcGiYjICAjJjoqLSotKjpYN0A3N0A3WE5fTUhNX06MbmJiboyiiIGIosWwsMX46/j///8BERERERIRExUVExocGRwaJiMgICMmOiotKi0qOlg3QDc3QDdYTl9NSE1fToxuYmJujKKIgYiixbCwxfjr+P/////CABEIADoAUQMBIgACEQEDEQH/xAAsAAEAAwEBAQAAAAAAAAAAAAAAAgMFBAYBAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAADwYAAAAAEo2EoeggYctbsPMX7XIZPycABZWNvLoHTfnjTo4x0c4AAAAAAAf//EAC0QAAMAAgEDAwIDCQAAAAAAAAECAwQRAAUSMRMhImGSFCCRJEBBQlBRUmOx/9oACAEBAAE/AP3dFLsqjW2IA2QB+p5PHvUoJxdy7FU7VJ7iPcgcM6AMxRtKwVjrwT4B4Y2Hdub/ABRXb28K2tE/Q74+Nead7yZV+BHcNbDglSPodcKsp0wIOgf14mLeisyKCFAJII/ipf8A4vCrKFJBAYbH1Hj8kXWdFdpJUD+RywB+0g8z8N4dXtiQgHxlo5STuyy2qbbmXTHxhjt2SZ6I4yISuzy/17IZudWImmKoT0bvH9pkHc+DpAQxbma/bTqUE2hwEAlUO/eQjiXMARsnTUvAX/EZxgS7vtUQIAF03OjXcdSxJnbLS0kPzddbPbsFCOUFQQKBge1dBv8AEjY/JJ1m4ZpJQDfwbYB+0g8yOvXybpZ8eHm21AfTesgRuXrOpUpjzj9ELnf3luWyTe+Tek0L2ZmPkBSx3teX6lW4uTKS0v7Wou9v7huY/VDj+l24sG9K5vLff8GOv7NzEy/wl43WEneWivd3a7g2w3sRzKyGybeqyKnwRAq70AihB5/on//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AR//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AR//Z", "scansSidecar": "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw==" } } } })
   break
 
-//--Cek limit user
-/*case 'ceklimit':
-  if (!isRegister) return reply(mess.only.daftarB)
-  checkLimit(sender)
-  break
 
-//---cek saldo user
-case 'ceksaldo':
-  if (!isRegister) return reply(mess.only.daftarB)
-  uangkau = checkATMuser(sender)
-  hasil = `〘  *ATM* 〙
-╔════════════════════
-╠≽️ *Nama* : *${pushname}*
-╠≽️ *Saldo* : *Rp.${uangkau}.-*
-╠≽️ *Nomor* : *${sender.split("@")[0]}*
-╚════════════════════`
-  reply(hasil)
-  break
-
-*/
 
 	break
 					case 'slow':
 					low = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
-					slo = await Lxa.downloadAndSaveMediaMessage(low)
+					slo = await Samu.downloadAndSaveMediaMessage(low)
 					ran = getRandom('.mp3')
 					exec(`ffmpeg -i ${slo} -filter:a "atempo=0.7,asetrate=44100" ${ran}`, (err, stderr, stdout) => {
 						fs.unlinkSync(slo)
 						if (err) return reply('Error!')
 						hah = fs.readFileSync(ran)
-						Lxa.sendMessage(from, hah, audio, {mimetype: 'audio/mp4', ptt:true, quoted: mek})
+						Samu.sendMessage(from, hah, audio, {mimetype: 'audio/mp4', ptt:true, quoted: mek})
 						fs.unlinkSync(ran)
 					})
 				break
 				case 'tupai':
 					pai = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
 
-					tup = await Lxa.downloadAndSaveMediaMessage(pai)
+					tup = await Samu.downloadAndSaveMediaMessage(pai)
 					ran = getRandom('.mp3')
 					exec(`ffmpeg -i ${tup} -filter:a "atempo=0.5,asetrate=65100" ${ran}`, (err, stderr, stdout) => {
 						fs.unlinkSync(tup)
 						if (err) return reply('Error!')
 						hah = fs.readFileSync(ran)
-						Lxa.sendMessage(from, hah, audio, {mimetype: 'audio/mp4', ptt:true, quoted: mek})
+						Samu.sendMessage(from, hah, audio, {mimetype: 'audio/mp4', ptt:true, quoted: mek})
 						fs.unlinkSync(ran)
 					})
 				break
 				case 'gemuk':
 					muk = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
 
-					gem = await Lxa.downloadAndSaveMediaMessage(muk)
+					gem = await Samu.downloadAndSaveMediaMessage(muk)
 					ran = getRandom('.mp3')
 					exec(`ffmpeg -i ${gem} -filter:a "atempo=1.6,asetrate=22100" ${ran}`, (err, stderr, stdout) => {
 						fs.unlinkSync(gem)
 						if (err) return reply('Error!')
 						hah = fs.readFileSync(ran)
-						Lxa.sendMessage(from, hah, audio, {mimetype: 'audio/mp4', ptt:true, quoted: mek})
+						Samu.sendMessage(from, hah, audio, {mimetype: 'audio/mp4', ptt:true, quoted: mek})
 						fs.unlinkSync(ran)
 					})
 				break
 				case 'bass':                 
 					ass = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
 
-					bas = await Lxa.downloadAndSaveMediaMessage(ass)
+					bas = await Samu.downloadAndSaveMediaMessage(ass)
 					ran = getRandom('.mp3')
 					exec(`ffmpeg -i ${bas} -af equalizer=f=94:width_type=o:width=2:g=30 ${ran}`, (err, stderr, stdout) => {
 						fs.unlinkSync(bas)
 						if (err) return reply('Error!')
 						hah = fs.readFileSync(ran)
-						Lxa.sendMessage(from, hah, audio, {mimetype: 'audio/mp4', ptt:true, quoted: mek})
+						Samu.sendMessage(from, hah, audio, {mimetype: 'audio/mp4', ptt:true, quoted: mek})
 						fs.unlinkSync(ran)
 					})
 					break
 
-//--Info bot
-				case 'info':
-  me = Lxa.user
+//Info bot
+case 'info':
+  me = Samu.user
   uptime = process.uptime()
-  teks = `*‣ Nombre del bot* : ${me.name}
-  ‣ *Número del bot* : @${me.jid.split('@')[0]}
-  ‣ *Dueño* : Satan
-  ‣ *Prefijo* : ${prefix}
-  ‣ *Usuarios bloqueados* : ${blocked.length}
-  ‣ *Tiempo activo* : ${kyun(uptime)}
-  ‣ *Total de usuarios* : ${_registered.length} Usuarios
-  ‣ *Total de chats* : ${totalchat.length}`
+  teks = `*∘ Nombre del bot* : ${me.name}
+  ∘ *Número del bot* : @${me.jid.split('@')[0]}
+  ∘ *Dueño* : Samu330
+  ∘ *Prefijo* : ${prefix}
+  ∘ *Usuarios bloqueados* : ${blocked.length}
+  ∘ *Tiempo activo* : ${kyun(uptime)}
+  ∘ *Total de usuarios* : ${_registered.length} Usuarios
+  ∘ *Total de chats* : ${totalchat.length}`
   buffer = await getBuffer(me.imgUrl)
-  Lxa.sendMessage(from, buffer, image, {
+  Samu.sendMessage(from, buffer, image, {
 caption: teks, contextInfo: {
   mentionedJid: [me.jid]}})
   break
 
-//---Kecepatan respon
+//Kecepatan respon
 case 'ping':
   case 'speed':
 if (!isRegister) return reply(mess.only.userB)
 const timestamp = speed();
 const latensi = speed() - timestamp
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 uptime = process.uptime()
-Lxa.sendMessage(from, `*El bot responde en*\n‣ *Speed* : ${latensi.toFixed(4)} _Segundos_\n\n*Info bot*\n‣ *Total de chats* : ${totalchat.length}\n‣ *Total de usuarios* : ${_registered.length}\n‣ *Bloqueados* : ${blocked.length}\n‣ *Tiempo activo* : ${kyun(uptime)}`, text, {
+Samu.sendMessage(from, `*Velocidad del bot*\n∘ *Speed* : ${latensi.toFixed(4)} _Segundos_\n\n*Info bot*\n∘ *Total de chats* : ${totalchat.length}\n∘ *Total de usuarios* : ${_registered.length}\n∘ *Bloqueados* : ${blocked.length}\n∘ *Tiempo activo* : ${kyun(uptime)}`, text, {
   quoted: mek
 })
 break
 
-//---donasi
+//donasi
 case 'donasi':
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 if (!isRegister) return reply(mess.only.daftarB)
 hasil = `
 
-_Este bot es gratis :)_
+_Tranquilo😌_
+*Si deseas ayudarme, con una suscripcion a mi canal basta:D*
 
-*Pulsa :* _${Pulsa}_
-*Dana :* _${Dana}_
-*OVO :* _${Ovo}_`,
-Lxa.sendMessage(from, hasil, text, {
+https://www.youtube.com/channel/UCHD4T8Pfcv5PFVzsAbfAPZA`,
+Samu.sendMessage(from, hasil, text, {
   quoted: mek
 })
 break
 
-//--arti nama
+//arti nama
 case 'arti':
 if (args.length < 1) return reply('*☒* Ingresa texto')
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 if (!isRegister) return reply(mess.only.daftarB)
 teks = body.slice(6)
 try {
@@ -901,9 +733,9 @@ reply(hasil)
 }
 break
 
-//---couple pasangan
+//couple pasangan
 case 'couple':
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 if (!isRegister) return reply(mess.only.daftarB)
 if (!q.includes(' & ')) return  reply('Formato de texto incorrecto')
 const aku = q.substring(0, q.indexOf(' &') - 0)
@@ -916,7 +748,7 @@ yoi = `‣ *Nombre* : ${aku}
 ‣ *Pareja* : ${kamu}
 ‣ *Positivo* : ${data.positif}
 ‣ *Negativo* : ${data.negatif}`
-Lxa.sendMessage(from, yoi, text, {
+Samu.sendMessage(from, yoi, text, {
   quoted: mek
 })
 
@@ -925,10 +757,10 @@ Lxa.sendMessage(from, yoi, text, {
 }
 break
 
-//---Zodiak harian
+//Zodiak harian
 case 'zodiak':
 if (args.length < 1) return reply('Ingresa el signo zodiaco')
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 if (!isRegister) return reply(mess.only.daftarB)
 teks = body.slice(8)
 try {
@@ -941,13 +773,13 @@ reply(hasil)
 }
 break
 
-//--pencarian pinterest
+//pencarian pinterest
   case 'img':
 if (!isRegister) return reply(mess.only.daftarB)
 
 if (args.length < 1) return reply('Ingresa lo que quieres buscar')
 tels = body.slice(5)
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 reply(mess.wait)
 try {
 data = await fetchJson(`https://api.fdci.se/sosmed/rep.php?gambar=${tels}`, {
@@ -956,7 +788,7 @@ data = await fetchJson(`https://api.fdci.se/sosmed/rep.php?gambar=${tels}`, {
 n = JSON.parse(JSON.stringify(data));
 nimek = n[Math.floor(Math.random() * n.length)];
 pok = await getBuffer(nimek)
-Lxa.sendMessage(from, pok, image, {
+Samu.sendMessage(from, pok, image, {
   quoted: mek, caption: `Resultado : *${tels}*`
 })
 
@@ -965,13 +797,13 @@ Lxa.sendMessage(from, pok, image, {
 }
 break
 
-//--Pencarian pinterest
+//Pencarian pinterest
 case 'pinterest':
 tels = body.slice(11)
 if (!isRegister) return reply(mess.only.daftarB)
 
 if (args.length < 1) return reply('Ingresa lo que quieres buscar')
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 try {
 data = await fetchJson(`https://api.fdci.se/sosmed/rep.php?gambar=${tels}`, {
   method: 'get'
@@ -991,19 +823,19 @@ break
 
 case 'listonline':
         		let ido = args && /\d+\-\d+@g.us/.test(args[0]) ? args[0] : from
-			    let online = [...Object.keys(Lxa.chats.get(ido).presences), Lxa.user.jid]
-			    Lxa.sendMessage(from, 'List Online:\n' + online.map(v => '- @' + v.replace(/@.+/, '')).join`\n`, text, { quoted: mek,
+			    let online = [...Object.keys(Samu.chats.get(ido).presences), Samu.user.jid]
+			    Samu.sendMessage(from, 'List Online:\n' + online.map(v => '- @' + v.replace(/@.+/, '')).join`\n`, text, { quoted: mek,
   			  contextInfo: { mentionedJid: online }
 			    })
 				break
 
 
 
-//--pinterest anime neko
+//pinterest anime neko
 case 'neko':
 if (!isRegister) return reply(mess.only.daftarB)
 
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 uk = ["anime neko"]
 nk = uk[Math.floor(Math.random() * uk.length)]
 try {
@@ -1014,8 +846,8 @@ reply(mess.wait)
 n = JSON.parse(JSON.stringify(data));
 nimek = n[Math.floor(Math.random() * n.length)];
 pok = await getBuffer(nimek)
-Lxa.sendMessage(from, pok, image, {
-  quoted: mek, caption: `♞☞  𝕊𝓐тคŇ  🐲🏆`
+Samu.sendMessage(from, pok, image, {
+  quoted: mek, caption: `🔥`
 })
 
 } catch {
@@ -1023,11 +855,11 @@ Lxa.sendMessage(from, pok, image, {
 }
 break
 
-//--Pinteres anime loli
+//Pinteres anime loli
   case 'loli':
 if (!isRegister) return reply(mess.only.daftarB)
 
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 uk = ["anime loli"]
 nk = uk[Math.floor(Math.random() * uk.length)]
 try {
@@ -1038,8 +870,8 @@ reply(mess.wait)
 n = JSON.parse(JSON.stringify(data));
 nimek = n[Math.floor(Math.random() * n.length)];
 pok = await getBuffer(nimek)
-Lxa.sendMessage(from, pok, image, {
-  quoted: mek, caption: `♞☞  𝕊𝓐тคŇ  🐲🏆`
+Samu.sendMessage(from, pok, image, {
+  quoted: mek, caption: `🔥`
 })
 
 } catch {
@@ -1048,11 +880,11 @@ Lxa.sendMessage(from, pok, image, {
 break
 
 
-//--Pinterest Twitter
+//Pinterest Twitter
   case 'twit':
 if (!isRegister) return reply(mess.only.daftarB)
 
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 tw = ["Twitter lucu Indonesia",
   "Twitter harian",
   "Recehkan Twitter",
@@ -1066,7 +898,7 @@ reply(mess.wait)
 n = JSON.parse(JSON.stringify(data));
 nimek = n[Math.floor(Math.random() * n.length)];
 pok = await getBuffer(nimek)
-Lxa.sendMessage(from, pok, image, {
+Samu.sendMessage(from, pok, image, {
   quoted: mek
 })
 
@@ -1079,7 +911,7 @@ break
   case 'anime':
 if (!isRegister) return reply(mess.only.daftarB)
 
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 am = ["anime tumblr",
   "wallpaper anime hd",
   "anime aestethic",
@@ -1092,18 +924,18 @@ reply(mess.wait)
 n = JSON.parse(JSON.stringify(data));
 nimek = n[Math.floor(Math.random() * n.length)];
 pok = await getBuffer(nimek)
-Lxa.sendMessage(from, pok, image, {
-  quoted: mek, caption: `♞☞  𝕊𝓐тคŇ  🐲🏆`
+Samu.sendMessage(from, pok, image, {
+  quoted: mek, caption: `🔥`
 })
 
 break
 
-//--Pinterest wallpaper
+//Pinterest wallpaper
   case 'wp':
 case 'wallpaper':
   if (!isRegister) return reply(mess.only.daftarB)
   
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   pw = ["wallpaper aestethic",
 "wallpaper tumblr",
 "wallpaper lucu",
@@ -1117,8 +949,8 @@ method: 'get'
   n = JSON.parse(JSON.stringify(data));
   nimek = n[Math.floor(Math.random() * n.length)];
   pok = await getBuffer(nimek)
-  Lxa.sendMessage(from, pok, image, {
-quoted: mek, caption: `♞☞  𝕊𝓐тคŇ  🐲🏆`
+  Samu.sendMessage(from, pok, image, {
+quoted: mek, caption: `✅`
   })
   
   } catch {
@@ -1126,12 +958,12 @@ quoted: mek, caption: `♞☞  𝕊𝓐тคŇ  🐲🏆`
   }
   break
 
-//--Pinterest cecan
+//Pinterest cecan
 case 'cecan':
   if (!isRegister) return reply(mess.only.daftarB)
   
   tels = body.slice(5)
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   ty = ["ulzhang girl",
 "cewek cantik",
 "cewe hijab",
@@ -1147,8 +979,8 @@ method: 'get'
   n = JSON.parse(JSON.stringify(data));
   nimek = n[Math.floor(Math.random() * n.length)];
   pok = await getBuffer(nimek)
-  Lxa.sendMessage(from, pok, image, {
-quoted: mek, caption: `♞☞  𝕊𝓐тคŇ  🐲🏆`
+  Samu.sendMessage(from, pok, image, {
+quoted: mek, caption: `✅`
   })
   
   } catch {
@@ -1156,12 +988,12 @@ quoted: mek, caption: `♞☞  𝕊𝓐тคŇ  🐲🏆`
   }
   break
 
-//--Pinterest quotes
+//Pinterest quotes
 case 'quotes':
   if (!isRegister) return reply(mess.only.daftarB)
   
   tels = body.slice(5)
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   qt = ["quotes galau",
 "quotes aestethic Indonesia"]
   nk = qt[Math.floor(Math.random() * qt.length)]
@@ -1173,8 +1005,8 @@ method: 'get'
   n = JSON.parse(JSON.stringify(data));
   nimek = n[Math.floor(Math.random() * n.length)];
   pok = await getBuffer(nimek)
-  Lxa.sendMessage(from, pok, image, {
-quoted: mek, caption: `♞☞  𝕊𝓐тคŇ  🐲🏆`
+  Samu.sendMessage(from, pok, image, {
+quoted: mek, caption: `✅`
   })
   
   } catch {
@@ -1184,11 +1016,11 @@ quoted: mek, caption: `♞☞  𝕊𝓐тคŇ  🐲🏆`
 
 
 
-//--Pinterest cogan
+//Pinterest cogan
 case 'cogan':
   if (!isRegister) return reply(mess.only.daftarB)
   
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   uk = ["ulzhang boy","cowok keren","cowo ganteng","cogan","cogan jawa"]
   nk = uk[Math.floor(Math.random() * uk.length)]
   try {
@@ -1199,8 +1031,8 @@ method: 'get'
   n = JSON.parse(JSON.stringify(data));
   nimek = n[Math.floor(Math.random() * n.length)];
   pok = await getBuffer(nimek)
-  Lxa.sendMessage(from, pok, image, {
-quoted: mek, caption: `♞☞  𝕊𝓐тคŇ  🐲🏆`
+  Samu.sendMessage(from, pok, image, {
+quoted: mek, caption: `✅`
   })
   
   } catch {
@@ -1208,11 +1040,11 @@ quoted: mek, caption: `♞☞  𝕊𝓐тคŇ  🐲🏆`
   }
   break
 
-//--Pinterest cyberpunk
+//Pinterest cyberpunk
 case 'cyberpunk':
   if (!isRegister) return reply(mess.only.daftarB)
   
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   co = ["anime cyberpunk","fotografi cyberpunk","tokyo cyberpunk"]
   nk = co[Math.floor(Math.random() * co.length)]
   try {
@@ -1223,7 +1055,7 @@ method: 'get'
   n = JSON.parse(JSON.stringify(data));
   nimek = n[Math.floor(Math.random() * n.length)];
   pok = await getBuffer(nimek)
-  Lxa.sendMessage(from, pok, image, {
+  Samu.sendMessage(from, pok, image, {
 quoted: mek
   })
   
@@ -1235,7 +1067,7 @@ quoted: mek
 case 'jadian':
   if (!isRegister) return reply(mess.only.daftarB)
   
-  if (args.length < 1) return Lxa.sendMessage(from, `Ingrese la fecha-mes-año`, text, {
+  if (args.length < 1) return Samu.sendMessage(from, `Ingrese la fecha-mes-año`, text, {
 quoted: mek
   })
   if (!q.includes('-')) return  reply('Ingrese la fecha-mes-año\n*Ejemplo : 09-09-2009*')
@@ -1249,7 +1081,7 @@ quoted: mek
 method: 'get'
   })
   hasil = `‣ *Características* : ${iya.result.karakteristik}\n‣ *Descripción* : ${iya.result.deskripsi}`
-  Lxa.sendMessage(from, hasil, text, {
+  Samu.sendMessage(from, hasil, text, {
 quoted: mek
   })
   
@@ -1266,7 +1098,7 @@ try {
 data = await fetchJson(`https://api.itsmeikyxsec404.xyz/asupan?apikey=${meKey}`)
 reply(mess.wait)
 hasil = await getBuffer(data.result)
-Lxa.sendMessage(from, hasil, video, {
+Samu.sendMessage(from, hasil, video, {
   caption: 'Nih gan', quoted: mek
 })
 
@@ -1281,7 +1113,7 @@ case 'weton':
   if (args.length < 1) return Lxa.sendMessage(from, `Ingrese la fecha-mes-año`, text, {
 quoted: mek
   })
-  if (!q.includes('-')) return  reply('Masukan tanggal-bulan-tahun dengan benar\n*Contoh : 09-09-2009*')
+  if (!q.includes('-')) return  reply('Ingrese la fecha-mes-año correctamente\n*Ejemplo : 09-09-2009*')
   pc = body.slice(7)
   teks1 = pc.split("-")[0];
   teks2 = pc.split("-")[1];
@@ -1291,7 +1123,7 @@ quoted: mek
   iya = await fetchJson(`http://lolhuman.herokuapp.com/api/weton/${teks1}/${teks2}/${teks3}?apikey=${lolKey}`, {
 method: 'get'
   })
-  hasil = `${iya.result.weton}\n\nCaracterísticas: ${iya.result.karakter}\n Profesión : ${iya.result.pekerjaan}\n Rejeki : ${iya.result.rejeki}\nJodoh : ${iya.result.jodoh}`
+  hasil = `${iya.result.weton}\n\nCaracterísticas: ${iya.result.karakter}\n Profesión : ${iya.result.pekerjaan}\n Fortuna : ${iya.result.rejeki}\nPartido : ${iya.result.jodoh}`
 reply(hasil)
 break
   
@@ -1303,11 +1135,11 @@ break
 case 'seberapagay':
   if (!isRegister) return reply(mess.only.daftarB)
   
-  if (args.length < 1) return Lxa.sendMessage(from, 'Escribe el nombre', text, {
+  if (args.length < 1) return Samu.sendMessage(from, 'Escribe el nombre', text, {
 quoted: mek
   })
   teks = body.slice(13)
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   data = await fetchJson(`https://arugaz.herokuapp.com/api/howgay`)
   hasil = `*Gay Detectado*\n‣ Nombre : *${args[0]}*\n‣ Porcentaje : *${data.persen}%*\n*${data.desc}*`
   reply(hasil)
@@ -1317,12 +1149,12 @@ quoted: mek
 case 'seberapabucin':
   if (!isRegister) return reply(mess.only.daftarB)
   
-  if (args.length < 1) return Lxa.sendMessage(from, 'Ingresa el nombre', text, {
+  if (args.length < 1) return Samu.sendMessage(from, 'Ingresa el nombre', text, {
 quoted: mek
   })
   teks = body.slice(15)
   try {
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   data = await fetchJson(`https://arugaz.herokuapp.com/api/howbucins`)
   hasil = `*Bucin Detectado*\n‣ Nombre : *${args[0]}*\n‣ Porcentaje : *${data.persen}%*\n*${data.desc}*`
   reply(hasil)
@@ -1332,12 +1164,12 @@ quoted: mek
   }
   break
 
-//--searching lirik
+//searching lirik
 case 'lirik':
   if (args.length < 1) return reply('Escribe el nombre de la cancion')
   if (!isRegister) return reply(mess.only.daftarB)
   
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   tels = body.slice(7)
   try {
   anu = await fetchJson(`http://scrap.terhambar.com/lirik?word=${tels}`, {
@@ -1352,7 +1184,7 @@ method: 'get'
 
 case 'namae':
   if (args.length < 1) return reply('Escribe el nombre')
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 if (!isRegister) return reply(mess.only.daftarB)
 
 teks = body.slice(7) 
@@ -1368,7 +1200,7 @@ break
 
 case 'alay':
   if (args.length < 1) return reply('Escribe el texto')
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 if (!isRegister) return reply(mess.only.daftarB)
 
 teks = body.slice(6)
@@ -1383,7 +1215,7 @@ break
 
 
 case 'gplaystore':
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 if (!isRegister) return reply(mess.only.daftarB)
 
 goo = body.slice(12)
@@ -1405,7 +1237,7 @@ reply(teks.trim())
 
 break
 case 'bijak':
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 if (!isRegister) return reply(mess.only.daftarB)
 
 try {
@@ -1419,7 +1251,7 @@ break
 
 case 'pantun':
 
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 if (!isRegister) return reply(mess.only.daftarB)
 
 try {
@@ -1434,7 +1266,7 @@ break
 case 'bucin':
 case 'gombal':
 
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   if (!isRegister) return reply(mess.only.daftarB)
   
   try {
@@ -1448,7 +1280,7 @@ case 'gombal':
 
 case 'charnime':
   teks = body.slice(10)
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   if (!isRegister) return reply(mess.only.daftarB)
   
   if (args.length < 1) return reply('Escribe el nombre')
@@ -1456,7 +1288,7 @@ case 'charnime':
   data = await fetchJson(`http://lolhuman.herokuapp.com/api/character?apikey=${lolKey}&query=${teks}`)
   buf = await getBuffer(data.result.image.large)
   hasil = `‣ *Nombre* : ${data.result.name.full} *(${data.result.name.native})*\n‣ *Descripción* : ${data.result.description}`
-  Lxa.sendMessage(from, buf, image, {
+  Samu.sendMessage(from, buf, image, {
 caption: hasil, quoted: mek
   })
   
@@ -1468,7 +1300,7 @@ caption: hasil, quoted: mek
 case 'textgen':
   teks = body.slice(9)
   if (args.length < 1) return reply('Escribe el texto')
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   if (!isRegister) return reply(mess.only.daftarB)
   
   try {
@@ -1483,7 +1315,7 @@ case 'textgen':
 
 case 'kusonime':
   teks = body.slice(6)
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   if (!isRegister) return reply(mess.only.daftarB)
   
   if (args.length < 1) return reply('Escribe el nombre')
@@ -1491,7 +1323,7 @@ case 'kusonime':
   data = await fetchJson(`https://st4rz.herokuapp.com/api/kuso?q=${teks}`)
   hasil = `‣ *Nombre* : ${data.title}\n‣ *Info* : ${data.info}\n‣ *Sinopsis* : ${data.sinopsis}\n‣ *Link download* :\n${data.link_dl}`
   buf = await getBuffer(data.thumb)
-  Lxa.sendMessage(from, buf, image, {
+  Samu.sendMessage(from, buf, image, {
 quoted: mek, caption: hasil
   })
   
@@ -1510,7 +1342,7 @@ hmm = await fetchJson(`http://lolhuman.herokuapp.com/api/stalkig/${yolo}?apikey=
 reply(mess.wait)
 buffer = await getBuffer(hmm.result.photo_profile)
 hasil = `‣ *Usuario* : ${hmm.result.username}\n‣ *Nombre* : ${hmm.result.fullname}\n‣ *Seguidores* : ${hmm.result.followers}\n‣ *Seguidos* : ${hmm.result.following}\n‣ *Bio* : ${hmm.result.bio}\n‣ *Link* : https://www.instagram.com/${hmm.result.username}\n‣ Suscribete: ${Ig}`
-Lxa.sendMessage(from, buffer, image, {
+Samu.sendMessage(from, buffer, image, {
   quoted: mek, caption: hasil
 })
 
@@ -1522,7 +1354,7 @@ break
 
 case 'apakah':
   if (args.length < 1) return reply('Escribe el nombre')
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   random = apakah[Math.floor(Math.random() * (apakah.length))]
   hasil = `Apakah : *${body.slice(8)}*\n\nRespuesta : *${random}*`
   reply(hasil)
@@ -1531,7 +1363,7 @@ case 'apakah':
 //bisakah
 case 'bisakah':
   if (args.length < 1) return reply('Escribe el nombre')
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   if (!isRegister) return reply(mess.only.daftarB)
   random = bisakah[Math.floor(Math.random() * (bisakah.length))]
   hasil = `Bisakah : *${body.slice(9)}*\n\nRespuesta : *${random}*`
@@ -1540,7 +1372,7 @@ case 'bisakah':
 
 case 'rate':
   if (args.length < 1) return reply('Escribe el nombre')
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   if (!isRegister) return reply(mess.only.daftarB)
   random = `${Math.floor(Math.random() * 100)}`
   hasil = `Rating : *${body.slice(6)}*\n\nPorcentaje : *${random}%*`
@@ -1549,7 +1381,7 @@ case 'rate':
 
 case 'kapankah':
   if (args.length < 1) return reply('Escribe el nombre')
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   if (!isRegister) return reply(mess.only.daftarB)
   random = kapankah[Math.floor(Math.random() * (kapankah.length))]
   random2 = `${Math.floor(Math.random() * 8)}`
@@ -1559,7 +1391,7 @@ case 'kapankah':
 
 case 'kapan':
   if (args.length < 1) return reply('Escribe el nombre')
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   if (!isRegister) return reply(mess.only.daftarB)
   random = kapankah[Math.floor(Math.random() * (kapankah.length))]
   random2 = `${Math.floor(Math.random() * 8)}`
@@ -1576,8 +1408,8 @@ if (!isBotGroupAdmins) return reply(mess.only.Badmin)
 const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
 reply(mess.wait)
 const media = await Lxa.downloadAndSaveMediaMessage(encmedia)
-await Lxa.updateProfilePicture (from, media)
-reply('Cambio la foto del grupo')
+await Samu.updateProfilePicture (from, media)
+reply('Se cambio la foto del grupo:D')
 break
 
 case 'triggered':
@@ -1597,12 +1429,12 @@ case 'triggered':
                                                 fs.unlinkSync(ranp)
                                                 if (err) return reply(mess.error.stick)
                                                 nobg = fs.readFileSync(rano)
-                                                Lxa.sendMessage(from, nobg, sticker, {quoted: mek})
+                                                Samu.sendMessage(from, nobg, sticker, {quoted: mek})
                                                 fs.unlinkSync(rano)
                                         })
                                     
                                              } else {
-                                                 reply('Gunakan foto!')
+                                                 reply('Y la foto? xd!')
                                           }
                                              break
 
@@ -1620,7 +1452,7 @@ reply(teks)
 }
 break
 
-//---stiker wasted
+//stiker wasted
 case 'wasted':
   case 'was':
 if (!isRegister) return reply(mess.only.userB)
@@ -1638,14 +1470,14 @@ if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0)
 fs.unlinkSync(ranp)
 if (err) return reply(mess.error.stick)
 nobg = fs.readFileSync(rano)
-Lxa.sendMessage(from, nobg, sticker, {
+Samu.sendMessage(from, nobg, sticker, {
   quoted: mek
 })
 fs.unlinkSync(rano)
   })
 
 } else {
-  reply('Manda la foto')
+  reply('Manda la foto:v')
 }
 break
 
@@ -1659,9 +1491,9 @@ if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0)
   tels = body.slice(7)
   anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
   hehe = await getBuffer(`https://videfikri.com/api/textmaker/pencil/?urlgbr=${anu.display_url}`)
- Lxa.sendMessage(from, hehe, image, {quoted:mek})
+ Samu.sendMessage(from, hehe, image, {quoted:mek})
 } else {
-  reply('Manda la foto')
+  reply('Manda la foto:v')
 }
 break
 
@@ -1676,9 +1508,9 @@ if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0)
   tels = body.slice(7)
   anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
   hehe = await getBuffer(`https://videfikri.com/api/textmaker/wanted/?urlgbr=${anu.display_url}&text1=Dicari&text2=${tels}`)
- Lxa.sendMessage(from, hehe, image, {quoted:mek})
+ Samu.sendMessage(from, hehe, image, {quoted:mek})
 } else {
-  reply('Manda la foto')
+  reply('Manda la foto:v')
 }
 break
 
@@ -1692,42 +1524,42 @@ if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0)
   tels = body.slice(7)
   anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
   hehe = await getBuffer(`https://videfikri.com/api/textmaker/gtavposter/?urlgbr=${anu.display_url}`)
- Lxa.sendMessage(from, hehe, image, {quoted:mek})
+ Samu.sendMessage(from, hehe, image, {quoted:mek})
 } else {
-  reply('Manda la foto')
+  reply('Manda la foto:v')
 }
 break
 
-//--list kodebahasa
-case 'kodebahasa':
-Lxa.sendMessage(from, bahasa(prefix, sender), text, {
+//list kodebahasa
+case 'idiomas':
+Samu.sendMessage(from, bahasa(prefix, sender), text, {
   quoted: mek
 })
 break
 
-//--list kode negara
-case 'kodenegara':
+//list kode negara
+case 'pais':
 Lxa.sendMessage(from, negara(prefix, sender), text, {
   quoted: mek
 })
 break
 
-//--link wame
+//link wame
 case 'wa.me':
 case 'wame':
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   options = {
 text: `Link WhatsApp: *wa.me/${sender.split("@s.whatsapp.net")[0]}*\n*Or ( / )*\n*api.whatsapp.com/send?phone=${sender.split("@")[0]}*`,
 contextInfo: {
   mentionedJid: [sender]
 }
   }
-  Lxa.sendMessage(from, options, text, {
+  Samu.sendMessage(from, options, text, {
 quoted: mek
   })
   break
 
-//---quoted fuck my life
+//quoted fuck my life
 case 'fml':
   if (!isRegister) return reply(mess.only.daftarB)
   
@@ -1742,11 +1574,11 @@ reply(hasil)
 }
 break
 
-//--translate semua bahasa
+//translate semua bahasa
   case 'tl':
     if (!isRegister) return reply(mess.only.daftarB)
   
-if (args.length < 1) return Lxa.sendMessage(from, 'Introduce el código y el texto', text, {
+if (args.length < 1) return Samu.sendMessage(from, 'Introduce el código y el texto', text, {
   quoted: mek
 })
 var pc = body.slice(4)
@@ -1763,11 +1595,11 @@ reply(hasil)
 }
 break
 
-//---membalikan kalimat
+//membalikan kalimat
   case 'reverse':
     if (!isRegister) return reply(mess.only.daftarB)
   
-if (args.length < 1) return Lxa.sendMessage(from, 'Escribe el texto', text, {
+if (args.length < 1) return Samu.sendMessage(from, 'Escribe el texto', text, {
   quoted: mek
 })
 var pc = body.slice(9)
@@ -1784,7 +1616,7 @@ break
 
 
 
-//--fake reply
+//fake reply
 case 'fitnah':
 if (args.length < 1) return reply(`Uso :\n${prefix}fitnah [@tag|pesan|balasanbot]]\n\nEx : \n${prefix}fitnah @tagmember|hai|hai juga`)
 var gh = body.slice(7)
@@ -1792,7 +1624,7 @@ mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
 var replace = gh.split("|")[0];
 var target = gh.split("|")[1];
 var bot = gh.split("|")[2];
-Lxa.sendMessage(from, `${bot}`, text, {
+Samu.sendMessage(from, `${bot}`, text, {
   quoted: {
 key: {
   fromMe: false, participant: `${mentioned}`, ...(from ? {
@@ -1803,32 +1635,32 @@ remoteJid: from
 }}})
 break
 
-//--Kejujuran
+//Kejujuran
 case 'truth':
 const ttrth = trut[Math.floor(Math.random() * trut.length)]
-Lxa.sendMessage(from, `‣ *Verdad*\n${ttrth}`, text, {
+Samu.sendMessage(from, `‣ *Verdad*\n${ttrth}`, text, {
   quoted: mek
 })
 break
 
-//---Tantangan
+//Tantangan
   case 'dare':
 const der = dare[Math.floor(Math.random() * dare.length)]
-Lxa.sendMessage(from, `‣ *Mentira*\n${der}`, text, {
+Samu.sendMessage(from, `‣ *Mentira*\n${der}`, text, {
   quoted: mek
 })
 break
 
 
-//--notifikasi grup
+//notifikasi grup
   case 'notif':
 
 if (!isGroupAdmins) return reply(mess.only.admin)
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 if (!isRegister) return reply(mess.only.daftarB)
 if (!isGroup) return reply(mess.only.group)
 teks = `Notificación dada por @${sender.split("@")[0]}\n*Mensaje : ${body.slice(7)}*`
-group = await Lxa.groupMetadata(from);
+group = await Samu.groupMetadata(from);
 member = group['participants']
 jids = [];
 member.map(async adm => {
@@ -1841,10 +1673,10 @@ mentionedJid: jids
   },
   quoted: mek
 }
-await Lxa.sendMessage(from, options, text)
+await Samu.sendMessage(from, options, text)
 break
 
-//--jawaban BRANLy
+//jawaban BRANLy
   case 'brainly':
 if (!isRegister) return reply(mess.only.daftarB)
   
@@ -1853,7 +1685,7 @@ if (args.length < 1) return Lxa.sendMessage(from, 'Escribe el nombre', text, {
 })
 teks = body.slice(9)
 try {
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 data = await fetchJson(`https://api.vhtear.com/branly?query=${teks}&apikey=${vKey}`)
 hasil = data.result.data
 reply(hasil)
@@ -1881,20 +1713,20 @@ reply(anu.result)
 break
 
 
-//--Goolge Image
+//Goolge Image
 
 case 'google':
   if (!isRegister) return reply(mess.only.daftarB)
 
-  if (args.length < 1) return reply('Ingresa el texto')
+  if (args.length < 1) return reply('Que desea buscar')
   goo = body.slice(7)
   try {
   pint = await getBuffer(`http://lolhuman.herokuapp.com/api/gimage?apikey=${lolKey}&query=${goo}`, {
 method: 'get'
   })
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   reply(mess.wait)
-  Lxa.sendMessage(from, pint, image, {
+  Samu.sendMessage(from, pint, image, {
 caption: '*Google Imagen*\n\n*Resultado de busqueda : '+goo+'*', quoted: mek
   })
   
@@ -1911,9 +1743,9 @@ case 'alay2':
   pint = await fetchJson(`http://lolhuman.herokuapp.com/api/upperlower?apikey=${lolKey}&text=${goo}`, {
 method: 'get'
   })
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   hasil = pint.result
-  Lxa.sendMessage(from, hasil, text, {
+  Samu.sendMessage(from, hasil, text, {
 quoted: mek
   })
   
@@ -1922,11 +1754,11 @@ quoted: mek
   }
   break
 
-//---Neonime search
+//Neonime search
 case 'neonime':
 if (!isRegister) return reply(mess.only.daftarB)
 
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 reply(mess.wait)
 if (args.length < 1) return reply(`Ingresa el nombre`)
 teks = body.slice(9)
@@ -1946,41 +1778,41 @@ if (data.message) return reply(`La información de  *${teks} no se encontro`)
 }
 break
 
-//---Ganti nama grup
+//Ganti nama grup
   case 'setname':
 if (!isGroup) return reply(mess.only.group)
 if (!isGroupAdmins) return reply(mess.only.admin)
 if (!isBotGroupAdmins) return reply(mess.only.Badmin)
 let idgrup = `${from.split("@s.whatsapp.net")[0]}`;
-Lxa.groupUpdateSubject(idgrup, `${body.slice(9)}`)
-Lxa.sendMessage(from, 'Cambio nombre del grupo', text, {
+Samu.groupUpdateSubject(idgrup, `${body.slice(9)}`)
+Samu.sendMessage(from, 'Se cambio nombre del grupo', text, {
   quoted: mek
 })
 break
 
-//--ganti desk
+//ganti desk
   case 'setdesk':
 if (!isGroup) return reply(mess.only.group)
 if (!isGroupAdmins) return reply(mess.only.admin)
 if (!isBotGroupAdmins) return reply(mess.only.Badmin)
-Lxa.groupUpdateDescription(from, `${body.slice(9)}`)
-Lxa.sendMessage(from, 'Cambio nombre del grupo', text, {
+Samu.groupUpdateDescription(from, `${body.slice(9)}`)
+Samu.sendMessage(from, 'Se cambio nombre del grupo', text, {
   quoted: mek
 })
 break
 
 
 
-//--random meme
+//random meme
 case 'meme':
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   if (!isRegister) return reply(mess.only.daftarB)
 
 try {
   beh = await fetchJson(`https://api.zeks.xyz/api/memeindo?apikey=${viKey}`)
   pint = await getBuffer(beh.result)
   reply(mess.wait)
-  Lxa.sendMessage(from, pint, image, {
+  Samu.sendMessage(from, pint, image, {
 quoted: mek
   })
   
@@ -1989,7 +1821,7 @@ quoted: mek
 }
   break
 
-//--tagme
+//tagme
 case 'tagme':
 if (!isRegister) return reply(mess.only.daftarB)
 const tagme = {
@@ -1998,11 +1830,11 @@ const tagme = {
 mentionedJid: [sender]
   }
 }
-Lxa.sendMessage(from, tagme, text)
+Samu.sendMessage(from, tagme, text)
 break
 
 case 'kbbi':
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   if (args.length < 1) return reply(`Escribe el texto\nEjemplo : ${prefix}kbbi manusia`)
   if (!isRegister) return reply(mess.only.daftarB)
   
@@ -2020,7 +1852,7 @@ case 'kbbi':
 
 
   case 'chatprank':
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 if (!isRegister) return reply(mess.only.daftarB)
 
 if (args.length < 1) return reply(`Escribe el texto\nEjemplo : ${prefix}chatprank p/unten`)
@@ -2028,17 +1860,17 @@ tels = body.slice(11)
 var teks1 = tels.split("/")[0];
 var teks2 = tels.split("/")[1];
 hasil = `${teks1}͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏${teks2}`
-Lxa.sendMessage(from, hasil, text, {
+Samu.sendMessage(from, hasil, text, {
   quoted: mek
 })
 break
 
-//--searching chord
+//searching chord
 case 'chord':
-  if (args.length < 1) return reply('Ingresa lo que quieres buscar')
+  if (args.length < 1) return reply('Ingresa la musica que quieras buscar')
   if (!isRegister) return reply(mess.only.daftarB)
   
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   tels = body.slice(7)
   try {
   anu = await fetchJson(`https://tobz-api.herokuapp.com/api/chord?q=${tels}&apikey=${tKey}`, {
@@ -2051,11 +1883,11 @@ method: 'get'
   }
   break
 
-//--jadwaltv now
+//jadwaltv now
 case 'jadwaltvnow':
   if (!isRegister) return reply(mess.only.daftarB)
     
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   reply(mess.wait)
   try {
   anu = await fetchJson(`http://api-melodicxt-2.herokuapp.com/api/jadwaltvnow?&apiKey=administrator`, {
@@ -2068,13 +1900,13 @@ method: 'get'
   }
   break
 
-//--jadwaltv ch
+//jadwaltv ch
 case 'jadwaltv':
   if (!isRegister) return reply(mess.only.daftarB)
   
   ch = body.slice(10)
   if (args.length < 1) return reply('Escribe el nombre del canal')
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   reply(mess.wait)
   try {
   anu = await fetchJson(`https://mhankbarbar.tech/api/jdtv?ch=${ch}&apiKey=${BarBarKey}`, {
@@ -2089,7 +1921,7 @@ method: 'get'
   }
   break
 
-//--mini map
+//mini map
 case 'map':
   if (!isRegister) return reply(mess.only.daftarB)
   
@@ -2099,7 +1931,7 @@ case 'map':
   data = await fetchJson(`https://mnazria.herokuapp.com/api/maps?search=${daerah}`)
   reply(mess.wait)
   hasil = await getBuffer(data.gambar)
-  Lxa.sendMessage(from, hasil, image, {
+  Samu.sendMessage(from, hasil, image, {
 quoted: mek, caption: `Resultado *${daerah}*`
   })
   
@@ -2108,9 +1940,9 @@ quoted: mek, caption: `Resultado *${daerah}*`
   }
   break
 
-//--pencarian surah Al-Qur'an
+//pencarian surah Al-Qur'an
 case 'alquran':
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   if (!isRegister) return reply(mess.only.daftarB)
   
   if (args.length < 1) return reply('Escribe el número del área 1-114')
@@ -2136,10 +1968,10 @@ teks += `*(${i.number})* ${i.text}\n*(${i.number})* ${i.translation_id}\n••�
   }
   break
 
-//--Cerpen
+//Cerpen
 case 'cerpen':
 if (!isRegister) return reply(mess.only.daftarB)
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 
 try {
 data = await fetchJson(`https://docs-jojo.herokuapp.com/api/cerpen`)
@@ -2151,10 +1983,10 @@ reply(hasil)
 }
 break
 
-//---kontak pemilik bot
+//kontak pemilik bot
 case 'owner':
   case 'creator':
-Lxa.sendMessage(from, {
+Samu.sendMessage(from, {
   displayname: "Neftali", vcard: vcard
 }, MessageType.contact, {
   quoted: mek
@@ -2162,7 +1994,7 @@ Lxa.sendMessage(from, {
 break
 
 
-//---Random ayat Alquran
+//Random ayat Alquran
 case 'ngaji':
   if (!isRegister) return reply(mess.only.daftarB)
   
@@ -2171,7 +2003,7 @@ case 'ngaji':
 method: 'get'
   })
   quran = `${anu.acak.ar.teks}\n\n${anu.acak.id.teks}\nQ.S ${anu.surat.nama} ayat ${anu.acak.id.ayat}`
-  Lxa.sendMessage(from, quran, text, {
+  Samu.sendMessage(from, quran, text, {
 quoted: mek
   })
   
@@ -2180,14 +2012,14 @@ quoted: mek
   }
   break
 
-//--tafsir Alquran
+//tafsir Alquran
 case 'tafsir':
   if (!isRegister) return reply(mess.only.daftarB)
   
   if (args.length < 1) return reply('Ingresa lo que quieres buscar')
   teks = body.slice(8)
   try {
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   data = await fetchJson(`http://api-melodicxt-2.herokuapp.com/api/tafsir-quran?query=${teks}&apiKey=${Mkey}`)
   hasil = `*${data.result.query}*\n\n${data.result.ayat}\n\n*Traducir* :\n${data.result.terjemahan_ayat}\n\n*Interpretación* : ${data.result.tafsir_jalalayn}`
   reply(hasil)
@@ -2197,7 +2029,7 @@ case 'tafsir':
   }
   break
 
-//---Jadwal solat
+//Jadwal solat
 case 'sholat':
   loc = body.slice(7)
   if (!isRegister) return reply(mess.only.daftarB)
@@ -2208,7 +2040,7 @@ case 'sholat':
 method: 'get'
   })
   mbteks = `*SHALAT*\nÁrea : ${loc}\n‣ *Ashar* : ${anu.Ashar}\n‣ *Dhuha* : ${anu.Dhuha}\n‣ *Dzuhur* : ${anu.Dzuhur}\n‣ *Imsyak* : ${anu.Imsyak}\n‣ *Isya* : ${anu.Isya}\n‣ *Maghrib* : ${anu.Maghrib}\n‣ *Subuh* : ${anu.Subuh}`
-  Lxa.sendMessage(from, mbteks, text, {
+  Samu.sendMessage(from, mbteks, text, {
 quoted: mek
   })
   
@@ -2217,7 +2049,7 @@ quoted: mek
   }
   break
 
-//--info cuaca
+//info cuaca
 case 'cuaca':
   if (!isRegister) return reply(mess.only.daftarB)
   
@@ -2228,7 +2060,7 @@ case 'cuaca':
 method: 'get'
   })
   hasil = `‣ *El lugar* : ${anu.hasil.Nama}\n‣ *Cuaca* : ${anu.hasil.Cuaca}\n‣ *Viento* : ${anu.hasil.Angin}\n‣ *Suhu* : ${anu.hasil.Suhu}\n‣ *Humedad* : ${anu.hasil.Kelembaban}\n‣ *Información* : ${anu.hasil.Keterangan}`
-  Lxa.sendMessage(from, hasil, text, {
+  Samu.sendMessage(from, hasil, text, {
 quoted: mek
   })
   
@@ -2237,7 +2069,7 @@ quoted: mek
   }
   break
 
-//--info gempa
+//info gempa
 //informasi gempa terkini
 case 'infogempa':
   if (!isRegister) return reply(mess.only.daftarB)
@@ -2249,7 +2081,7 @@ method: 'get'
   })
   hasil = `‣ *Profundidad* : ${anu.kedalaman}\n‣ *Coordinar* : ${anu.koordinat}\n‣ *Ubicación* : ${anu.lokasi}\n‣ *Magnitude* : ${anu.magnitude}\n‣ *Potensia* : ${anu.potensi}\n‣ *Hora* : ${anu.waktu}`
   buffer = await getBuffer(anu.map)
-  Lxa.sendMessage(from, buffer, image, {
+  Samu.sendMessage(from, buffer, image, {
 caption: hasil, quoted: mek
   })
   
@@ -2258,55 +2090,11 @@ caption: hasil, quoted: mek
   }
   break
 
-//---Buy limit
-/*case 'buylimit':
-  if (args.length < 1) return reply(`Berapa limit yang mau di beli? Pastikan saldo ATM cukup juga! \n\nCara cek saldo : ${prefix}Ceksaldo`)
-  if (!isRegister) return reply(mess.only.daftarB)
-  payout = body.slice(10)
-  const koinPerlimit = hargalimit
-  const total = koinPerlimit * payout
-  if (checkATMuser(sender) <= total) return reply(`Maaf uang kamu belum mencukupi. silahkan kumpulkan dan beli nanti`)
-  if (checkATMuser(sender) >= total) {
-confirmATM(sender, total)
-bayarLimit(sender, payout)
-await reply(`〘  *NOTA PEMBAYARAN*  〙\n\n‣ *Pengirim* : Admin\n‣ *Penerima* : ${pushname}\n‣ *Nominal pembelian* : ${body.slice(10)} \n‣ *Harga limit* : ${koinPerlimit}/limit\n‣ *Sisa saldo* : ${checkATMuser(sender)}\n\nProses berhasil dengan nomer pembayaran \n${createSerial(15)}`)
-  }
-  break
 
-//--transfer
-case 'transfer':
-  if (!isGroup) return reply(mess.only.group)
-  if (!isRegister) return reply(mess.only.daftarB)
-  if (args.length < 1) return reply(`Silahkan ulangi dengan
-*${prefix}Transfer Tag target|Jumlah transfer*`)
-  if (!q.includes('|')) return  reply('Maaf format teks salah')
-  const tujuan = q.substring(0, q.indexOf('|') - 1)
-  const jumlah = q.substring(q.lastIndexOf('|') + 1)
-  if (isNaN(jumlah)) return await reply('Jangan tambahan tanda apapun !')
-  if (jumlah < 5000) return reply(`minimal transfer Rp.5000`)
-
-  if (checkATMuser(sender) <= jumlah) return reply(`Maaf uang kamu belum mencukupi. silahkan kumpulkan dan transfer lagi nanti`)
-  if (checkATMuser(sender) >= jumlah) {
-const tujuantf = `${tujuan.replace("", '')}@s.whatsapp.net`
-fee = 0.005 *  jumlah
-hasiltf = jumlah - fee
-addKoinUser(tujuantf, hasiltf)
-confirmATM(sender, jumlah)
-addKoinUser('6282223014661@s.whatsapp.net', fee)
-await reply(`〘  *TRANSFER*  〙
-  Pengiriman saldo telah sukses
-  ‣ *Dari* : ${sender.split("@")[0]}
-  ‣ *Ke* : ${tujuan}
-  ‣ *Jumlah transfer* : Rp.${jumlah},-
-  ‣ *Biaya admin* : Rp.${fee},-`)
-  }
-  
-  break
-*/
 case 'itsme':
   if (!isRegister) return reply(mess.only.daftarB)
   try {
-ppimg = await Lxa.getProfilePicture(`${sender.split('@')[0]}@c.us`)
+ppimg = await Samu.getProfilePicture(`${sender.split('@')[0]}@c.us`)
   } catch {
 ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
   }
@@ -2314,7 +2102,7 @@ ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gamb
   ‣ *Número* : ${sender.split("@")[0]}
   ‣ *Link* : wa.me/${sender.split("@")[0]}`
   its = await getBuffer (ppimg)
-  Lxa.sendMessage(from, its, image, {
+  Samu.sendMessage(from, its, image, {
 quoted: mek, caption: teks
   })
   
@@ -2333,10 +2121,10 @@ case 'play':
   `
   buffer = await getBuffer(anu.result.thumbnail)
   lagu = await getBuffer(anu.result.url_audio)
-  Lxa.sendMessage(from, buffer, image, {
+  Samu.sendMessage(from, buffer, image, {
 quoted: mek, caption: infomp3
   })
-  Lxa.sendMessage(from, lagu, audio, {
+  Samu.sendMessage(from, lagu, audio, {
 mimetype: 'audio/mp4', filename: `${anu.result.title}.mp3`, quoted: mek
   })
   
@@ -2357,10 +2145,10 @@ case 'ytmp3':
   infomp3 = `*Audio!!!*\n‣ Nombre : ${anu.result.title}\n‣ Fuente: ${anu.result.source}\n‣ Tamaño: ${anu.result.size}\n\n_El audio se esta mandando espere, si no llega descargue por el link_\n‣ *link* : ${anu.result.link}`
   buffer = await getBuffer(anu.result.thumb)
   lagu = await getBuffer(anu.result.link)
-  Lxa.sendMessage(from, buffer, image, {
+  Samu.sendMessage(from, buffer, image, {
 quoted: mek, caption: infomp3
   })
-  Lxa.sendMessage(from, lagu, audio, {
+  Samu.sendMessage(from, lagu, audio, {
 mimetype: 'audio/mp4', filename: `${anu.result.title}.mp3`, quoted: mek
   })
   
@@ -2381,10 +2169,10 @@ case 'ytmp4':
   infomp3 = `*Video*\n‣ *Nombre* : ${anu.result.title}\n‣ *Fuente* : ${anu.result.source}\n‣ *Tamaño* : ${anu.result.size}\n\n_Se esta mandando el video, si no llega descargue por el link_\n‣ *link* : ${anu.result.url_video}`
   buffer = await getBuffer(anu.result.thumbnail)
   lagu = await getBuffer(anu.result.url_video)
-  Lxa.sendMessage(from, buffer, image, {
+  Samu.sendMessage(from, buffer, image, {
 quoted: mek, caption: infomp3
   })
-  Lxa.sendMessage(from, lagu, video, {
+  Samu.sendMessage(from, lagu, video, {
 mimetype: 'video/mp4', filename: `${anu.result.title}.mp4`, quoted: mek
   })
   
@@ -2394,7 +2182,7 @@ mimetype: 'video/mp4', filename: `${anu.result.title}.mp4`, quoted: mek
   break
 
 
-//---Youtube search
+//Youtube search
 				case 'ytsearch':
 					if (args.length < 1) return reply('Ingresa lo que quieres buscar')
 					try {
@@ -2411,7 +2199,7 @@ mimetype: 'video/mp4', filename: `${anu.result.title}.mp4`, quoted: mek
 					}
 					break
 
-//--download pinterest
+//download pinterest
 case 'pin':
   if (!isRegister) return reply(mess.only.daftarB)
   
@@ -2423,7 +2211,7 @@ case 'pin':
   if (anu.error) return reply(anu.error)
   n = JSON.parse(JSON.stringify(anu.result.data));
   lagu = await getBuffer(anu.result)
-  Lxa.sendMessage(from, lagu, video, {
+  Samu.sendMessage(from, lagu, video, {
 mimetype: 'video/mp4', filename: `${anu.result}.mp4`, quoted: mek
   })
   
@@ -2443,7 +2231,7 @@ case 'fb':
   if (anu.error) return reply(anu.error)
   infomp3 = `*Video*\n‣ *Nombre* : ${anu.title}\n‣ *Publicación* : ${anu.published}\n‣ *Tamaño* : ${anu.filesize}\n\n_El video se esta enviando, si no llega descargue por el link_\n‣ *link* : ${anu.result}`
   lagu = await getBuffer(anu.result)
-  Lxa.sendMessage(from, lagu, video, {
+  Samu.sendMessage(from, lagu, video, {
 mimetype: 'video/mp4', filename: `${anu.result.title}.mp4`, quoted: mek
   })
   
@@ -2461,7 +2249,7 @@ case 'ig':
   try {
   anu = await fetchJson(`http://lolhuman.herokuapp.com/api/instagram?apikey=${lolKey}&url=${play}`)
   lagu = await getBuffer(anu.result)
-  Lxa.sendMessage(from, lagu, video, {
+  Samu.sendMessage(from, lagu, video, {
 mimetype: 'video/mp4', filename: `Imlexa.mp4`, quoted: mek
   })
   
@@ -2484,10 +2272,10 @@ method: 'get'
   infomp3 = `*Encontrado!!*\nNombre : ${data.result.judul}\nAlbúm : ${data.result.album}\nPublicado: ${data.result.dipublikasi}`
   buffer = await getBuffer(data.result.thumb)
   lagu = await getBuffer(data.result.mp3)
-  Lxa.sendMessage(from, buffer, image, {
+  Samu.sendMessage(from, buffer, image, {
 quoted: mek, caption: infomp3
   })
-  Lxa.sendMessage(from, lagu, audio, {
+  Samu.sendMessage(from, lagu, audio, {
 mimetype: 'audio/mp4', filename: `${data.result.title}.mp3`, quoted: mek
   })
   
@@ -2506,7 +2294,7 @@ case 'scdl':
 method: 'get'
   })
   lagu = await getBuffer(data.result)
-  Lxa.sendMessage(from, lagu, audio, {
+  Samu.sendMessage(from, lagu, audio, {
 mimetype: 'audio/mp4', filename: `${data.title}.mp3`, quoted: mek
   })
   
@@ -2527,11 +2315,11 @@ method: 'get'
   if (anu.error) return reply(anu.error)
   teks = `*Nombre* : ${anu.result.nameInfo}\n*Caption* : ${anu.result.textInfo}\n\n_Enviando archivos, espere_`
   thumb = await getBuffer(anu.result.image)
-  Lxa.sendMessage(from, thumb, image, {
+  Samu.sendMessage(from, thumb, image, {
 quoted: mek, caption: teks
   })
   buffer = await getBuffer(anu.result.mp4direct)
-  Lxa.sendMessage(from, buffer, video, {
+  Samu.sendMessage(from, buffer, video, {
 mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
   })
   
@@ -2540,35 +2328,23 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
   }
   break
 
-/*
 
-				case 'tiktok':
-				  case 'tik':
-					if (args.length < 1) return reply('Urlnya mana um?')
-					if (!isUrl(args[0]) && !args[0].includes('tiktok.com')) return reply(mess.error.Iv)
-					reply(mess.wait)
-					anu = await fetchJson(`https://mhankbarbar.tech/api/tiktok?url=${args[0]}&apiKey=${BarBarKey}`, {method: 'get'})
-					if (anu.error) return reply(anu.error)
-					buffer = await getBuffer(anu.result)
-					Lxa.sendMessage(from, buffer, video, {quoted: mek})
-					break
-*/
 
-//--block user
+//block user
 				case 'blocklist':
 					teks = 'Lista de bloqueados por el bot :\n'
 					for (let block of blocked) {
 						teks += `~> @${block.split('@')[0]}\n`
 					}
 					teks += `Total : ${blocked.length}`
-					Lxa.sendMessage(from, teks.trim(), extendedText, {quoted: mek, contextInfo: {"mentionedJid": blocked}})
+					Samu.sendMessage(from, teks.trim(), extendedText, {quoted: mek, contextInfo: {"mentionedJid": blocked}})
 					break
 
-//--read text on image
+//read text on image
 				case 'ocr':
 					if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
 						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
-						const media = await Lxa.downloadAndSaveMediaMessage(encmedia)
+						const media = await Samu.downloadAndSaveMediaMessage(encmedia)
 						reply(mess.wait)
 						await recognize(media, {lang: 'eng+ind', oem: 1, psm: 3})
 							.then(teks => {
@@ -2584,7 +2360,7 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 					}
 					break
 
-//---textpro
+//textpro
 				case 'textpro':
 					if (args.length < 1) {
 						return reply('Elije un número del, 1 - 162')
@@ -2601,7 +2377,7 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 					ftype = require('file-type')	
 					vuss = await ftype.fromStream(voss.body)
 					if (vuss !== undefined) {
-						Lxa.sendMessage(from, await getBuffer(anu), image, { caption: mess.success, quoted: mek })
+						Samu.sendMessage(from, await getBuffer(anu), image, { caption: mess.success, quoted: mek })
 					} else {
 						reply('No se encontro elije otro tema')
 					}
@@ -2625,13 +2401,13 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 					vuss = await ftype.fromStream(voss.body)
 					//console.log(vuss)
 					if (vuss !== undefined) {
-						Lxa.sendMessage(from, await getBuffer(anu), image, { caption: mess.success, quoted: mek })
+						Samu.sendMessage(from, await getBuffer(anu), image, { caption: mess.success, quoted: mek })
 					} else {
 						reply('No se encontro elije otro tema')
 					}
 					break
 
-//--harta tahta
+//harta tahta
 				case 'tahta':
 					if (args.length < 1) return reply('Escribe un texto')
 					anu = `https://mhankbarbar.tech/api/htahta?text=${args.join(' ')}&apiKey=${BarBarKey}`
@@ -2640,19 +2416,19 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 					ftype = require('file-type')
 					vuss = await ftype.fromStream(voss.body)
 					if (vuss !== undefined) {
-						Lxa.sendMessage(from, await getBuffer(anu), image, { quoted: mek, caption: `*Texto Tahta ${teks}*` })
+						Samu.sendMessage(from, await getBuffer(anu), image, { quoted: mek, caption: `*Texto Tahta ${teks}*` })
 					} else {
 						reply('Hay un error')
 					}
 					break
 
-//--stiker maker
+//stiker maker
 				case 'stiker':
 				case 'sticker':
 				  case 's':
 					if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
 						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
-						const media = await Lxa.downloadAndSaveMediaMessage(encmedia)
+						const media = await Samu.downloadAndSaveMediaMessage(encmedia)
 						ran = getRandom('.webp')
 						await ffmpeg(`./${media}`)
 							.input(media)
@@ -2666,13 +2442,13 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 							})
 							.on('end', function () {
 								console.log('Finish')
-								exec(`webpmux -set exif ${addMetadata('Lexa', 'Mrf.zvx')} ${ran} -o ${ran}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('Samu330', 'NyanBot')} ${ran} -o ${ran}`, async (error) => {
 									if (error) return reply(mess.error.stick)
-									Lxa.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
+									Samu.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 									fs.unlinkSync(media)	
 									fs.unlinkSync(ran)	
 								})
-								/*Lxa.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
+								/*Samu.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 								fs.unlinkSync(media)
 								fs.unlinkSync(ran)*/
 							})
@@ -2681,7 +2457,7 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 							.save(ran)
 					} else if ((isMedia && mek.message.videoMessage.seconds < 11 || isQuotedVideo && mek.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage.seconds < 11) && args.length == 0) {
 						const encmedia = isQuotedVideo ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
-						const media = await Lxa.downloadAndSaveMediaMessage(encmedia)
+						const media = await Samu.downloadAndSaveMediaMessage(encmedia)
 						ran = getRandom('.webp')
 						reply(mess.wait)
 						await ffmpeg(`./${media}`)
@@ -2693,17 +2469,17 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 								console.log(`Error : ${err}`)
 								fs.unlinkSync(media)
 								tipe = media.endsWith('.mp4') ? 'video' : 'gif'
-								reply(`❌ Error al convertir video en pegatina ${tipe} Sticker`)
+								reply(`❌ Error al convertir video en stiker ${tipe} Sticker`)
 							})
 							.on('end', function () {
 								console.log('Finish')
-								exec(`webpmux -set exif ${addMetadata('Lexa', 'Mrf.zvx')} ${ran} -o ${ran}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('StMvSamu330', 'NyanBot')} ${ran} -o ${ran}`, async (error) => {
 									if (error) return reply(mess.error.stick)
-									Lxa.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
+									Samu.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 									fs.unlinkSync(media)
 									fs.unlinkSync(ran)
 								})
-								/*Lxa.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
+								/*Samu.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 								fs.unlinkSync(media)
 								fs.unlinkSync(ran)*/
 							})
@@ -2712,31 +2488,31 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 							.save(ran)
 					} else if ((isMedia || isQuotedImage) && args[0] == 'nobg') {
 						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
-						const media = await Lxa.downloadAndSaveMediaMessage(encmedia)
+						const media = await Samu.downloadAndSaveMediaMessage(encmedia)
 						ranw = getRandom('.webp')
 						ranp = getRandom('.png')
 						reply(mess.wait)
-						keyrmbg = 'Your-ApiKey'
+						keyrmbg = 'bcAvZyjYAjKkp1cmK8ZgQvWH'
 						await removeBackgroundFromImageFile({path: media, apiKey: keyrmbg, size: 'auto', type: 'auto', ranp}).then(res => {
 							fs.unlinkSync(media)
 							let buffer = Buffer.from(res.base64img, 'base64')
 							fs.writeFileSync(ranp, buffer, (err) => {
-								if (err) return reply('Gagal, Terjadi kesalahan, silahkan coba beberapa saat lagi.')
+								if (err) return reply('Falló, se produjo un error, inténtelo de nuevo más tarde.')
 							})
 							exec(`ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${ranw}`, (err) => {
 								fs.unlinkSync(ranp)
 								if (err) return reply(mess.error.stick)
-								exec(`webpmux -set exif ${addMetadata('Lexa', 'Mrf.zvx')} ${ranw} -o ${ranw}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('StNoBgSamu330', 'NyanBot')} ${ranw} -o ${ranw}`, async (error) => {
 									if (error) return reply(mess.error.stick)
-									Lxa.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
+									Samu.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
 									fs.unlinkSync(ranw)
 								})
-								//Lxa.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
+								//Samu.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
 							})
 						})
 					/*} else if ((isMedia || isQuotedImage) && colors.includes(args[0])) {
 						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
-						const media = await Lxa.downloadAndSaveMediaMessage(encmedia)
+						const media = await Samu.downloadAndSaveMediaMessage(encmedia)
 						ran = getRandom('.webp')
 						await ffmpeg(`./${media}`)
 							.on('start', function (cmd) {
@@ -2756,11 +2532,11 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 							.toFormat('webp')
 							.save(ran)*/
 					} else {
-						reply(`Kirim gambar dengan caption ${prefix}sticker atau tag gambar yang sudah dikirim`)
+						reply(`Envie una foto con el comando ${prefix}sticker o use una imagen/vide/gif que ya se an enviado`)
 					}
 					break
 
-//-- temp
+//temp
 			case 'gets':
 			  
 				var itsme = `0@s.whatsapp.net`
@@ -2778,7 +2554,7 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 				namastc = body.slice(6)
 				try {
 				result = fs.readFileSync(`./temp/stick/${namastc}.webp`)
-				Lxa.sendMessage(from, result, sticker, selepbot)
+				Samu.sendMessage(from, result, sticker, selepbot)
 				} catch {
 				  reply('El paquete no esta registrado')
 				}
@@ -2801,7 +2577,7 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 				namastc = body.slice(9)
 				try {
 				result = fs.readFileSync(`./temp/stick/${namastc}.webp`)
-				Lxa.sendMessage(from, result, sticker, selepbot)
+				Samu.sendMessage(from, result, sticker, selepbot)
 				} catch {
 				  reply('El paquete no esta registrado')
 				}
@@ -2815,7 +2591,7 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 					teks += `- ${awokwkwk}\n`
 				}
 				teks += `\n*Total : ${setiker.length}*\nUsa el comando\n*${prefix}getstik (nombre del pack)*\npara seleccionar sticker`
-				Lxa.sendMessage(from, teks.trim(), extendedText, { quoted: mek, contextInfo: { "mentionedJid": setiker } })
+				Samu.sendMessage(from, teks.trim(), extendedText, { quoted: mek, contextInfo: { "mentionedJid": setiker } })
 				break
 			
 			case 'totaluser':
@@ -2824,7 +2600,7 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 					teks += `[${id.toString()}]\`\`\` @${i.split('@')[0]}`
 				}
 				teks += `\n*Total : ${_registered.length}`
-				Lxa.sendMessage(from, teks.trim(), extendedText, { quoted: mek, contextInfo: { "mentionedJid": _registered} })
+				Samu.sendMessage(from, teks.trim(), extendedText, { quoted: mek, contextInfo: { "mentionedJid": _registered} })
 				break
 
 			case 'addstik':
@@ -2833,11 +2609,11 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 				svst = body.slice(9)
 				if (!svst) return reply('Nombre del sticker?')
 				boij = JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo
-				delb = await Lxa.downloadMediaMessage(boij)
+				delb = await Samu.downloadMediaMessage(boij)
 				setiker.push(`${svst}`)
 				fs.writeFileSync(`./temp/stick/${svst}.webp`, delb)
 				fs.writeFileSync('./temp/stik.json', JSON.stringify(setiker))
-				Lxa.sendMessage(from, `Sticker añadido con exito\ncompruebalo con ${prefix}liststik`, MessageType.text, { quoted: mek })
+				Samu.sendMessage(from, `Sticker añadido con exito\ncompruebalo con ${prefix}liststik`, MessageType.text, { quoted: mek })
 				break
 
 			case 'addvn':
@@ -2846,18 +2622,18 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 				svst = body.slice(7)
 				if (!svst) return reply('Nombre del audio?')
 				boij = JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo
-				delb = await Lxa.downloadMediaMessage(boij)
+				delb = await Samu.downloadMediaMessage(boij)
 				audionye.push(`${svst}`)
 				fs.writeFileSync(`./temp/audio/${svst}.mp3`, delb)
 				fs.writeFileSync('./temp/vn.json', JSON.stringify(audionye))
-				Lxa.sendMessage(from, `Audio añadido con exito\ncompruebalo con ${prefix}listvn`, MessageType.text, { quoted: mek })
+				Samu.sendMessage(from, `Audio añadido con exito\ncompruebalo con ${prefix}listvn`, MessageType.text, { quoted: mek })
 				break
 
 			case 'getvn':
 				namastc = body.slice(7)
 				try {
 				buffer = fs.readFileSync(`./temp/audio/${namastc}.mp3`)
-				Lxa.sendMessage(from, buffer, audio, { mimetype: 'audio/mp4', quoted: mek, ptt: true })
+				Samu.sendMessage(from, buffer, audio, { mimetype: 'audio/mp4', quoted: mek, ptt: true })
 				} catch {
 				  reply('No esta registrado ese paquete')
 				}
@@ -2870,7 +2646,7 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 					teks += `- ${awokwkwk}\n`
 				}
 				teks += `\n*Total : ${audionye.length}*\nUsa el comando\n*${prefix}getvn (nombre del pack)*\n`
-				Lxa.sendMessage(from, teks.trim(), extendedText, { quoted: mek, contextInfo: { "mentionedJid": audionye } })
+				Samu.sendMessage(from, teks.trim(), extendedText, { quoted: mek, contextInfo: { "mentionedJid": audionye } })
 				break
 
 			case 'addimg':
@@ -2879,18 +2655,18 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 				svst = body.slice(8)
 				if (!svst) return reply('Nombre de la imagen')
 				boij = JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo
-				delb = await Lxa.downloadMediaMessage(boij)
+				delb = await Samu.downloadMediaMessage(boij)
 				imagenye.push(`${svst}`)
 				fs.writeFileSync(`./temp/foto/${svst}.jpeg`, delb)
 				fs.writeFileSync('./temp/image.json', JSON.stringify(imagenye))
-				Lxa.sendMessage(from, `Video añadido\ncompruebalo con${prefix}listimage`, MessageType.text, { quoted: mek })
+				Samu.sendMessage(from, `Video añadido\ncompruebalo con${prefix}listimage`, MessageType.text, { quoted: mek })
 				break
 
 			case 'getimg':
 				namastc = body.slice(8)
 				try {
 				buffer = fs.readFileSync(`./temp/foto/${namastc}.jpeg`)
-				Lxa.sendMessage(from, buffer, image, { quoted: mek, caption: `Resultadoos : ${namastc}.jpeg` })
+				Samu.sendMessage(from, buffer, image, { quoted: mek, caption: `Resultadoos : ${namastc}.jpeg` })
 				} catch {
 				  reply('Paquete no registrado')
 				}
@@ -2902,7 +2678,7 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 					teks += `- ${awokwkwk}\n`
 				}
 				teks += `\n*Total : ${imagenye.length}*\nUsa el comando\n*${prefix}getimg (nombre del pack)*\n`
-				Lxa.sendMessage(from, teks.trim(), extendedText, { quoted: mek, contextInfo: { "mentionedJid": imagenye } })
+				Samu.sendMessage(from, teks.trim(), extendedText, { quoted: mek, contextInfo: { "mentionedJid": imagenye } })
 				break
 
 			case 'addvid':
@@ -2911,18 +2687,18 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 				svst = body.slice(8)
 				if (!svst) return reply('Nombre del video')
 				boij = JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo
-				delb = await Lxa.downloadMediaMessage(boij)
+				delb = await Samu.downloadMediaMessage(boij)
 				videonye.push(`${svst}`)
 				fs.writeFileSync(`./temp/video/${svst}.mp4`, delb)
 				fs.writeFileSync('./temp/vid.json', JSON.stringify(videonye))
-				Lxa.sendMessage(from, `Video añadido con exito\ncompruebalo con ${prefix}listvid`, MessageType.text, { quoted: mek })
+				Samu.sendMessage(from, `Video añadido con exito\ncompruebalo con ${prefix}listvid`, MessageType.text, { quoted: mek })
 				break
 
 			case 'getvid':
 				namastc = body.slice(8)
 				try {
 				buffer = fs.readFileSync(`./temp/video/${namastc}.mp4`)
-				Lxa.sendMessage(from, buffer, video, { mimetype: 'video/mp4', quoted: mek })
+				Samu.sendMessage(from, buffer, video, { mimetype: 'video/mp4', quoted: mek })
 				} catch {
 				  reply('Paquete no registrado')
 				}
@@ -2934,11 +2710,11 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 					teks += `- ${awokwkwk}\n`
 				}
 				teks += `\n*Total : ${videonye.length}*\nUsa el comando\n*${prefix}getvid (nombre del pack)*\n`
-				Lxa.sendMessage(from, teks.trim(), extendedText, { quoted: mek, contextInfo: { "mentionedJid": videonye } })
+				Samu.sendMessage(from, teks.trim(), extendedText, { quoted: mek, contextInfo: { "mentionedJid": videonye } })
 				break
 
 
-//----caklontong
+//caklontong
   case 'caklontong':
 
 anu = await fetchJson(`https://api.vhtear.com/funkuis&apikey=${vKey}`,
@@ -2950,81 +2726,81 @@ yup = anu.result.soal
 jawab = anu.result.jawaban
 alasam = anu.result.desk
 setTimeout(() => {
-  Lxa.sendMessage(from, `‣ *Respuesta* : ${jawab}\n‣ *Keterangn* : ${alasam}`, text, {
+  Samu.sendMessage(from, `‣ *Respuesta* : ${jawab}\n‣ *Keterangn* : ${alasam}`, text, {
 quoted: mek
   }) // ur cods
 }, 30000) // 1000 = 1s,
 setTimeout(() => {
-  Lxa.sendMessage(from, '_10 Otro segundo_', text) // ur cods
+  Samu.sendMessage(from, '_10 segundos mas_', text) // ur cods
 }, 20000) // 1000 = 1s,
 setTimeout(() => {
-  Lxa.sendMessage(from, '_20 Otro segundo_…', text) // ur cods
+  Samu.sendMessage(from, '_20 segundos mas_…', text) // ur cods
 }, 10000) // 1000 = 1s,
 setTimeout(() => {
-  Lxa.sendMessage(from, text) // ur cods
+  Samu.sendMessage(from, text) // ur cods
 }, 1000) // 1000 = 1s,
 setTimeout(() => {
 
-  Lxa.sendMessage(from, yup, text, {
+  Samu.sendMessage(from, yup, text, {
 quoted: mek
   }) // ur cods
 }, 0) // 1000 = 1s,
 break
 
-//--stiker to video
+//stiker to video
   case 'tovid':
-Lxa.updatePresence(from,
+Samu.updatePresence(from,
   Presence.composing)
 if (!isRegister) return reply(mess.only.daftarB)
-if (!isQuotedSticker) return reply('Responde un sticker')
+if (!isQuotedSticker) return reply('Etiqueta un sticker un sticker')
 reply(mess.wait)
 anumedia = JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo
-anum = await Lxa.downloadAndSaveMediaMessage(anumedia)
+anum = await Samu.downloadAndSaveMediaMessage(anumedia)
 ran = getRandom('.webp')
 exec(`ffmpeg -i ${anum} ${ran}`, (err) => {
   fs.unlinkSync(anum)
   if (err) return reply('Error al convertir el sticker en vídeo')
   buffer = fs.readFileSync(ran)
-  Lxa.sendMessage(from, buffer, video, {
-quoted: mek, caption: 'Satan'
+  Samu.sendMessage(from, buffer, video, {
+quoted: mek, caption: 'By Samu330:D'
   })
   fs.unlinkSync(ran)
 })
 break
 
-//--mp4 to mp3
+//mp4 to mp3
   case 'tomp3':
-Lxa.updatePresence(from,
+Samu.updatePresence(from,
   Presence.composing)
 if (!isRegister) return reply(mess.only.daftarB)
-if (!isQuotedVideo) return reply('Responde a un video')
+if (!isQuotedVideo) return reply('Etiqueta un video')
 reply(mess.wait)
 mitri = JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo
-duh = await Lxa.downloadAndSaveMediaMessage(mitri)
+duh = await Samu.downloadAndSaveMediaMessage(mitri)
 ran = getRandom('.mp4')
 exec(`ffmpeg -i ${duh} ${ran}`, (err) => {
   fs.unlinkSync(duh)
   if (err) return reply('No se pudo convertir a mp3')
   buffer = fs.readFileSync(ran)
-  Lxa.sendMessage(from, buffer, audio, {
+  Samu.sendMessage(from, buffer, audio, {
 mimetype: 'audio/mp4', quoted: mek
   })
   fs.unlinkSync(ran)
 })
 break
 
-//---random fakta
+//random fakta
 case 'fakta':
 fakta = body.slice(1)
 if (!isRegister) return reply(mess.only.daftarB)
 if (isLimit(sender)) return reply(ind.limitend(pushname))
 const keh = fak[Math.floor(Math.random() * fak.length)]
-Lxa.sendMessage(from, 'Fakta : '+ keh, text, {
+Samu.sendMessage(from, 'Fakta : '+ keh, text, {
   quoted: mek
 })
 break
 
-//--Tebak gambar
+//Tebak gambar
   case 'tebakgambar':
 
 anu = await fetchJson(`https://api.vhtear.com/tebakgambar&apikey=${vKey}`, {
@@ -3034,44 +2810,44 @@ if (!isRegister) return reply(mess.only.daftarB)
 buffer = await getBuffer(anu.result.soalImg)
 jawab = anu.result.jawaban
 setTimeout(() => {
-  Lxa.sendMessage(from, `*➸ Responder :* ${jawab}`, text, {
+  Samu.sendMessage(from, `*➸ Responder :* ${jawab}`, text, {
 quoted: mek
   }) // ur cods
 }, 30000) // 1000 = 1s,
 setTimeout(() => {
-  Lxa.sendMessage(from, '_10 segundos_', text) // ur cods
+  Samu.sendMessage(from, '_10 segundos_', text) // ur cods
 }, 20000) // 1000 = 1s,
 setTimeout(() => {
-  Lxa.sendMessage(from, '_20 segundos_…', text) // ur cods
+  Samu.sendMessage(from, '_20 segundos_…', text) // ur cods
 }, 10000) // 1000 = 1s,
 setTimeout(() => {
-  Lxa.sendMessage(from, text) // ur cods
+  Samu.sendMessage(from, text) // ur cods
 }, 1000) // 1000 = 1s,
 setTimeout(() => {
 
-  Lxa.sendMessage(from, buffer, image, {
-quoted: mek, caption: 'APA HAYOO'
+  Samu.sendMessage(from, buffer, image, {
+quoted: mek, caption: 'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO'
   }) // ur cods
 }, 0) // 1000 = 1s,
 break
 
 
-//--google voice
+//google voice
 				case 'tts':
-					if (args.length < 1) return Lxa.sendMessage(from, 'Escribe el código', text, {quoted: mek})
+					if (args.length < 1) return Samu.sendMessage(from, 'Escribe el código del idioma, para ver los idiomas usa el comando *idiomas*', text, {quoted: mek})
 					const gtts = require('./lib/gtts')(args[0])
-					if (args.length < 2) return Lxa.sendMessage(from, 'Escribe el texto', text, {quoted: mek})
+					if (args.length < 2) return Samu.sendMessage(from, 'Escribe el texto', text, {quoted: mek})
 					dtt = body.slice(8)
 					ranm = getRandom('.mp3')
 					dtt.length > 600
 					? reply('Escribe correctamente el texto')
 					: gtts.save(ranm, dtt, function() {
-						Lxa.sendMessage(from, fs.readFileSync(ranm), audio, {quoted: mek, mimetype: 'audio/mp4', ptt:true})
+						Samu.sendMessage(from, fs.readFileSync(ranm), audio, {quoted: mek, mimetype: 'audio/mp4', ptt:true})
 						fs.unlinkSync(ranm)
 					})
 					break
 
-//-- Setting prefix
+//Setting prefix
 				case 'setprefix':
 					if (args.length < 1) return
 					if (!isOwner) return reply(mess.only.ownerB)
@@ -3083,11 +2859,11 @@ break
 
 
 case 'block':
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   if (!isGroup) return reply(mess.only.group)
   if (!isOwner) return reply(mess.only.ownerB)
-  Lxa.blockUser (`${body.slice(8)}@c.us`, "add")
-  Lxa.sendMessage(from, `Usuario bloqueado`, text, {
+  Samu.blockUser (`${body.slice(8)}@c.us`, "add")
+  Samu.sendMessage(from, `Usuario bloqueado`, text, {
 quoted: mek
   })
   break
@@ -3096,12 +2872,12 @@ quoted: mek
 case 'unblock':
   if (!isGroup) return reply(mess.only.group)
   if (!isOwner) return reply(mess.only.ownerB)
-  Lxa.blockUser (`${body.slice(9)}@c.us`, "remove")
-  Lxa.sendMessage(from, `Usuario desbloqueado`, text)
+  Samu.blockUser (`${body.slice(9)}@c.us`, "remove")
+  Samu.sendMessage(from, `Usuario desbloqueado`, text)
   break
 
 
-//--Hilih maker
+//Hilih maker
 				case 'hilih':
 					if (args.length < 1) return reply('Introduce el texto')
 					try {
@@ -3114,12 +2890,12 @@ case 'unblock':
 
 				case 'tiktokstalk':
 					try {
-						if (args.length < 1) return Lxa.sendMessage(from, 'Escribe el nombre de usuario', text, {quoted: mek})
+						if (args.length < 1) return Samu.sendMessage(from, 'Escribe el nombre de usuario', text, {quoted: mek})
 						let { user, stats } = await tiktod.getUserProfileInfo(args[0])
 						reply(mess.wait)
 						teks = `*ID* : ${user.id}\n*Username* : ${user.uniqueId}\n*Nickname* : ${user.nickname}\n*Followers* : ${stats.followerCount}\n*Followings* : ${stats.followingCount}\n*Posts* : ${stats.videoCount}\n*Luv* : ${stats.heart}\n`
 						buffer = await getBuffer(user.avatarLarger)
-						Lxa.sendMessage(from, buffer, image, {quoted: mek, caption: teks})
+						Samu.sendMessage(from, buffer, image, {quoted: mek, caption: teks})
 					} catch (e) {
 						console.log(`Error :`, color(e,'red'))
 						reply('Nombre de usuario invalido')
@@ -3133,7 +2909,7 @@ case 'unblock':
 					anu = await fetchJson(`https://mhankbarbar.tech/nulis?text=${teks}&apiKey=${BarBarKey}`, {method: 'get'})
 					if (anu.error) return reply(anu.error)
 					buff = await getBuffer(anu.result)
-					Lxa.sendMessage(from, buff, image, {quoted: mek, caption: mess.success})
+					Samu.sendMessage(from, buff, image, {quoted: mek, caption: mess.success})
 					break
 				case 'url2img':
 					tipelist = ['desktop','tablet','mobile']
@@ -3145,12 +2921,13 @@ case 'unblock':
 					anu = await fetchJson(`https://mhankbarbar.tech/api/url2image?tipe=${args[0]}&url=${args[1]}&apiKey=${BarBarKey}`, {method: 'get'})
 					if (anu.error) return reply(anu.error)
 					buff = await getBuffer(anu.result)
-					Lxa.sendMessage(from, buff, image, {quoted: mek})
+					Samu.sendMessage(from, buff, image, {quoted: mek})
 					break
 
 
 
 				case 'ttp':
+				case 'attp':
 				if (!isRegister) return reply(mess.only.daftarB)
 					if (args.length < 1) return reply('Escribe el texto')
 					ranp = getRandom('.png')
@@ -3161,18 +2938,18 @@ case 'unblock':
 					exec(`wget ${anu.result} -O ${ranp} && ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${rano}`, (err) => {
 						fs.unlinkSync(ranp)
 						if (err) return reply(mess.error.stick)
-						exec(`webpmux -set exif ${addMetadata('Lexa', 'Mrf.zvx')} ${rano} -o ${rano}`, async (error) => {
+						exec(`webpmux -set exif ${addMetadata('ttpSm330', 'NyanBot')} ${rano} -o ${rano}`, async (error) => {
 							if (error) return reply(mess.error.stick)
-							Lxa.sendMessage(from, fs.readFileSync(rano), sticker, {quoted: mek})
+							Samu.sendMessage(from, fs.readFileSync(rano), sticker, {quoted: mek})
 							fs.unlinkSync(rano)
 						})
 					})
 					
 					break
 
-//---Tagall member
+//Tagall member
 				case 'tagall':
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 if (!isGroup) return reply(mess.only.group)
 if (!isRegister) return reply(mess.only.daftarB)
 if (!isGroupAdmins) return reply(mess.only.admin)
@@ -3183,29 +2960,29 @@ for (let mem of groupMembers) {
   teks += `┃ @${mem.jid.split('@')[0]}\n`
   members_id.push(mem.jid)
 }
-mentions('〘  *TAGALL* 〙\n┏━━━━━━━━━━━━━━━━━━━━\n┠⊷'+teks+'┃━━━━━━━━━━━━━━━━━━━━\n┃────♝😺  Ⓢᗩ𝐭𝓪ᑎ  ♣🐧────\n┗━━━━━━━━━━━━━━━━━━━━', members_id, true)
+mentions('〘  *TAGALL* 〙\n┏━━━━━━━━━━━━━━━━━━━━\n┠✅'+teks+'┃━━━━━━━━━━━━━━━━━━━━\n┃────♝Samu330🐧────\n┗━━━━━━━━━━━━━━━━━━━━', members_id, true)
 break
 
 
 //clear all chat
 				case 'clearall':
 					if (!isOwner) return reply('Estas seguro?')
-					anu = await Lxa.chats.all()
-					Lxa.setMaxListeners(25)
+					anu = await Samu.chats.all()
+					Samu.setMaxListeners(25)
 					for (let _ of anu) {
-						Lxa.deleteChat(_.jid)
+						Samu.deleteChat(_.jid)
 					}
 					reply('Se borraron todos los mensajes :)')
 					break
 				case 'bc':
 					if (!isOwner) return reply('Okay')
 					if (args.length < 1) return reply('.......')
-					anu = await Lxa.chats.all()
+					anu = await Samu.chats.all()
 					if (isMedia && !mek.message.videoMessage || isQuotedImage) {
 						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
-						buff = await Lxa.downloadMediaMessage(encmedia)
+						buff = await Samu.downloadMediaMessage(encmedia)
 						for (let _ of anu) {
-							Lxa.sendMessage(_.jid, buff, image, {caption: `*${body.slice(4)}*`})
+							Samu.sendMessage(_.jid, buff, image, {caption: `*${body.slice(4)}*`})
 						}
 						reply('Anuncio dado')
 					} else {
@@ -3216,7 +2993,7 @@ break
 					}
 					break
 
-//--menaikan jabatan
+//menaikan jabatan
       case 'promote':
 					if (!isGroup) return reply(mess.only.group)
 					if (!isGroupAdmins) return reply(mess.only.admin)
@@ -3229,10 +3006,10 @@ break
 							teks += `@${_.split('@')[0]}\n`
 						}
 						mentions(from, mentioned, true)
-						Lxa.groupRemove(from, mentioned)
+						Samu.groupRemove(from, mentioned)
 					} else {
 						mentions(`Ahora @${mentioned[0].split('@')[0]} es admin del grupo!`, mentioned, true)
-						Lxa.groupMakeAdmin(from, mentioned)
+						Samu.groupMakeAdmin(from, mentioned)
 					}
 					break
 
@@ -3242,8 +3019,8 @@ if (!isGroup) return reply(mess.only.group)
 if (!isGroupAdmins) return reply(mess.only.admin)
 if (!isBotGroupAdmins) return reply(mess.only.Badmin)
 idgrup = `${from.split("@s.whatsapp.net")[0]}`;
-Lxa.groupUpdateSubject(idgrup, `${body.slice(9)}`)
-Lxa.sendMessage(from, 'Cambiar nombre del grupo', text, {
+Samu.groupUpdateSubject(idgrup, `${body.slice(9)}`)
+Samu.sendMessage(from, 'Cambiado el nombre del grupo', text, {
   quoted: mek
 })
 break
@@ -3253,13 +3030,13 @@ break
 if (!isGroup) return reply(mess.only.group)
 if (!isGroupAdmins) return reply(mess.only.admin)
 if (!isBotGroupAdmins) return reply(mess.only.Badmin)
-Lxa.groupUpdateDescription(from, `${body.slice(9)}`)
-Lxa.sendMessage(from, 'Cambiar descripción del grupo', text, {
+Samu.groupUpdateDescription(from, `${body.slice(9)}`)
+Samu.sendMessage(from, 'Cambiado la descripción del grupo', text, {
   quoted: mek
 })
 break
 
-//--menurunkan jabatan
+//menurunkan jabatan
 				case 'demote':
 					if (!isGroup) return reply(mess.only.group)
 					if (!isGroupAdmins) return reply(mess.only.admin)
@@ -3272,14 +3049,14 @@ break
 							teks += `@${_.split('@')[0]}\n`
 						}
 						mentions(teks, mentioned, true)
-						Lxa.groupRemove(from, mentioned)
+						Samu.groupRemove(from, mentioned)
 					} else {
-						mentions(`Un admi menos @${mentioned[0].split('@')[0]} por gei!`, mentioned, true)
-						Lxa.groupDemoteAdmin(from, mentioned)
+						mentions(`Un admi menos @${mentioned[0].split('@')[0]} por gei:D!`, mentioned, true)
+						Samu.groupDemoteAdmin(from, mentioned)
 					}
 					break
 
-//--menambah member
+//menambah member
 				case 'add':
 					if (!isGroup) return reply(mess.only.group)
 					if (!isGroupAdmins) return reply(mess.only.admin)
@@ -3288,14 +3065,14 @@ break
 					if (args[0].startsWith('08')) return reply('Usa el código de país')
 					try {
 						num = `${args[0].replace(/ /g, '')}@s.whatsapp.net`
-						Lxa.groupAdd(from, [num])
+						Samu.groupAdd(from, [num])
 					} catch (e) {
 						console.log('Error :', e)
 						reply('No se pudo agregar al miembro probablemente este bloqueado por el bot')
 					}
 					break
 
-//--mengeluarkan member
+//mengeluarkan member
 				case 'kick':
 					if (!isGroup) return reply(mess.only.group)
 					if (!isGroupAdmins) return reply(mess.only.admin)
@@ -3308,14 +3085,14 @@ break
 							teks += `@${_.split('@')[0]}\n`
 						}
 						mentions(teks, mentioned, true)
-						Lxa.groupRemove(from, mentioned)
+						Samu.groupRemove(from, mentioned)
 					} else {
-						mentions(`Se elimino a un joto : @${mentioned[0].split('@')[0]}`, mentioned, true)
-						Lxa.groupRemove(from, mentioned)
+						mentions(`Se elimino a : @${mentioned[0].split('@')[0]}`, mentioned, true)
+						Samu.groupRemove(from, mentioned)
 					}
 					break
 
-//--list admin grup
+//list admin grup
 				case 'listadmins':
 				  case 'listadmin':
 				    case 'adminlist':
@@ -3329,74 +3106,56 @@ break
 					mentions(teks, groupAdmins, true)
 					break
 
-//--ganti pp bot
+//ganti pp bot
 case 'setppbot':
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   if (!isOwner) return reply(mess.only.ownerB)
   const botpp = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contxtInfo: mek
-  const cuk = await Lxa.downloadAndSaveMediaMessage(botpp)
-  await Lxa.updateProfilePicture(botNumber, cuk)
+  const cuk = await Samu.downloadAndSaveMediaMessage(botpp)
+  await Samu.updateProfilePicture(botNumber, cuk)
   reply('Gracias por el nuevo perfil')
   break
 
-//event
-/*case 'event':
-  if (!isGroup) return reply(mess.only.group)
-  if (!isOwner) return reply(mess.only.ownerB)
-  if (args.length < 1) return reply('ketik 1 untuk mengaktifkan')
-  if (Number(args[0]) === 1) {
-if (isEventon) return reply('*SUDAH AKTIF* !!!')
-event.push(from)
-fs.writeFileSync('./datauser/event.json', JSON.stringify(event))
-reply('*☉]* Mengaktifkan *EVENT* di group ini*')
-  } else if (Number(args[0]) === 0) {
-event.splice(from, 1)
-fs.writeFileSync('./datauser/event.json', JSON.stringify(event))
-reply('*☉* Menonaktifkan *EVENT* di group ini*')
-  } else {
-reply(ind.satukos())
-  }
-  break
-*/
-//--Mengambil link grup
+
+//Mengambil link grup
     case 'linkgroup':
     case 'linkgc':
         if (!isGroup) return reply(mess.only.group)
         if (!isGroupAdmins) return reply(mess.only.admin)
         if (!isBotGroupAdmins) return reply(mess.only.Badmin)
-        linkgc = await Lxa.groupInviteCode(from)
+        linkgc = await Samu.groupInviteCode(from)
         reply('https://chat.whatsapp.com/'+linkgc)
                     break
 
-//--Mengeluarkan bot
+//Mengeluarkan bot
       case 'leave':
       if (!isGroup) return reply(mess.only.group)
       if (isGroupAdmins || isOwner) {
-      Lxa.groupLeave(from)
+      Samu.groupLeave(from)
                     } else {
       reply(mess.only.admin)
                     }
                     break
 
-//--Convert stiker to image
+//Convert stiker to image
 				case 'toimg':
 					if (!isQuotedSticker) return reply('Responde sticker')
 					if (!isRegister) return reply(mess.only.daftarB)
 					reply(mess.wait)
 					imgmed = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
-					medimg = await Lxa.downloadAndSaveMediaMessage(imgmed)
+					medimg = await Samu.downloadAndSaveMediaMessage(imgmed)
 					ran = getRandom('.png')
 					exec(`ffmpeg -i ${medimg} ${ran}`, (err) => {
 						fs.unlinkSync(medimg)
 						if (err) return reply('No se pudo hacer :(')
 						buffer = fs.readFileSync(ran)
-						Lxa.sendMessage(from, buffer, image, {quoted: mek, caption: 'Satan-Bot'})
+						Samu.sendMessage(from, buffer, image, {quoted: mek, caption: 'Satan-Bot'})
 						fs.unlinkSync(ran)
 					})
 					break
 
 
-//--arti mimpi
+//arti mimpi
   case 'artimimpi':
 aruga = body.slice(11)
 if (!isRegister) return reply(mess.only.daftarB)
@@ -3412,7 +3171,7 @@ reply(anu.result.artimimpi)
 }
 break
 
-//--Simsimi talk
+//Simsimi talk
 				case 'simi':
 					if (args.length < 1) return reply(`Hola ${pushname}`)
 					teks = body.slice(6)
@@ -3437,9 +3196,8 @@ case 'bot':
 					}
 					break
 
-//--Verifkasi
+//Verifkasi
 case 'verify':
-case 'daftar':
   case 'register':
 if (isRegister) return reply('Tu cuenta ya estaba verificada')
 const namaUser = `${pushname}`
@@ -3448,21 +3206,21 @@ const serialUser = createSerial(20)
 veri = sender
 if (isGroup) {
   addRegisteredUser(sender, namaUser, umurUser, time, serialUser)
-  hasil = `〘  *Vericación* 〙
+  hasil = `✅  *Vericación* ✅
 Código : *${serialUser}*
 ╔════════════════════
-╠≽️ *Nombre* : *${namaUser}*
-╠≽️ *Número* : *${sender.split("@")[0]}*
+╠✏ *Nombre* : *${namaUser}*
+╠📲 *Número* : *${sender.split("@")[0]}*
 ╚════════════════════`
 reply(hasil)
   console.log(color('[REGISTER]'), color(time, 'yellow'), 'Name:', color(namaUser, 'cyan'), 'Age:', color(umurUser, 'cyan'), 'Serial:', color(serialUser, 'cyan'), 'in', color(sender || groupName))
 } else {
   addRegisteredUser(sender, namaUser, umurUser, time, serialUser)
-  hasil = `〘  *Verificación* 〙
+  hasil = `✅  *Verificación* ✅
 Código : *${serialUser}*
 ╔════════════════════
-╠≽️ *Nombre* : *${namaUser}*
-╠≽️ *Número* : *${sender.split("@")[0]}*
+╠🙍🏻‍♂️ *Nombre* : *${namaUser}*
+╠📲 *Número* : *${sender.split("@")[0]}*
 ╚════════════════════`
 reply(hasil)
   console.log(color('[REGISTER]'), color(time, 'yellow'), 'Name:', color(namaUser, 'cyan'), 'Age:', color(umurUser, 'cyan'), 'Serial:', color(serialUser, 'cyan'))
@@ -3471,9 +3229,9 @@ tm = `verificación completa usa ${prefix}Menu para ver la lista`
 reply(tm)
 break
 
-//--grup semua peserta
+//grup semua peserta
 case 'closegc':
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   if (!isGroup) return reply(mess.only.group)
   if (!isGroupAdmins) return reply(mess.only.admin)
   if (!isBotGroupAdmins) return reply(mess.only.Badmin)
@@ -3484,14 +3242,14 @@ contextInfo: {
   mentionedJid: [nomor]
 }
   }
-  Lxa.groupSettingChange (from, GroupSettingChange.messageSend, true);
+  Samu.groupSettingChange (from, GroupSettingChange.messageSend, true);
   reply(close)
   break
 
-//--grup hanya admin
+//grup hanya admin
 case 'opengc':
   case 'bukagc':
-Lxa.updatePresence(from, Presence.composing)
+Samu.updatePresence(from, Presence.composing)
 if (!isGroup) return reply(mess.only.group)
 if (!isGroupAdmins) return reply(mess.only.admin)
 if (!isBotGroupAdmins) return reply(mess.only.Badmin)
@@ -3501,20 +3259,20 @@ open = {
 mentionedJid: [sender]
   }
 }
-Lxa.groupSettingChange (from, GroupSettingChange.messageSend, false)
-Lxa.sendMessage(from, open, text, {
+Samu.groupSettingChange (from, GroupSettingChange.messageSend, false)
+Samu.sendMessage(from, open, text, {
   quoted: mek
 })
 break
 
-//---mengahapus pesan bot
+//mengahapus pesan bot
 case 'delete':
   case 'del':
 if (!isGroup)return reply(mess.only.group)
 if (!isRegister) return reply(mess.only.daftarB)
 if (!isGroupAdmins)return reply(mess.only.admin)
 try {
-Lxa.deleteMessage(from, {
+Samu.deleteMessage(from, {
   id: mek.message.extendedTextMessage.contextInfo.stanzaId, remoteJid: from, fromMe: true
 })
 } catch {
@@ -3522,7 +3280,7 @@ Lxa.deleteMessage(from, {
 }
 break
 
-//--ganteng cekkkk
+//ganteng cekkkk
   case 'gantengcek':
 if (args.length < 1) return reply('Ingresa el nombre')
 ganteng = body.slice(12)
@@ -3545,12 +3303,12 @@ const gan = ['10',
   '41',
   '39']
 const teng = gan[Math.floor(Math.random() * gan.length)]
-Lxa.sendMessage(from, 'Gantengcek : *'+ganteng+'*\n\nPorcentaje : '+ teng+'%', text, {
+Samu.sendMessage(from, 'Gantengcek : *'+ganteng+'*\n\nPorcentaje : '+ teng+'%', text, {
   quoted: mek
 })
 break
 
-//--Cantik cekk
+//Cantik cekk
   case 'cantikcek':
 if (args.length < 1) return reply('Escribe el nombre')
 cantik = body.slice(12)
@@ -3573,7 +3331,7 @@ const can = ['10',
   '41',
   '39']
 const tik = can[Math.floor(Math.random() * can.length)]
-Lxa.sendMessage(from, 'Cantikcek *'+cantik+'*\n\nPorcentaje : '+ tik+'%', text, {
+Samu.sendMessage(from, 'Cantikcek *'+cantik+'*\n\nPorcentaje : '+ tik+'%', text, {
   quoted: mek
 })
 break
@@ -3607,7 +3365,7 @@ break
 					try {
 						pp = await Lxa.getProfilePicture(id)
 						buffer = await getBuffer(pp)
-						Lxa.updateProfilePicture(botNumber, buffer)
+						Samu.updateProfilePicture(botNumber, buffer)
 						mentions(`La foto de perfil se actualizó correctamente usando la foto de perfil @${id.split('@')[0]}`, [jid], true)
 					} catch (e) {
 						reply('Error')
@@ -3619,7 +3377,7 @@ break
 						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
 						media = await Lxa.downloadMediaMessage(encmedia)
 						await wait(media).then(res => {
-							Lxa.sendMessage(from, res.video, video, {quoted: mek, caption: res.teks.trim()})
+							Samu.sendMessage(from, res.video, video, {quoted: mek, caption: res.teks.trim()})
 						}).catch(err => {
 							reply(err)
 						})
@@ -3631,7 +3389,7 @@ break
 
 				default:
 				if (body.startsWith(`${prefix}${command}`)) {
-  reply(`        ────────────────\nHola *${pushname}* !!!\nEse comando no esta en mi lista : *${prefix}${command}*\nUsa esto para verlos*${prefix}Menu*\n        ────────────────`)
+  reply(`        ────────────────\nHola *${pushname}* !!!\nEse comando no esta en mi lista : *${prefix}${command}*\nUsa esto para verlos*${prefix}menu*\n        ────────────────`)
 				}
 					if (isGroup && isSimi && budy != undefined) {
 						console.log(budy)
