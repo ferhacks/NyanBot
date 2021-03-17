@@ -1407,7 +1407,7 @@ if (!isGroupAdmins) return reply(mess.only.admin)
 if (!isBotGroupAdmins) return reply(mess.only.Badmin)
 const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
 reply(mess.wait)
-const media = await Lxa.downloadAndSaveMediaMessage(encmedia)
+const media = await Samu.downloadAndSaveMediaMessage(encmedia)
 await Samu.updateProfilePicture (from, media)
 reply('Se cambio la foto del grupo:D')
 break
@@ -1419,7 +1419,7 @@ case 'triggered':
            if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
            ger = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
            reply(mess.wait)
-         owgi = await Lxa.downloadAndSaveMediaMessage(ger)
+         owgi = await Samu.downloadAndSaveMediaMessage(ger)
            anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
         teks = `${anu.display_url}`
          ranp = getRandom('.gif')
