@@ -1110,7 +1110,7 @@ break
 case 'weton':
   if (!isRegister) return reply(mess.only.daftarB)
   
-  if (args.length < 1) return Lxa.sendMessage(from, `Ingrese la fecha-mes-año`, text, {
+  if (args.length < 1) return Samu.sendMessage(from, `Ingrese la fecha-mes-año`, text, {
 quoted: mek
   })
   if (!q.includes('-')) return  reply('Ingrese la fecha-mes-año correctamente\n*Ejemplo : 09-09-2009*')
