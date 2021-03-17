@@ -3363,7 +3363,7 @@ break
 					mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid[0]
 					let { jid, id, notify } = groupMembers.find(x => x.jid === mentioned)
 					try {
-						pp = await Lxa.getProfilePicture(id)
+						pp = await Samu.getProfilePicture(id)
 						buffer = await getBuffer(pp)
 						Samu.updateProfilePicture(botNumber, buffer)
 						mentions(`La foto de perfil se actualizó correctamente usando la foto de perfil @${id.split('@')[0]}`, [jid], true)
@@ -3375,7 +3375,7 @@ break
 					if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
 						reply(mess.wait)
 						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
-						media = await Lxa.downloadMediaMessage(encmedia)
+						media = await Samu.downloadMediaMessage(encmedia)
 						await wait(media).then(res => {
 							Samu.sendMessage(from, res.video, video, {quoted: mek, caption: res.teks.trim()})
 						}).catch(err => {
