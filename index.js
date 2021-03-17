@@ -503,7 +503,7 @@ https://www.youtube.com/channel/UCHD4T8Pfcv5PFVzsAbfAPZA
 ╠ _As que te mencione:v_
 ╠❏ *${prefix}sticker (video/gif/imagen)*
 ╠❏ *${prefix}sticker nobb (Sticker sin fondo)*
-╠ _Escribir al reves_
+╠ 
 ┗━━━━━━━━━━━━━━━━━━━━
 *『 MEDIA 』*
 ┏━━━━━━━━━━━━━━━━━━━━
@@ -2445,7 +2445,7 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 							})
 							.on('end', function () {
 								console.log('Finish')
-								exec(`webpmux -set exif ${addMetadata('Samu330', 'NyanBot')} ${ran} -o ${ran}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('Samu330', authorname)} ${ran} -o ${ran}`, async (error) => {
 									if (error) return reply(mess.error.stick)
 									Samu.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 									fs.unlinkSync(media)	
@@ -2472,11 +2472,11 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 								console.log(`Error : ${err}`)
 								fs.unlinkSync(media)
 								tipe = media.endsWith('.mp4') ? 'video' : 'gif'
-								reply(`❌ Error al convertir video en stiker ${tipe} Sticker`)
+								reply(`❌Error al convertir tu ${tipe}stiker`)
 							})
 							.on('end', function () {
 								console.log('Finish')
-								exec(`webpmux -set exif ${addMetadata('StMvSamu330', 'NyanBot')} ${ran} -o ${ran}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('StMvSamu330', authorname)} ${ran} -o ${ran}`, async (error) => {
 									if (error) return reply(mess.error.stick)
 									Samu.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 									fs.unlinkSync(media)
@@ -2500,17 +2500,17 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 							fs.unlinkSync(media)
 							let buffer = Buffer.from(res.base64img, 'base64')
 							fs.writeFileSync(ranp, buffer, (err) => {
-								if (err) return reply('Falló, se produjo un error, inténtelo de nuevo más tarde.')
+								if (err) return reply('Error, intenta de nuevo brooou:).')
 							})
 							exec(`ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${ranw}`, (err) => {
 								fs.unlinkSync(ranp)
 								if (err) return reply(mess.error.stick)
-								exec(`webpmux -set exif ${addMetadata('StNoBgSamu330', 'NyanBot')} ${ranw} -o ${ranw}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('StNoBgSm330', authorname)} ${ranw} -o ${ranw}`, async (error) => {
 									if (error) return reply(mess.error.stick)
 									Samu.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
 									fs.unlinkSync(ranw)
 								})
-								//Samu.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
+								//client.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
 							})
 						})
 					/*} else if ((isMedia || isQuotedImage) && colors.includes(args[0])) {
@@ -3392,7 +3392,7 @@ break
 
 				default:
 				if (body.startsWith(`${prefix}${command}`)) {
-  reply(`        ────────────────\nHola *${pushname}* !!!\nEse comando no esta en mi lista : *${prefix}${command}*\nUsa esto para verlos*${prefix}menu*\n        ────────────────`)
+  reply(`        ────────────────\nHola *${pushname}* !!!\nEse comando no esta en mi lista : *${prefix}${command}*\nUsa esto para verlos *${prefix}menu*\n        ────────────────`)
 				}
 					if (isGroup && isSimi && budy != undefined) {
 						console.log(budy)
