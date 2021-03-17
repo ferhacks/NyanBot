@@ -501,6 +501,9 @@ https://www.youtube.com/channel/UCHD4T8Pfcv5PFVzsAbfAPZA
 ╠ _Tu perfil_
 ╠❏ *${prefix}Tagme*
 ╠ _As que te mencione:v_
+╠❏ *${prefix}sticker (video/gif/imagen)*
+╠❏ *${prefix}sticker nobb (Sticker sin fondo)*
+╠ _Escribir al reves_
 ┗━━━━━━━━━━━━━━━━━━━━
 *『 MEDIA 』*
 ┏━━━━━━━━━━━━━━━━━━━━
@@ -1445,7 +1448,7 @@ case 'tourl':
            if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
            ger = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
            reply(mess.wait)
-         owgi = await Lxa.downloadAndSaveMediaMessage(ger)
+         owgi = await Samu.downloadAndSaveMediaMessage(ger)
            anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
         teks = `${anu.display_url}`
 reply(teks)
@@ -1460,7 +1463,7 @@ var imgbb = require('imgbb-uploader')
 if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
   ger = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
   reply(mess.wait)
-  owgi = await Lxa.downloadAndSaveMediaMessage(ger)
+  owgi = await Samu.downloadAndSaveMediaMessage(ger)
   anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
   teks = `${anu.display_url}`
   ranp = getRandom('.gif')
@@ -1487,7 +1490,7 @@ var imgbb = require('imgbb-uploader')
 if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
   ted = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
   reply(mess.wait)
-  owgi = await Lxa.downloadAndSaveMediaMessage(ted)
+  owgi = await Samu.downloadAndSaveMediaMessage(ted)
   tels = body.slice(7)
   anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
   hehe = await getBuffer(`https://videfikri.com/api/textmaker/pencil/?urlgbr=${anu.display_url}`)
@@ -1504,7 +1507,7 @@ var imgbb = require('imgbb-uploader')
 if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
   ted = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
   reply(mess.wait)
-  owgi = await Lxa.downloadAndSaveMediaMessage(ted)
+  owgi = await Samu.downloadAndSaveMediaMessage(ted)
   tels = body.slice(7)
   anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
   hehe = await getBuffer(`https://videfikri.com/api/textmaker/wanted/?urlgbr=${anu.display_url}&text1=Dicari&text2=${tels}`)
@@ -1520,7 +1523,7 @@ var imgbb = require('imgbb-uploader')
 if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
   ted = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
   reply(mess.wait)
-  owgi = await Lxa.downloadAndSaveMediaMessage(ted)
+  owgi = await Samu.downloadAndSaveMediaMessage(ted)
   tels = body.slice(7)
   anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
   hehe = await getBuffer(`https://videfikri.com/api/textmaker/gtavposter/?urlgbr=${anu.display_url}`)
@@ -1539,7 +1542,7 @@ break
 
 //list kode negara
 case 'pais':
-Lxa.sendMessage(from, negara(prefix, sender), text, {
+Samu.sendMessage(from, negara(prefix, sender), text, {
   quoted: mek
 })
 break
