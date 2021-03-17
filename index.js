@@ -812,7 +812,7 @@ reply(mess.wait)
 n = JSON.parse(JSON.stringify(data));
 nimek = n[Math.floor(Math.random() * n.length)];
 pok = await getBuffer(nimek)
-Lxa.sendMessage(from, pok, image, {
+Samu.sendMessage(from, pok, image, {
   quoted: mek, caption: `Resultado : *${tels}*`
 })
 
