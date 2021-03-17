@@ -71,7 +71,6 @@ const _registered = JSON.parse(fs.readFileSync('./datauser/registered.json'));
 //File json data
 const trut = JSON.parse(fs.readFileSync('./data/truth.json'));
 const fak = JSON.parse(fs.readFileSync('./data/dare.json'));
-const dare = JSON.parse(fs.readFileSync('./data/fakta.json'));
 //
 
 
@@ -154,6 +153,7 @@ function kyun(seconds){
 async function starts() {
 	const Samu = new WAConnection()
 	Samu.logger.level = 'warn'
+	console.log(banner.string)
 	Samu.on('qr', () => {
 		console.log(color('[','white'), color('!','red'), color(']','white'), color(' Scan the qr code above'))
 	})
