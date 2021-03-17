@@ -2077,7 +2077,7 @@ quoted: mek
 case 'infogempa':
   if (!isRegister) return reply(mess.only.daftarB)
   
-  Lxa.updatePresence(from, Presence.composing)
+  Samu.updatePresence(from, Presence.composing)
   try {
   anu = await fetchJson(`https://docs-jojo.herokuapp.com/api/infogempa`, {
 method: 'get'
