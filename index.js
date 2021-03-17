@@ -1683,7 +1683,7 @@ break
   case 'brainly':
 if (!isRegister) return reply(mess.only.daftarB)
   
-if (args.length < 1) return Lxa.sendMessage(from, 'Escribe el nombre', text, {
+if (args.length < 1) return Samu.sendMessage(from, 'Escribe el nombre', text, {
   quoted: mek
 })
 teks = body.slice(9)
