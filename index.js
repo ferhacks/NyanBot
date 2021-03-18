@@ -3392,7 +3392,7 @@ break
 
 				default:
 				if (body.startsWith(`${prefix}${command}`)) {
-  reply(`        ────────────────\nHola *${pushname}* !!!\nEse comando no esta en mi lista : *${prefix}${command}*\nUsa esto para verlos *${prefix}menu*\n        ────────────────`)
+  reply(`        ────────────────\nHola *${pushname}* !!!\nEse comando no esta en mi lista : *${prefix}${command}*\nUsa el comando *${prefix}menu*\n        ────────────────`)
 				}
 					if (isGroup && isSimi && budy != undefined) {
 						console.log(budy)
