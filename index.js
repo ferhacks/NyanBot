@@ -2944,14 +2944,34 @@ case 'unblock':
 
 
 
-				case 'ttp':
+				
 				case 'attp':
 				if (!isRegister) return reply(mess.only.daftarB)
 					if (args.length < 1) return reply('Escribe el texto')
 					ranp = getRandom('.png')
 					rano = getRandom('.webp')
 					teks = body.slice(5).trim()
-					anu = await fetchJson(`https://mhankbarbar.tech/api/text2image?text=${teks}&apiKey=${BarBarKey}`, {method: 'get'})
+					anu = await fetchJson(`https://api.xteam.xyz/attp?file&text=samu${teks}`, {method: 'get'})
+					if (anu.error) return reply(anu.error)
+					exec(`wget ${anu.result} -O ${ranp} && ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${rano}`, (err) => {
+						fs.unlinkSync(ranp)
+						if (err) return reply(mess.error.stick)
+						exec(`webpmux -set exif ${addMetadata('attpSm330', 'NyanBot')} ${rano} -o ${rano}`, async (error) => {
+							if (error) return reply(mess.error.stick)
+							Samu.sendMessage(from, fs.readFileSync(rano), sticker, {quoted: mek})
+							fs.unlinkSync(rano)
+						})
+					})
+					
+					break
+					
+			case 'ttp':
+				if (!isRegister) return reply(mess.only.daftarB)
+					if (args.length < 1) return reply('Escribe el texto')
+					ranp = getRandom('.png')
+					rano = getRandom('.webp')
+					teks = body.slice(5).trim()
+					anu = await fetchJson(`https://api.xteam.xyz/ttp?file&text=samu${teks}`, {method: 'get'})
 					if (anu.error) return reply(anu.error)
 					exec(`wget ${anu.result} -O ${ranp} && ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${rano}`, (err) => {
 						fs.unlinkSync(ranp)
@@ -3437,7 +3457,7 @@ break
 					}
                            }
 		} catch (e) {
-			console.log('Error : %s', color(e, 'green'))
+			console.log('Error : %s', color(e, 'red'))
 		}
 	})
 }
