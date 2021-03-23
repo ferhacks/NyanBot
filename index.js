@@ -152,20 +152,21 @@ function kyun(seconds){
 //Whatsapp start connect
 async function starts() {
 	const Samu = new WAConnection()
-	client.logger.level = 'warn'
-	client.on('qr', () => {
+	Samu.logger.level = 'warn'
+	console.log(banner.string)
+	Samu.on('qr', () => {
 		console.log(color('[','white'), color('!','red'), color(']','white'), color(' Scan the qr code above'))
 	})
 
-	fs.existsSync('./Samu330.json') && client.loadAuthInfo('./Samu330.json')
-	client.on('connecting', () => {
+	fs.existsSync('./Lexa.json') && Samu.loadAuthInfo('./Lexa.json')
+	Samu.on('connecting', () => {
 		start('2', 'Connecting...')
 	})
-	client.on('open', () => {
+	Samu.on('open', () => {
 		success('2', 'Connected')
 	})
-	await client.connect({timeoutMs: 30*1000})
-        fs.writeFileSync('./Samu330.json', JSON.stringify(Samu.base64EncodedAuthInfo(), null, '\t'))
+	await Samu.connect({timeoutMs: 30*1000})
+        fs.writeFileSync('./Lexa.json', JSON.stringify(Samu.base64EncodedAuthInfo(), null, '\t'))
 
 
 	Samu.on('group-participants-update', async (anu) => {
