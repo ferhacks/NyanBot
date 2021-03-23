@@ -157,7 +157,7 @@ async function starts() {
 		console.log(color('[','white'), color('!','red'), color(']','white'), color(' Scan the qr code above'))
 	})
 
-	fs.existsSync('./Samu330.json') && client.loadAuthInfo('./BarBar.json')
+	fs.existsSync('./Samu330.json') && client.loadAuthInfo('./Samu330.json')
 	client.on('connecting', () => {
 		start('2', 'Connecting...')
 	})
@@ -259,6 +259,7 @@ Usa ${prefix}verify para verificarte y poder usar el bot.`
 			const isBotGroupAdmins = groupAdmins.includes(botNumber) || false
 			const isGroupAdmins = groupAdmins.includes(sender) || false
 			const isWelkom = isGroup ? welkom.includes(from) : false
+			const isAntilink = isGroup ? antilink.includes(from) : false
 			const isOwner = ownerNumber.includes(sender)
 			const isSimi = isGroup ? samih.includes(from): false
       const isRegister = checkRegisteredUser(sender)
@@ -3166,10 +3167,28 @@ case 'setppbot':
 						fs.unlinkSync(medimg)
 						if (err) return reply('No se pudo hacer :(')
 						buffer = fs.readFileSync(ran)
-						Samu.sendMessage(from, buffer, image, {quoted: mek, caption: 'Satan-Bot'})
+						Samu.sendMessage(from, buffer, image, {quoted: mek, caption: 'Readyyyyyyyyyyy:3'})
 						fs.unlinkSync(ran)
 					})
 					break
+					
+				case 'antilink':
+					if (!isGroup) return reply(mess.only.group)
+					if (!isGroupAdmins) return reply(mess.only.admin)
+					if (args.length < 1) return reply('Hmmmm')
+					if (Number(args[0]) === 1) {
+						if (isAntilink) return reply('Ya esta activo nmms-_-')
+						antilink.push(from)
+						fs.writeFileSync('./data/antilinkk.json', JSON.stringify(antilink))
+						reply('Se activo con exito')
+					} else if (Number(args[0]) === 0) {
+						antilink.splice(from, 1)
+						fs.writeFileSync('./data/antilink.json', JSON.stringify(antilink))
+						reply('Se desactivo con exito')
+					} else {
+						reply('1 para activar, 0 para desactivar')
+					}
+                                      break
 
 
 //arti mimpi
