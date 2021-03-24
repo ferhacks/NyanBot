@@ -153,12 +153,11 @@ function kyun(seconds){
 async function starts() {
 	const Samu = new WAConnection()
 	Samu.logger.level = 'warn'
-	console.log(banner.string)
 	Samu.on('qr', () => {
 		console.log(color('[','white'), color('!','red'), color(']','white'), color(' Scan the qr code above'))
 	})
 
-	fs.existsSync('./Lexa.json') && Samu.loadAuthInfo('./Lexa.json')
+	fs.existsSync('./Samu.json') && Samu.loadAuthInfo('./Samu.json')
 	Samu.on('connecting', () => {
 		start('2', 'Connecting...')
 	})
@@ -167,7 +166,6 @@ async function starts() {
 	})
 	await Samu.connect({timeoutMs: 30*1000})
         fs.writeFileSync('./Lexa.json', JSON.stringify(Samu.base64EncodedAuthInfo(), null, '\t'))
-
 
 	Samu.on('group-participants-update', async (anu) => {
 		if (!welkom.includes(anu.jid)) return
@@ -2999,7 +2997,7 @@ for (let mem of groupMembers) {
   teks += `┃ @${mem.jid.split('@')[0]}\n`
   members_id.push(mem.jid)
 }
-mentions('〘  *TAGALL* 〙\n┏━━━━━━━━━━━━━━━━━━━━\n┠✅'+teks+'┃━━━━━━━━━━━━━━━━━━━━\n┃────♝Samu330🐧────\n┗━━━━━━━━━━━━━━━━━━━━', members_id, true)
+mentions('✏  *TAGALL* ✏\n┏━━━━━━━━━━━━━━━━━━━━\n┠✅'+teks+'┃━━━━━━━━━━━━━━━━━━━━\n┃────♝Samu330🐧────\n┗━━━━━━━━━━━━━━━━━━━━', members_id, true)
 break
 
 
@@ -3200,7 +3198,7 @@ case 'setppbot':
 					if (Number(args[0]) === 1) {
 						if (isAntilink) return reply('Ya esta activo nmms-_-')
 						antilink.push(from)
-						fs.writeFileSync('./data/antilinkk.json', JSON.stringify(antilink))
+						fs.writeFileSync('./data/antilink.json', JSON.stringify(antilink))
 						reply('Se activo con exito')
 					} else if (Number(args[0]) === 0) {
 						antilink.splice(from, 1)
@@ -3270,7 +3268,7 @@ Código : *${serialUser}*
 ╠📲 *Número* : *${sender.split("@")[0]}*
 ╚════════════════════`
 reply(hasil)
-  console.log(color('[REGISTER]'), color(time, 'yellow'), 'Name:', color(namaUser, 'cyan'), 'Age:', color(umurUser, 'cyan'), 'Serial:', color(serialUser, 'cyan'), 'in', color(sender || groupName))
+  console.log(color('[REGISTER]'), color(time, 'yellow'), 'Name:', color(namaUser, 'green'), 'Age:', color(umurUser, 'blue'), 'Serial:', color(serialUser, 'red'), 'in', color(sender || groupName))
 } else {
   addRegisteredUser(sender, namaUser, umurUser, time, serialUser)
   hasil = `✅  *Verificación* ✅
@@ -3458,7 +3456,7 @@ break
 					}
                            }
 		} catch (e) {
-			console.log('Error : %s', color(e, 'red'))
+			console.log('Error : %s', color(e, 'green'))
 		}
 	})
 }
