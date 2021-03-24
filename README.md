@@ -15,6 +15,9 @@
 <a href="https://www.codefactor.io/repository/github/Samu330/NyanBot"><img src="https://www.codefactor.io/repository/github/mhankbarbar/termux-wabot/badge" alt="CodeFactor" /></a>
 <a href="#"><img title="MAINTENED" src="https://img.shields.io/badge/MAINTENED-YES-blue.svg"</a>
 </p>
+<p align="center">
+<img src="https://www.crackingpro.com/uploads/team_Cracker.gif" width="200" height="80"/>
+</p>
 
 ## Clone this project
 
