@@ -3255,6 +3255,7 @@ case 'bot':
 
 //Verifkasi
 case 'verify':
+case 'daftar':
   case 'register':
 if (isRegister) return reply('Tu cuenta ya estaba verificada')
 const namaUser = `${pushname}`
@@ -3263,30 +3264,30 @@ const serialUser = createSerial(20)
 veri = sender
 if (isGroup) {
   addRegisteredUser(sender, namaUser, umurUser, time, serialUser)
-  hasil = `✅  *Vericación* ✅
+  hasil = `〘  *Vericación* 〙
 Código : *${serialUser}*
 ╔════════════════════
-╠✏ *Nombre* : *${namaUser}*
-╠📲 *Número* : *${sender.split("@")[0]}*
+╠✏ *🙍🏻‍♂️Nombre* : *${namaUser}*
+╠✏ *📲Número* : *${sender.split("@")[0]}*
 ╚════════════════════`
 reply(hasil)
-  console.log(color('[REGISTER]'), color(time, 'yellow'), 'Name:', color(namaUser, 'green'), 'Age:', color(umurUser, 'blue'), 'Serial:', color(serialUser, 'red'), 'in', color(sender || groupName))
+  console.log(color('[REGISTER]'), color(time, 'yellow'), 'Name:', color(namaUser, 'cyan'), 'Age:', color(umurUser, 'cyan'), 'Serial:', color(serialUser, 'cyan'), 'in', color(sender || groupName))
 } else {
   addRegisteredUser(sender, namaUser, umurUser, time, serialUser)
-  hasil = `✅  *Verificación* ✅
+  hasil = `〘  *Verificación* 〙
 Código : *${serialUser}*
 ╔════════════════════
-╠🙍🏻‍♂️ *Nombre* : *${namaUser}*
-╠📲 *Número* : *${sender.split("@")[0]}*
+╠✏ *🙍🏻‍♂️Nombre* : *${namaUser}*
+╠✏ *📲Número* : *${sender.split("@")[0]}*
 ╚════════════════════`
 reply(hasil)
   console.log(color('[REGISTER]'), color(time, 'yellow'), 'Name:', color(namaUser, 'cyan'), 'Age:', color(umurUser, 'cyan'), 'Serial:', color(serialUser, 'cyan'))
 }
-tm = `verificación completa usa ${prefix}Menu para ver la lista`
+tm = `verificación completa usa ${prefix}Menu para ver los comandos`
 reply(tm)
 break
 
-//grup semua peserta
+//--grup semua peserta
 case 'closegc':
   Samu.updatePresence(from, Presence.composing)
   if (!isGroup) return reply(mess.only.group)
@@ -3303,7 +3304,7 @@ contextInfo: {
   reply(close)
   break
 
-//grup hanya admin
+//--grup hanya admin
 case 'opengc':
   case 'bukagc':
 Samu.updatePresence(from, Presence.composing)
@@ -3322,7 +3323,7 @@ Samu.sendMessage(from, open, text, {
 })
 break
 
-//mengahapus pesan bot
+//---mengahapus pesan bot
 case 'delete':
   case 'del':
 if (!isGroup)return reply(mess.only.group)
@@ -3337,7 +3338,7 @@ Samu.deleteMessage(from, {
 }
 break
 
-//ganteng cekkkk
+//--ganteng cekkkk
   case 'gantengcek':
 if (args.length < 1) return reply('Ingresa el nombre')
 ganteng = body.slice(12)
@@ -3365,7 +3366,7 @@ Samu.sendMessage(from, 'Gantengcek : *'+ganteng+'*\n\nPorcentaje : '+ teng+'%', 
 })
 break
 
-//Cantik cekk
+//--Cantik cekk
   case 'cantikcek':
 if (args.length < 1) return reply('Escribe el nombre')
 cantik = body.slice(12)
@@ -3420,7 +3421,7 @@ break
 					mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid[0]
 					let { jid, id, notify } = groupMembers.find(x => x.jid === mentioned)
 					try {
-						pp = await Samu.getProfilePicture(id)
+						pp = await Lxa.getProfilePicture(id)
 						buffer = await getBuffer(pp)
 						Samu.updateProfilePicture(botNumber, buffer)
 						mentions(`La foto de perfil se actualizó correctamente usando la foto de perfil @${id.split('@')[0]}`, [jid], true)
@@ -3446,7 +3447,7 @@ break
 
 				default:
 				if (body.startsWith(`${prefix}${command}`)) {
-  reply(`        ────────────────\nHola *${pushname}* !!!\nEse comando no esta en mi lista : *${prefix}${command}*\nUsa el comando *${prefix}menu*\n        ────────────────`)
+  reply(`        ────────────────\nHola *${pushname}* !!!\nEse comando no esta en mi lista : *${prefix}${command}*\nUsa esto para verlos*${prefix}Menu*\n        ────────────────`)
 				}
 					if (isGroup && isSimi && budy != undefined) {
 						console.log(budy)
