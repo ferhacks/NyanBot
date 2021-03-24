@@ -18,7 +18,7 @@
 <p align="center">
 <img src="https://www.crackingpro.com/uploads/team_Cracker.gif" width="200" height="80"/>
 </p>
-### <img src="https://i.imgur.com/n1zo2wL.gif" width="30" height="30"/> NyanBot🐬
+<img src="https://i.imgur.com/n1zo2wL.gif" width="30" height="30"/> NyanBot🐬
 
 ## Clone this project
 
