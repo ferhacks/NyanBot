@@ -153,6 +153,7 @@ function kyun(seconds){
 async function starts() {
 	const Samu = new WAConnection()
 	Samu.logger.level = 'warn'
+	console.log(banner.string)
 	Samu.on('qr', () => {
 		console.log(color('[','white'), color('!','red'), color(']','white'), color(' Scan the qr code above'))
 	})
@@ -165,7 +166,8 @@ async function starts() {
 		success('2', 'Connected')
 	})
 	await Samu.connect({timeoutMs: 30*1000})
-        fs.writeFileSync('./Lexa.json', JSON.stringify(Samu.base64EncodedAuthInfo(), null, '\t'))
+        fs.writeFileSync('./Samu.json', JSON.stringify(Samu.base64EncodedAuthInfo(), null, '\t'))
+
 
 	Samu.on('group-participants-update', async (anu) => {
 		if (!welkom.includes(anu.jid)) return
