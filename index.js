@@ -3421,7 +3421,7 @@ break
 					mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid[0]
 					let { jid, id, notify } = groupMembers.find(x => x.jid === mentioned)
 					try {
-						pp = await Lxa.getProfilePicture(id)
+						pp = await Samu.getProfilePicture(id)
 						buffer = await getBuffer(pp)
 						Samu.updateProfilePicture(botNumber, buffer)
 						mentions(`La foto de perfil se actualizó correctamente usando la foto de perfil @${id.split('@')[0]}`, [jid], true)
