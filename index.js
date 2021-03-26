@@ -864,7 +864,7 @@ samu.on('group-participants-update', async (anu) => {
   			break
                 case 'chord':
                 anu = await fetchJson(`https://tobz-api.herokuapp.com/api/chord?q=${body.slice(7)}&apikey=BotWeA`)
-                client.sendMessage(from, anu.result, text, {quoted:mek})
+                samu.sendMessage(from, anu.result, text, {quoted:mek})
                 break
 				case 'modd':
 				if (!isRegistered) return reply(ind.noregis())
