@@ -60,10 +60,10 @@ const ownerNumber = ["14694222222@s.whatsapp.net","14694222222@s.whatsapp.net"]
 
        
 /*********** LOAD FILE ***********/
-const setiker = JSON.parse(fs.readFileSync('./temp/stik.json'))
-const videonye = JSON.parse(fs.readFileSync('./temp/vid.json'))
-const audionye = JSON.parse(fs.readFileSync('./temp/vn.json'))
-const imagenye = JSON.parse(fs.readFileSync('./temp/image.json'))
+const setiker = JSON.parse(fs.readFileSync('./strg/stik.json'))
+const videonye = JSON.parse(fs.readFileSync('./strg/video.json'))
+const audionye = JSON.parse(fs.readFileSync('./strg/audio.json'))
+const imagenye = JSON.parse(fs.readFileSync('./strg/image.json'))
 const _leveling = JSON.parse(fs.readFileSync('./database/group/leveling.json'))
 const _level = JSON.parse(fs.readFileSync('./database/user/level.json'))
 const _registered = JSON.parse(fs.readFileSync('./database/bot/registered.json'))
