@@ -918,14 +918,14 @@ samu.on('group-participants-update', async (anu) => {
                 veri = sender
                 if (isGroup) {
                     addRegisteredUser(sender, namaUser, umurUser, time, serialUser)
-                    await client.sendMessage(from, ppimg, image, {quoted: mek, caption: ind.registered(namaUser, umurUser, serialUser, time, sender)})
+                    await samu.sendMessage(from, ppimg, image, {quoted: mek, caption: ind.registered(namaUser, umurUser, serialUser, time, sender)})
                     addATM(sender)
                     addLevelingId(sender)
                     checkLimit(sender)
                     console.log(color('[REGISTER]'), color(time, 'yellow'), 'Name:', color(namaUser, 'red'), 'Age:', color(umurUser, 'cyan'), 'Serial:', color(serialUser, 'blue'), 'in', color(sender || groupName))
                 } else {
                     addRegisteredUser(sender, namaUser, umurUser, time, serialUser)
-                    await client.sendMessage(from, ppimg, image, {quoted: mek, caption: ind.registered(namaUser, umurUser, serialUser, time, sender)})
+                    await samu.sendMessage(from, ppimg, image, {quoted: mek, caption: ind.registered(namaUser, umurUser, serialUser, time, sender)})
                     addATM(sender)
                     addLevelingId(sender)
                     checkLimit(sender)
@@ -1056,7 +1056,7 @@ samu.on('group-participants-update', async (anu) => {
 					thumb = await getBuffer(anu.thumbnail)
 					client.sendMessage(from, thumb, image, {quoted: mek, caption: teks})
 					buffer = await getBuffer(anu.result)
-					client.sendMessage(from, buffer, video, {mimetype: 'video/mp4', filename: `${anu.title}.mp4`, quoted: mek})
+					samu.sendMessage(from, buffer, video, {mimetype: 'video/mp4', filename: `${anu.title}.mp4`, quoted: mek})
 					await limitAdd(sender)
 				break 
 				case 'ytmp3':
@@ -1079,7 +1079,7 @@ samu.on('group-participants-update', async (anu) => {
                 if (isLimit(sender)) return reply(ind.limitend(pusname))
               	    if (args.length < 1) return reply('el texto donde esta?')
                     teks = `${body.slice(8)}`
-                    if (teks.length > 10) return client.sendMessage(from, '10 caracteres maximo', text, {quoted: mek})
+                    if (teks.length > 10) return samu.sendMessage(from, '10 caracteres maximo', text, {quoted: mek})
                     buff = await getBuffer(`https://docs-jojo.herokuapp.com/api/text3d?text=${teks}`, {method: 'get'})
                     samu.sendMessage(from, buff, image, {quoted: mek, caption: `${teks}`})
 			     	await limitAdd(sender)
@@ -1262,6 +1262,86 @@ samu.on('group-participants-update', async (anu) => {
                 addKoinUser('14694222222@s.whatsapp.net', fee)
                 reply(`*「 Hecho 」*\n\nListo:3\nDe : +${sender.split("@")[0]}\nPara : +${tujuan}\nimporte de transferencia : ${jumblah}\nImpuestos : ${fee}`)
                 break
+					
+					
+case 'wasted':
+  case 'was':
+if (!isRegistered) return reply(ind.noregis())
+var imgbb = require('imgbb-uploader')
+if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
+  ger = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
+  reply(ind.wait())
+  owgi = await samu.downloadAndSaveMediaMessage(ger)
+  anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
+  teks = `${anu.display_url}`
+  ranp = getRandom('.gif')
+  rano = getRandom('.webp')
+  anu1 = `https://some-random-api.ml/canvas/wasted?avatar=${teks}`
+  exec(`wget ${anu1} -O ${ranp} && ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${rano}`, (err) => {
+fs.unlinkSync(ranp)
+if (err) return reply(mess.error.stick)
+nobg = fs.readFileSync(rano)
+samu.sendMessage(from, nobg, sticker, {
+  quoted: mek
+})
+fs.unlinkSync(rano)
+  })
+
+} else {
+  reply('Manda la foto:v')
+}
+break
+
+case 'drawing':
+if (!isRegistered) return reply(ind.noregis())
+var imgbb = require('imgbb-uploader')
+if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
+  ted = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
+  reply(ind.wait())
+  owgi = await samu.downloadAndSaveMediaMessage(ted)
+  tels = body.slice(7)
+  anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
+  hehe = await getBuffer(`https://videfikri.com/api/textmaker/pencil/?urlgbr=${anu.display_url}`)
+ samu.sendMessage(from, hehe, image, {quoted:mek})
+} else {
+  reply('Manda la foto:v')
+}
+break
+
+
+case 'wanted':
+if (!isRegistered) return reply(ind.noregis())
+var imgbb = require('imgbb-uploader')
+if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
+  ted = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
+  reply(ind.wait())
+  owgi = await samu.downloadAndSaveMediaMessage(ted)
+  tels = body.slice(7)
+  anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
+  hehe = await getBuffer(`https://videfikri.com/api/textmaker/wanted/?urlgbr=${anu.display_url}&text1=Dicari&text2=${tels}`)
+ samu.sendMessage(from, hehe, image, {quoted:mek})
+} else {
+  reply('Manda la foto:v')
+}
+break
+
+case 'gtav':
+if (!isRegistered) return reply(ind.noregis())
+var imgbb = require('imgbb-uploader')
+if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
+  ted = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
+  reply(ind.wait())
+  owgi = await samu.downloadAndSaveMediaMessage(ted)
+  tels = body.slice(7)
+  anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
+  hehe = await getBuffer(`https://videfikri.com/api/textmaker/gtavposter/?urlgbr=${anu.display_url}`)
+ samu.sendMessage(from, hehe, image, {quoted:mek})
+} else {
+  reply('Manda la foto:v')
+}
+break
+					
+					
 			case 'dompet':
 				if (!isRegistered) return reply(ind.noregis())
 				const kantong = checkATMuser(sender)
