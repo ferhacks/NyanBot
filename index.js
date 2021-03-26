@@ -1132,7 +1132,7 @@ samu.on('group-participants-update', async (anu) => {
 				if (!isRegistered) return reply(ind.noregis())
 				    const reqXp  = 5000 * (Math.pow(2, getLevelingLevel(sender)) - 1)
 				    const uangku = checkATMuser(sender)
-					//const anos = client.user.os_version
+					//const anos = samu.user.os_version
 					//const merek = clien
 					await costum(ind.menu(pushname, prefix, getLevelingLevel, getLevelingXp, sender, reqXp, _registered, uangku, role, premi, samu, process,kyun), text, tescuk, cr)
 					break
@@ -1540,7 +1540,7 @@ break
 				case 'tts':
 				if (!isRegistered) return reply(ind.noregis())
 				if (isLimit(sender)) return reply(ind.limitend(pusname))
-				if (args.length < 1) return client.sendMessage(from, 'Se requiere código de idioma!!', text, {quoted: mek})
+				if (args.length < 1) return samu.sendMessage(from, 'Se requiere código de idioma!!', text, {quoted: mek})
 					const gtts = require('./lib/gtts')(args[0])
 					if (args.length < 2) return samu.sendMessage(from, 'Ingresa texto', text, {quoted: mek})
 					dtt = body.slice(8)
@@ -2019,7 +2019,7 @@ break
 				    samu.updatePresence(from, Presence.composing) 
 					if (!isQuotedImage) return reply(`Derechos de autor de la imagen Getty Images Image caption: ${prefix}setbotpp o etiqueta una imagen de las que se han enviado`)
 					enmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
-					media = await client.downloadAndSaveMediaMessage(enmedia)
+					media = await samu.downloadAndSaveMediaMessage(enmedia)
 					await client.updateProfilePicture(botNumber, media)
 					reply('Gracias por el nuevo perfil😗')
 					break 
