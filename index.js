@@ -343,7 +343,7 @@ samu.on('credentials-updated', () => {
    console.log(`credentials updated!`)
    fs.writeFileSync('./session.json', JSON.stringify(authInfo, null, '\t'))
 })
-fs.existsSync('./session.json') && client.loadAuthInfo('./session.json')
+fs.existsSync('./session.json') && samu.loadAuthInfo('./session.json')
 samu.connect();
 
 
@@ -1462,7 +1462,7 @@ samu.on('group-participants-update', async (anu) => {
 				if (isLimit(sender)) return reply(ind.limitend(pusname))
 				if (args.length < 1) return client.sendMessage(from, 'Se requiere código de idioma!!', text, {quoted: mek})
 					const gtts = require('./lib/gtts')(args[0])
-					if (args.length < 2) return client.sendMessage(from, 'Ingresa texto', text, {quoted: mek})
+					if (args.length < 2) return samu.sendMessage(from, 'Ingresa texto', text, {quoted: mek})
 					dtt = body.slice(8)
 					ranm = getRandom('.mp3')
 					rano = getRandom('.ogg')
