@@ -1054,7 +1054,7 @@ samu.on('group-participants-update', async (anu) => {
 					if (anu.error) return reply(anu.error)
 					teks = `*✅Title* : ${anu.title}\n*📁Size* : ${anu.size}\n*✏url* ${anu.url_video}`
 					thumb = await getBuffer(anu.thumbnail)
-					client.sendMessage(from, thumb, image, {quoted: mek, caption: teks})
+					samu.sendMessage(from, thumb, image, {quoted: mek, caption: teks})
 					buffer = await getBuffer(anu.result)
 					samu.sendMessage(from, buffer, video, {mimetype: 'video/mp4', filename: `${anu.title}.mp4`, quoted: mek})
 					await limitAdd(sender)
@@ -1137,7 +1137,7 @@ samu.on('group-participants-update', async (anu) => {
 					await costum(ind.menu(pushname, prefix, getLevelingLevel, getLevelingXp, sender, reqXp, _registered, uangku, role, premi, samu, process,kyun), text, tescuk, cr)
 					break
 				case 'info':
-					me = client.user
+					me = samu.user
 					uptime = process.uptime()
 					teks = `*✏Nombre del bot* : ${me.name}\n*🙍🏻‍♂️Dueño* : *👑𝗦𝗮𝗺𝘂𝟯𝟯𝟬☪*\n*💻AUTHOR* : Samu330\n*📲Numero del Bot* : @${me.jid.split('@')[0]}\n*🗒Prefijo* : ◜${prefix}◞\n*🔐Contactos bloqueados* : ${blocked.length}\n*🕐Esta activo desde hace* : ${kyun(uptime)}`
 					buffer = await getBuffer(me.imgUrl)
@@ -1405,7 +1405,7 @@ break
 				if (isLimit(sender)) return reply(ind.limitend(pusname))
 				if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
 						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
-						const media = await client.downloadAndSaveMediaMessage(encmedia)
+						const media = await samu.downloadAndSaveMediaMessage(encmedia)
 						reply(ind.wait())
 						await recognize(media, {lang: 'eng+ind', oem: 1, psm: 3})
 							.then(teks => {
@@ -1585,7 +1585,7 @@ break
 				if (!isRegistered) return reply(ind.noregis())
 				if (isLimit(sender)) return reply(ind.limitend(pusname))
 				try {
-						if (args.length < 1) return client.sendMessage(from, 'Pon nombre del usuario ?', text, {quoted: mek})
+						if (args.length < 1) return samu.sendMessage(from, 'Pon nombre del usuario ?', text, {quoted: mek})
 						let { user, stats } = await tiktod.getUserProfileInfo(args[0])
 						reply(ind.wait())
 						teks = `*ID* : ${user.id}\n*Username* : ${user.uniqueId}\n*Nickname* : ${user.nickname}\n*Followers* : ${stats.followerCount}\n*Followings* : ${stats.followingCount}\n*Posts* : ${stats.videoCount}\n*Luv* : ${stats.heart}\n`
@@ -1860,7 +1860,7 @@ break
 				    if (!isGroup) return reply(ind.groupo())
 				    if (isLimit(sender)) return reply(ind.limitend(pusname))
 				    if (!isBotGroupAdmins) return reply(ind.badmin())
-				    linkgc = await client.groupInviteCode (from)
+				    linkgc = await samu.groupInviteCode (from)
 				    yeh = `https://chat.whatsapp.com/${linkgc}\n\nlink Group *${groupName}*`
 				    samu.sendMessage(from, yeh, text, {quoted: mek})
 			        await limitAdd(sender)
@@ -1958,7 +1958,7 @@ break
 					mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid[0]
 					let { jid, id, notify } = groupMembers.find(x => x.jid === mentioned)
 					try {
-						pp = await client.getProfilePicture(id)
+						pp = await samu.getProfilePicture(id)
 						buffer = await getBuffer(pp)
 						samu.updateProfilePicture(botNumber, buffer)
 						mentions(`Foto de perfil actualizada correctamente usando foto de perfil @${id.split('@')[0]}`, [jid], true)
@@ -2056,7 +2056,7 @@ break
 					break
 					case 'clearall':
 					if (!isOwner) return reply(ind.ownerb())
-					anu = await client.chats.all()
+					anu = await samu.chats.all()
 					samu.setMaxListeners(25)
 					for (let _ of anu) {
 						client.deleteChat(_.jid)
@@ -2083,7 +2083,7 @@ break
 					nom = mek.participant
 					if (isMedia && !mek.message.videoMessage || isQuotedImage) {
 						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
-						buff = await client.downloadMediaMessage(encmedia)
+						buff = await samu.downloadMediaMessage(encmedia)
 						for (let _ of anu) {
 							samu.sendMessage(_.jid, buff, image, {caption: `*「 BC GROUP 」*\n\nDel Grupo : ${groupName}\nRemitente : wa.me/${(sender.split('@')[0])}\nMensaje : ${body.slice(6)}`})
 						}
@@ -2135,7 +2135,7 @@ break
         		case 'listonline': 
         		if (!isOwner) return reply(ind.ownerb())
         		let ido = args && /\d+\-\d+@g.us/.test(args[0]) ? args[0] : from
-			    let online = [...Object.keys(client.chats.get(ido).presences), samu.user.jid]
+			    let online = [...Object.keys(samu.chats.get(ido).presences), samu.user.jid]
 			    samu.sendMessage(from, 'List Online:\n' + online.map(v => '- @' + v.replace(/@.+/, '')).join`\n`, text, { quoted: mek,
   			  contextInfo: { mentionedJid: online }
 			    })
@@ -2143,7 +2143,7 @@ break
 			case '=>':
 				const cmd = body.slice(4)
 				exec(cmd, (err, stdout) => {
-					if (err) return client.sendMessage(from, `root@Nfz.01:~ ${err}`, text, { quoted: mek })
+					if (err) return samu.sendMessage(from, `root@Nfz.01:~ ${err}`, text, { quoted: mek })
 					if (stdout) {
 						samu.sendMessage(from, stdout, text)
 					}
@@ -2155,7 +2155,7 @@ break
 				if (!isQuotedVideo) return reply('es un video?:V')
 				reply(ind.wait())
 				encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo
-				media = await client.downloadAndSaveMediaMessage(encmedia)
+				media = await samu.downloadAndSaveMediaMessage(encmedia)
 				ran = getRandom('.mp4')
 				exec(`ffmpeg -i ${media} ${ran}`, (err) => {
 					fs.unlinkSync(media)
