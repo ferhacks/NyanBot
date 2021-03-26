@@ -2059,7 +2059,7 @@ break
 					anu = await samu.chats.all()
 					samu.setMaxListeners(25)
 					for (let _ of anu) {
-						client.deleteChat(_.jid)
+						samu.deleteChat(_.jid)
 					}
 					reply(ind.clears())
 				break
