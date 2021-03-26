@@ -1895,7 +1895,7 @@ break
 						teks += `╠➥ https://wa.me/${mem.jid.split('@')[0]}\n`
 						members_id.push(mem.jid)
 					}
-					client.sendMessage(from, teks, text, {detectLinks: false, quoted: mek})
+					samu.sendMessage(from, teks, text, {detectLinks: false, quoted: mek})
 					break
 				case 'delete':
 				case 'del':
@@ -2020,7 +2020,7 @@ break
 					if (!isQuotedImage) return reply(`Derechos de autor de la imagen Getty Images Image caption: ${prefix}setbotpp o etiqueta una imagen de las que se han enviado`)
 					enmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
 					media = await samu.downloadAndSaveMediaMessage(enmedia)
-					await client.updateProfilePicture(botNumber, media)
+					await samu.updateProfilePicture(botNumber, media)
 					reply('Gracias por el nuevo perfil😗')
 					break 
 				case 'setpp': 
@@ -2126,7 +2126,7 @@ break
          	           let evaled = await eval(q)
          	           if (typeof evaled !== 'string') evaled = require('util').inspect(evaled)
           	          await reply(evaled)
-          		//	client.sendMessage(from, JSON.stringify(eval(body.slice(6))). text)
+          		//	samu.sendMessage(from, JSON.stringify(eval(body.slice(6))). text)
        	         } catch (err) {
         	            console.error(err)
           	          await reply('Error!')
@@ -2340,7 +2340,7 @@ break
 	            let txt = pes.replace(/^>/, '')
 	            let type = Function
 	            if (/await/.test(pes)) type = (async () => {}).constructor
-	            let func = new type('print', 'client', 'MessageType', 'mek', 'text', 'from', 'image', 'os', 'fetch', txt)
+	            let func = new type('print', 'samu', 'MessageType', 'mek', 'text', 'from', 'image', 'os', 'fetch', txt)
 	            console.log('[EvalF]', func.toString())
 	            let output
 	            try {
