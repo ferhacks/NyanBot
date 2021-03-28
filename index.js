@@ -337,7 +337,6 @@ function addMetadata(packname, author) {
 async function starts() {
 	const samu = new WAConnection()
 	samu.logger.level = 'warn'
-	console.log(banner.string)
 	samu.on('qr', () => {
 		console.log(color('[','white'), color('!','red'), color(']','white'), color(' Scan the qr code above'))
 	})
@@ -416,10 +415,10 @@ Usa *${prefix}reg* para verificarte y poder usar el bot.`
 			const tescuk = ["0@s.whatsapp.net"]
 			const isGroup = from.endsWith('@g.us')
 			const q = args.join(' ')
-			const botNumber = client.user.jid
+			const botNumber = samu.user.jid
 			const sender = isGroup ? mek.participant : mek.key.remoteJid
-			pushname = client.contacts[sender] != undefined ? client.contacts[sender].vname || client.contacts[sender].notify : undefined
-			const groupMetadata = isGroup ? await client.groupMetadata(from) : ''
+			pushname = samu.contacts[sender] != undefined ? samu.contacts[sender].vname || samu.contacts[sender].notify : undefined
+			const groupMetadata = isGroup ? await samu.groupMetadata(from) : ''
 			const groupName = isGroup ? groupMetadata.subject : ''
 			const groupId = isGroup ? groupMetadata.jid : ''
 			const groupMembers = isGroup ? groupMetadata.participants : ''
@@ -1539,7 +1538,7 @@ break
 						const media = await samu.downloadAndSaveMediaMessage(encmedia)
 						ranw = getRandom('.webp')
 						ranp = getRandom('.png')
-						reply(mess.wait)
+						reply(ind.wait())
 						keyrmbg = 'bcAvZyjYAjKkp1cmK8ZgQvWH'
 						await removeBackgroundFromImageFile({path: media, apiKey: keyrmbg, size: 'auto', type: 'auto', ranp}).then(res => {
 							fs.unlinkSync(media)
@@ -1923,7 +1922,7 @@ break
 					}
 					mentions(teks, members_id, true)
 					break
-				case 'll2':
+				case 'all2':
 					members_id = []
 					teks = (args.length > 1) ? body.slice(8).trim() : ''
 					teks += '\n\n'
@@ -1933,7 +1932,7 @@ break
 					}
 					reply(teks)
 					break
-                                case 'll3':
+                                case 'all3':
 					members_id = []
 					teks = (args.length > 1) ? body.slice(8).trim() : ''
 					teks += '\n\n'
