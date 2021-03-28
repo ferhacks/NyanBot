@@ -118,51 +118,67 @@ exports.reglevelahf = (command, pushname, getLevelingLevel, sender, ahf) => {
 
 exports.menu = (pushname, prefix, getLevelingLevel, getLevelingXp, sender, reqXp, _registered, uangku, role, premi, client , process) => { 
 	return `
-${a} *「✅ACERCA DEL USUARIO✅」*${a}
- ${a} *🙍🏻‍♂️nombre* : ${pushname}${a}
- ${a}〚 Premium :${a} ${premi}
- ${a}〚 *📲numero* : wa.me/${sender.split("@")[0]}${a}
- ${a}〚 💵Dinero : Rp${uangku}${a}
- ${a}〚 *✨XP* : ${getLevelingXp(sender)}/${reqXp} ${a}
- ${a}〚 *♻level* : ${getLevelingLevel(sender)}${a}
- ${a}〚 Rol : ${role}${a}
- ${a}〚 *💻Registro de usuario : ${_registered.length}${a}
- ┗━━━━━━━━━━━━━
+${a} ╭══• ೋ•✧๑🐬NyanBot🐬๑✧•ೋ •══╮${a}
+${a} ⊨ *「✅ACERCA DEL USUARIO✅」*${a}
+${a}︱○ *🙍🏻‍♂️nombre* : ${pushname}${a}
+${a}︱○ Premium :${a} ${premi}
+${a}︱○ *📲numero* : wa.me/${sender.split("@")[0]}${a}
+${a}︱○ 💵Dinero : Rp${uangku}${a}
+${a}︱○ *✨XP* : ${getLevelingXp(sender)}/${reqXp} ${a}
+${a}︱○ *♻level* : ${getLevelingLevel(sender)}${a}
+${a}︱○ Rol : ${role}${a}
+${a}︱○ *💻Usuarios registrados* : ${_registered.length}${a}
+
  *${prefix}info*
  *${prefix}owner*
 
-${a}❏MAKER MENU${a}
- ${a}│•${prefix}sticker${a}
- ${a}│•${prefix}sticker nobg${a}
- ${a}│•${prefix}maker${a}
- ${a}│•${prefix}qrcode${a}
- ${a}╰•${prefix}ttp${a}
- 
-${a}❏FUN MENU${a}
- ${a}│•${prefix}lirik${a}
- ${a}│•${prefix}rate${a}
- ${a}│•${prefix}light${a}
- ${a}│•${prefix}glitch${a}
- ${a}│•${prefix}gtav${a}
- ${a}│•${prefix}drawing${a}
- ${a}│•${prefix}wanted${a}
- ${a}│•${prefix}wasted${a}
- ${a}│•${prefix}triggered${a}
- ${a}│•${prefix}nulis${a}
- ${a}│•${prefix}modd${a} *[VIP]*
- ${a}╰•${prefix}happymod${a} *[VIP]*
- 
-${a}❏MUTE${a}
- ${a}│•${prefix}mutual${a}
- ${a}╰•${prefix}next${a}
- 
-${a}❏MEDIA MENU${a}
- ${a}│•${prefix}brainly${a} *[VIP]*
- ${a}│•${prefix}imagen${a}
- ${a}│•${prefix}igstalk${a}
- ${a}│•${prefix}tiktokstalk${a} *[VIP]*
- ${a}│•${prefix}ssweb${a}
- ${a}╰•${prefix}kbbi${a}
+
+*╔═══╗───────────╔═══╗*
+*║╔═╗║───────────║╔═╗║*
+*║╚══╦══╦╗╔╗╔╗─╔╗║╚═╝╠══╦═╦═╦╗─╔╗*
+*╚══╗║╔╗║╚╝║║║─║║║╔══╣║═╣╔╣╔╣║─║║*
+*║╚═╝║╔╗║║║║║╚═╝║║║──║║═╣║║║║╚═╝║*
+*╚═══╩╝╚╩╩╩╝╚═╗╔╝╚╝──╚══╩╝╚╝╚═╗╔╝*
+*───────────╔═╝║────────────╔═╝║*
+*───────────╚══╝────────────╚══╝*
+
+ ${a}○🗒✏MAKER MENU${a}
+${a}┃➥${prefix}sticker${a}
+${a}┃➥${prefix}sticker nobg${a}
+${a}┃➥${prefix}maker${a}
+${a}┃➥${prefix}qrcode${a}
+${a}┃➥${prefix}ttp${a}
+${a}└─────────────────
+
+
+${a}○🎉FUN MENU${a}
+${a}┃➥${prefix}lirik${a}
+${a}┃➥${prefix}rate${a}
+${a}┃➥${prefix}light${a}
+${a}┃➥${prefix}glitch${a}
+${a}┃➥${prefix}gtav${a}
+${a}┃➥${prefix}drawing${a}
+${a}┃➥${prefix}wanted${a}
+${a}┃➥${prefix}wasted${a}
+${a}┃➥${prefix}triggered${a}
+${a}┃➥${prefix}nulis${a}
+${a}┃➥${prefix}modd${a} *[VIP]*
+${a}┃➥${prefix}happymod${a} *[VIP]*
+${a}└─────────────────
+
+${a}○🔐MUTES${a}
+${a}┃➥${prefix}mutual${a}
+${a}┃➥${prefix}next${a}
+${a}└─────────────────
+
+${a}○🎞MEDIA MENU${a}
+${a}┃➥${prefix}brainly${a} *[VIP]*
+${a}┃➥${prefix}imagen${a}
+${a}┃➥${prefix}igstalk${a}
+${a}┃➥${prefix}tiktokstalk${a} *[VIP]*
+${a}┃➥${prefix}ssweb${a}
+${a}┃➥${prefix}kbbi${a}
+${a}└─────────────────
 
 ${a}❏NSFW${a}
  ${a}│•${prefix}anjing${a}
