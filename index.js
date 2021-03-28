@@ -1,17 +1,18 @@
 const {
-    WAConnection,
-   MessageType,
-   Presence,
-   MessageOptions,
-   Mimetype,
-   WALocationMessage,
-   WA_MESSAGE_STUB_TYPES,
-   ReconnectMode,
-   ProxyAgent,
-   GroupSettingChange,
-   waChatKey,
-   mentionedJid,
-   processTime,
+  WAConnection,
+  MessageType,
+  Presence,
+  Mimetype,
+  GroupSettingChange,
+  MessageOptions,
+  WALocationMessage,
+  WA_MESSAGE_STUB_TYPES,
+  ReconnectMode,
+  ProxyAgent,
+  waChatKey,
+  mentionedJid,
+  processTime,
+  ChatModification,
 } = require('@adiwajshing/baileys');
 const qrcode = require("qrcode-terminal") 
 const moment = require("moment-timezone") 
@@ -333,19 +334,23 @@ function addMetadata(packname, author) {
 
 /********** FUNCTION ***************/
 
-const samu = new WAConnection()
-   samu.on('qr', qr => {
-   qrcode.generate(qr, { small: true })
-   console.log(color('[','white'),color('!','red'),color(']','white'),color('Ahora escanea el codigo en whatsapp','white'),color('YOU','red'),color('TUBE','white'),color('Samu330:D','blue'))
-})
+async function starts() {
+	const samu = new WAConnection()
+	samu.logger.level = 'warn'
+	console.log(banner.string)
+	samu.on('qr', () => {
+		console.log(color('[','white'), color('!','red'), color(']','white'), color(' Scan the qr code above'))
+	})
 
-samu.on('credentials-updated', () => {
-	const authInfo = samu.base64EncodedAuthInfo()
-   console.log(`credentials updated!`)
-   fs.writeFileSync('./session.json', JSON.stringify(authInfo, null, '\t'))
-})
-fs.existsSync('./session.json') && samu.loadAuthInfo('./session.json')
-samu.connect();
+	fs.existsSync('./samu.json') && samu.loadAuthInfo('./samu.json')
+	samu.on('connecting', () => {
+		start('2', 'Connecting...')
+	})
+	samu.on('open', () => {
+		success('2', 'Connected')
+	})
+	await samu.connect({timeoutMs: 30*1000})
+        fs.writeFileSync('./samu.json', JSON.stringify(samu.base64EncodedAuthInfo(), null, '\t'))
 
 
 samu.on('group-participants-update', async (anu) => {
@@ -731,12 +736,10 @@ samu.on('group-participants-update', async (anu) => {
 			const isQuotedSticker = type === 'extendedTextMessage' && content.includes('stickerMessage')
 			
 			//private chat message
-			if (!isGroup && isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32mEXEC\x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
-			if (!isGroup && !isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;31mRECV\x1b[1;37m]', time, color('Message'), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
+			if (!isGroup && isCmd) console.log('\x1b[1;36m~\x1b[1;37m>', '[\x1b[1;32mEXEC\x1b[1;33m]', time, color(command), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
 			
 			//group message
-			if (isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32mEXEC\x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
-			if (!isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;31mRECV\x1b[1;37m]', time, color('Message'), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
+			if (isCmd && isGroup) console.log('\x1b[1;36m~\x1b[1;37m>', '[\x1b[1;32mEXEC\x1b[1;33m]', time, color(command), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
 			
 			switch(command) { 
 				//apivinz 
