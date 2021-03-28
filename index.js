@@ -360,60 +360,58 @@ samu.on('group-participants-update', async (anu) => {
 			console.log(anu)
 			if (anu.action == 'add') {
 				num = anu.participants[0]
-				try {
-					ppimg = await samu.getProfilePicture(`${anu.participants[0].split('@')[0]}@c.us`)
-				} catch {
-					ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
-				}
-				teks = `@${num.split('@')[0]}\ Bienvenido brou a *${mdata.subject}* Diviertete`
-				let buff = await getBuffer(ppimg)
-				samu.sendMessage(mdata.id, buff, MessageType.image, {caption: teks, contextInfo: {"mentionedJid": [num]}})
+				teks = `Hola @${num.split('@')[0]}
+Bienvenid@ a 
+*${mdata.subject}*
+────────────────
+┏━━━━━━━━━━━━━━━━━━━━
+┃──────✅  *Info* ✅───────
+┃━━━━━━━━━━━━━━━━━━━━
+┠➢ *🙍🏻‍♂️Nombre* :
+┠➢ *🌐Edad* :
+┠➢ *🗺Pais* :
+┠➢ *🧬Género* :
+┗━━━━━━━━━━━━━━━━━━━━
+Usa *${prefix}reg* para verificarte y poder usar el bot.`
+				samu.sendMessage(mdata.id, teks, MessageType.text, { contextInfo: {"mentionedJid": [num]}})
 			} else if (anu.action == 'remove') {
 				num = anu.participants[0]
-				try {
-					ppimg = await samu.getProfilePicture(`${num.split('@')[0]}@c.us`)
-				} catch {
-					ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
-				}
-				teks = `Bye😖, el grupo se queda vacio poco a poco:( @${num.split('@')[0]} vete en paz😪, aqui nadie te extrañara:3`
-				let buff = await getBuffer(ppimg)
-				samu.sendMessage(mdata.id, buff, MessageType.image, {caption: teks, contextInfo: {"mentionedJid": [num]}})
+				teks = `Uno menos @${num.split('@')[0]}, que le vaya bien, total, aqui nadie lo extrañará 👋`
+				samu.sendMessage(mdata.id, teks, MessageType.text, {contextInfo: {"mentionedJid": [num]}})
 			}
 		} catch (e) {
 			console.log('Error : %s', color(e, 'red'))
 		}
 	})
 	samu.on('CB:Blocklist', json => {
-		if (blocked.length > 2) return
+            if (blocked.length > 2) return
 	    for (let i of json[1].blocklist) {
 	    	blocked.push(i.replace('c.us','s.whatsapp.net'))
 	    }
 	})
-
-	samu.on('message-new', async (mek) => {
+	
+	samu.on('chat-update', async (mek) => {
 		try {
+            if (!mek.hasNewMessage) return
+            mek = mek.messages.all()[0]
 			if (!mek.message) return
 			if (mek.key && mek.key.remoteJid == 'status@broadcast') return
 			if (mek.key.fromMe) return
-            global.prefix
+			global.prefix
 			global.blocked
 			const content = JSON.stringify(mek.message)
 			const from = mek.key.remoteJid
 			const type = Object.keys(mek.message)[0]
 			const { text, extendedText, contact, location, liveLocation, image, video, sticker, document, audio, product } = MessageType
 			const time = moment.tz('Asia/Jakarta').format('DD/MM HH:mm:ss')
-			const timi = moment.tz('Asia/Jakarta').add(30, 'days').calendar();
-			const timu = moment.tz('Asia/Jakarta').add(20, 'days').calendar();
-            body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption.startsWith(prefix) ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text.startsWith(prefix) ? mek.message.extendedTextMessage.text : ''
+			body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption.startsWith(prefix) ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text.startsWith(prefix) ? mek.message.extendedTextMessage.text : ''
 			budy = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : ''
 			var pes = (type === 'conversation' && mek.message.conversation) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text ? mek.message.extendedTextMessage.text : ''
-			const messagesC = pes.slice(0).trim().split(/ +/).shift().toLowerCase()
 			const command = body.slice(1).trim().split(/ +/).shift().toLowerCase()
 			const args = body.trim().split(/ +/).slice(1)
 			const isCmd = body.startsWith(prefix)
 			const tescuk = ["0@s.whatsapp.net"]
 			const isGroup = from.endsWith('@g.us')
-			const q = args.join(' ')
 			const botNumber = samu.user.jid
 			const sender = isGroup ? mek.participant : mek.key.remoteJid
 			pushname = samu.contacts[sender] != undefined ? samu.contacts[sender].vname || samu.contacts[sender].notify : undefined
@@ -423,6 +421,8 @@ samu.on('group-participants-update', async (anu) => {
 			const groupMembers = isGroup ? groupMetadata.participants : ''
 			const groupDesc = isGroup ? groupMetadata.desc : ''
             const groupAdmins = isGroup ? getGroupAdmins(groupMembers) : ''
+      const is = budy.slice(0).trim().split(/ +/).shift().toLowerCase()
+
             
             /************** SCURITY FEATURE ************/
             const isEventon = isGroup ? event.includes(from) : false
