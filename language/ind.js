@@ -25,7 +25,7 @@ exports.lvlnoon = () => {
 }
 
 exports.noregis = () => {
-	return`*「 Nombre de usuario 」*\n\n*Para registrarse use: ${prefix}geg nombre|edad* \n*ejemplo ${prefix}daftar Samu|17*`
+	return`*「 Nombre de usuario 」*\n\n*Para registrarse use: ${prefix}reg nombre|edad* \n*ejemplo ${prefix}reg Samu|17*`
 }
 
 exports.rediregis = () => {
