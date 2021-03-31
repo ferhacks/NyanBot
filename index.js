@@ -716,18 +716,16 @@ Usa *${prefix}reg* para verificarte y poder usar el bot.`
 				}
  	       
  	     
- 	           //function balance
- 	           const checkATMuser = (userid) => {
-	let position = false
-    Object.keys(uang).forEach((i) => {
-        if (uang[i].id === userid) {
-            position = i
-        }
-    })
-    if (position !== false) {
-        return uang[position].uang
-    }
-}
+ 	          if (isRegistered ) {
+ 	           const checkATM = checkATMuser(sender)
+ 	           try {
+ 	               if (checkATM === undefined) addATM(sender)
+ 	               const uangsaku = Math.floor(Math.random() * 10) + 90
+	                addKoinUser(sender, uangsaku)
+  	          } catch (err) {
+   	             console.error(err)
+   	         }
+	        }
 
 			colors = ['red','white','black','blue','yellow','green']
 			
