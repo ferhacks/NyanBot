@@ -40,7 +40,10 @@ const path = require('path')
 const cd = 4.32e+7
 const { ind } = require('./language')
 
-/********** MENU SETTING **********/
+//::::::::::::::::::::::::::::::::::::::::::::::
+
+
+//::::::::::::::::::::::::::::::::::::::::::::::
 const vcard = 'BEGIN:VCARD\n' 
             + 'VERSION:3.0\n' 
             + 'FN:✅Samu330✅\n' 
@@ -56,12 +59,12 @@ namo = 'Samu330'
 cr = '✅Ｓａｍｕ３３０✅'
 /*************************************/
 
-/******** OWNER NUMBER**********/
+//Owner
 const ownerNumber = ["14694222222@s.whatsapp.net","14694222222@s.whatsapp.net"] 
-/************************************/
+//::::::::::::::::::::::::::::::::::::::::::::::
 
        
-/*********** LOAD FILE ***********/
+//::::::::::::::::::::Load files:::::::::::::::::::
 const setiker = JSON.parse(fs.readFileSync('./strg/stik.json'))
 const videonye = JSON.parse(fs.readFileSync('./strg/video.json'))
 const audionye = JSON.parse(fs.readFileSync('./strg/audio.json'))
@@ -79,9 +82,9 @@ const prem = JSON.parse(fs.readFileSync('./database/user/prem.json'))
 const antilink = JSON.parse(fs.readFileSync('./database/group/antilink.json'))
 const bad = JSON.parse(fs.readFileSync('./database/group/bad.json'))
 const badword = JSON.parse(fs.readFileSync('./database/group/badword.json'))
-/*********** END LOAD ***********/
+//::::::::::::::::::::::::::::::::::::::::::::::
 
-/********** FUNCTION ***************/
+//::::::::::::::::::::::FUNCIONES::::::::::::::
 		const getLevelingXp = (sender) => {
             let position = false
             Object.keys(_level).forEach((i) => {
@@ -332,7 +335,7 @@ function addMetadata(packname, author) {
 
 } 
 
-/********** FUNCTION ***************/
+//:::::::::::::::::::::::::::::::::::::::::::::::
 
 async function starts() {
 	const samu = new WAConnection()
@@ -427,7 +430,7 @@ Usa *${prefix}reg* para verificarte y poder usar el bot.`
       const is = budy.slice(0).trim().split(/ +/).shift().toLowerCase()
 
             
-            /************** SCURITY FEATURE ************/
+            //:::::::::::::::::::: SCURITY FEATURE ::::::::::::::::::::
             const isEventon = isGroup ? event.includes(from) : false
             const isRegistered = checkRegisteredUser(sender)
             const isBadWord = isGroup ? badword.includes(from) : false
@@ -462,7 +465,7 @@ Usa *${prefix}reg* para verificarte y poder usar el bot.`
 			const costumimg = ( pesan , tipe, target , caption) => {
 			samu.sendMessage(from, pesan , tipe , {quoted: { key: { fromMe: false, participant: `${target}`, ...(from ? { remoteJid: from } : {}) }, message: {"imageMessage":{url: 'https://lh3.googleusercontent.com/proxy/5nbuE-Aw7WCsoFQuYC2zW450OCxbwZRZxHBJGbyTlDjWaQvDxbTryo1HqrCJi1pVowvZe0LTupbI95G0YObLauZQaYBQU22S0QEkO0D8a9nzb4rL19YjIwOi7AczotEkFtq5CNvdSKgInHQpe9RDp1O0CKQGONC4-MRMqkuLsqGmMP6Iths1',mimetype: 'image/jpeg',caption: `${caption}`,fileSha256: '0Pk0qJyQFn9FCtslZrydJHRQDKryjYcdP7I3CmRrHRs=',fileLength: '20696',height: 360,width: 382,mediaKey: 'N43d/3GY7GYQpgBymb9qFY5O9iNDXuBirXsNZk+X61I=',fileEncSha256: 'IdFM58vy8URV+IUmOqAY3OZsvCN6Px8gaJlRCElqhd4=',directPath: '/v/t62.7118-24/35174026_475909656741093_8174708112574209693_n.enc?oh=2a690b130cf8f912a9ca35f366558743&oe=6061F0C6',mediaKeyTimestamp: '1614240917',jpegThumbnail: '/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z//////////////8BGxsbGxwbHiEhHiotKC0qPTgzMzg9XUJHQkdCXY1YZ1hYZ1iNfZd7c3uXfeCwnJyw4P/Zztn////////////////CABEIAEMASAMBIgACEQEDEQH/xAAwAAADAAMBAAAAAAAAAAAAAAAABAUBAwYCAQADAQEAAAAAAAAAAAAAAAABAgMABP/aAAwDAQACEAMQAAAAoy6kcWS2eH8miq17B553Thh1BgyTY9iULYfndGBmbSwNEV3eWXpjwZElG09WJckXCj8sWBVc1ZKXj2ZYaoWHnc67K3PbKwtZOqzLrzdQAg5fWFRUeCNTQG2pEKJ0wCD/xAAoEAACAgIBAQkAAwEAAAAAAAABAgADBBEScQUQEyEiMTJBYSNRYmP/2gAIAQEAAT8AaZzfEdwWcGMTE1jNv3M1ozDb+SD2jTO+Yigk6A3KqhseIdfkroTYbXQRrkVuJOplKEuOpjtpxF+IjTO+YnZoBvj4pa/msHtMnHZrgymZ6hCnSJsDl+ys7rTpGmevxMwLFS/1fcA7iNzPsDXaH1NccYH+2lJ1SnSNMlOdcbY6iYGa9g4OJzXW9zI7SBJrpjqxsA9zMkcMetf2V7NKD/McgAkxsis7EcA2fkxkqSkaYbMGRu3hr0x6q6ckufaUMpsexj0ma4Y0qDKhqlektyntXiQO4qWI0PONVZWNsNTmZwewekEwo1fpYaMZdvWf2DYrXoO/ARWLNL6VuXiYcSsuK9eXGYtHhM/nsTPVQgb7iDkydRCNBYYx1Ozj6nmSStRIgJ8UH/nMJiTZs/c7RPwExhu+vrH+p//EAB4RAAIBBAMBAAAAAAAAAAAAAAABAhAREjIhMDFC/9oACAECAQE/AOpJsxEqIj4TfNqXygIWpLc+ZEdBH//EAB4RAAICAgIDAAAAAAAAAAAAAAABAjEQETJBAxJx/9oACAEDAQE/AHWVeHQtYrDaNkno7GOzxP10xzWipDHZHidx+EuQz//Z',scansSidecar: 'choizTOCOFXo21QcOR/IlCehTFztHGnB3xo4F4d/kwmxSJJIbMmvxg==',scanLengths: [Array],midQualityFileSha256: '68OHK4IyhiKDNgNAZ3SoXsngzYENebQkV4b/RwhhYIY=',midQualityFileEncSha256: '2EYOLCXx+aqg9RyP6xJYChQNbEjXZmc0EcSwHzoyXx0='}}}})
 			}
-	        /*****************END SCURITY FEATURE ********/
+	        //::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 				
@@ -613,7 +616,7 @@ Usa *${prefix}reg* para verificarte y poder usar el bot.`
            return false
      	  }
      	}
-     	   
+     	   //autoleave, si el grupo no cuenta con el limite de personas requeridas:3
      	       if (isGroup) {
 					try {
 						const getmemex = groupMembers.length	
@@ -645,7 +648,7 @@ Usa *${prefix}reg* para verificarte y poder usar el bot.`
 					    }
 		       } catch (err) { console.error(err)  }
  	       }
- 
+ 		//Malas palabras xd, puedes elegir entre 'groupLeave' o 'groupRemove'
  	   	if (isGroup && isBadWord) {
             if (bad.includes(messagesC)) {
                 if (!isGroupAdmins) {
@@ -743,7 +746,7 @@ Usa *${prefix}reg* para verificarte y poder usar el bot.`
 			if (isCmd && isGroup) console.log('\x1b[1;36m~\x1b[1;37m>', '[\x1b[1;32mEXEC\x1b[1;33m]', time, color(command), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
 			
 			switch(command) { 
-				//apivinz 
+				//comandos
 				case 'xd':
 				if (!isRegistered) return reply(ind.noregis())
 				if (isLimit(sender)) return reply(ind.limitend(pusname))
@@ -950,7 +953,7 @@ Usa *${prefix}reg* para verificarte y poder usar el bot.`
                 if(isNaN(umurUser)) return await reply('😑La edad debe ser un número!!')
                 if (namaUser.length >= 30) return reply(`¿por qué su nombre es tan largo? es un nombre o un tren🙄`)
                 if (umurUser > 40) return reply(`su edad es demasiada xd, máximo 40 años`)
-                if (umurUser < 12) return reply(`su edad es demasiado joven mínimo 12 años🤣`)
+                if (umurUser < 12) return reply(`es demasiado niño jajaja, de seguro juegas freefire JAJAJA.... mínimo 12 años🤣`)
                 try {
 					ppimg = await samu.getProfilePicture(`${sender.split('@')[0]}@c.us`)
 				} catch {
@@ -1311,8 +1314,8 @@ case 'wasted':
 				if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
 				  ger = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
 				  reply(ind.wait())
-				  owgi = await client.downloadAndSaveMediaMessage(ger)
-				  anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
+				  nyan = await client.downloadAndSaveMediaMessage(ger)
+				  anu = await imgbb("08579d070df9a07cb1c2ee565aece767", nyan)
 				  teks = `${anu.display_url}`
 				  ranp = getRandom('.gif')
 				  rano = getRandom('.webp')
@@ -1338,9 +1341,9 @@ var imgbb = require('imgbb-uploader')
 if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
   ted = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
   reply(ind.wait())
-  owgi = await samu.downloadAndSaveMediaMessage(ted)
+  nyan = await samu.downloadAndSaveMediaMessage(ted)
   tels = body.slice(7)
-  anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
+  anu = await imgbb("08579d070df9a07cb1c2ee565aece767", nyan)
   hehe = await getBuffer(`https://videfikri.com/api/textmaker/pencil/?urlgbr=${anu.display_url}`)
  samu.sendMessage(from, hehe, image, {quoted:mek})
 } else {
