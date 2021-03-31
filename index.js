@@ -396,8 +396,8 @@ Usa *${prefix}reg* para verificarte y poder usar el bot.`
 			if (!mek.message) return
 			if (mek.key && mek.key.remoteJid == 'status@broadcast') return
 			if (mek.key.fromMe) return
-			global.prefix
-			global.blocked
+		global.prefix
+		global.blocked
 			const content = JSON.stringify(mek.message)
 			const from = mek.key.remoteJid
 			const type = Object.keys(mek.message)[0]
@@ -417,7 +417,7 @@ Usa *${prefix}reg* para verificarte y poder usar el bot.`
 			const q = args.join(' ')
 			const botNumber = samu.user.jid
 			const sender = isGroup ? mek.participant : mek.key.remoteJid
-			pushname = samu.contacts[sender] != undefined ? samu.contacts[sender].vname || samu.contacts[sender].notify : undefined
+	    pushname = samu.contacts[sender] != undefined ? samu.contacts[sender].vname || samu.contacts[sender].notify : undefined
 			const groupMetadata = isGroup ? await samu.groupMetadata(from) : ''
 			const groupName = isGroup ? groupMetadata.subject : ''
 			const groupId = isGroup ? groupMetadata.jid : ''
@@ -717,18 +717,18 @@ Usa *${prefix}reg* para verificarte y poder usar el bot.`
  	       
  	     
  	           //function balance
- 	           if (isRegistered ) {
- 	           const checkATM = checkATMuser(sender)
- 	           try {
- 	               if (checkATM === undefined) addATM(sender)
- 	               const uangsaku = Math.floor(Math.random() * 10) + 90
-	                addKoinUser(sender, uangsaku)
-  	          } catch (err) {
-   	             console.error(err)
-   	         }
-	        }
-           	
-             //kolor
+ 	           const checkATMuser = (userid) => {
+	let position = false
+    Object.keys(uang).forEach((i) => {
+        if (uang[i].id === userid) {
+            position = i
+        }
+    })
+    if (position !== false) {
+        return uang[position].uang
+    }
+}
+
 			colors = ['red','white','black','blue','yellow','green']
 			
 			//detector media
@@ -796,6 +796,17 @@ Usa *${prefix}reg* para verificarte y poder usar el bot.`
 					})
 					
 					break
+		case 'apk':
+                 if (!isRegistered) return reply( ind.noregis())
+				if (isLimit(sender)) return reply(ind.limitend(pusname))
+				data = await fetchJson(`https://api.zeks.xyz/api/apkpure?q=${body.slice(9)}&apikey=apivinz`, {method: 'get'})
+				teks = '...............\n'
+				for (let i of data.result) {
+					teks += `*🌐Nombre del APK* : ${i.title}\n*💻Link* : ${i.url}\n*🐬Rating* : ${i.rating}\n...............\n`
+					}
+				reply(teks.trim())
+				await limitAdd(sender)
+				break
 				case 'pornhub':
                 	if (!isRegistered) return reply(ind.noregis())
 					if (isLimit(sender)) return reply(ind.limitend(pusname))
@@ -819,6 +830,30 @@ Usa *${prefix}reg* para verificarte y poder usar el bot.`
 			    	samu.sendMessage(from, lawak, image, {quoted: mek})
 			   	 await limitAdd(sender)
 		  	  break
+					
+				case 'sombra':
+					if (!isRegistered) return reply(ind.noregis())
+					if (isLimit(sender)) return reply(ind.limitend(pusname))				
+					if (args.length < 1) return reply(ind.wrongf())
+					sam = body.slice(7)
+					if (sam.length > 6) return reply('nmms🙄 maximo 9 caracteres')
+					reply(ind.wait())
+					lawak = await getBuffer(`https://videfikri.com/api/textmaker/shadowtext/?text=${sam}`)
+			    	samu.sendMessage(from, lawak, image, {quoted: mek})
+			   	 await limitAdd(sender)
+		  	  break
+			case '8bit':
+					if (!isRegistered) return reply(ind.noregis())
+					if (isLimit(sender)) return reply(ind.limitend(pusname))
+					var gh = body.slice(6)
+					var samu = gh.split(" ")[0];
+					var xd = gh.split(" ")[1];
+					if (args.length < 1) return reply(`「❗」Ejemplo : ${prefix}glitchtext Samu 330`)
+					reply(ind.wait())
+					buffer = await getBuffer(`https://videfikri.com/api/textmaker/8bit/?text1=${samu}&text2=${xd}`)
+					samu.sendMessage(from, buffer, image, {quoted: mek})
+					await limitAdd(sender)
+				break
                 case 'glitch':
 					if (!isRegistered) return reply(ind.noregis())
 					if (isLimit(sender)) return reply(ind.limitend(pusname))
@@ -1273,32 +1308,31 @@ Usa *${prefix}reg* para verificarte y poder usar el bot.`
 					
 					
 case 'wasted':
-  case 'was':
-if (!isRegistered) return reply(ind.noregis())
-var imgbb = require('imgbb-uploader')
-if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
-  ger = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
-  reply(ind.wait())
-  owgi = await samu.downloadAndSaveMediaMessage(ger)
-  anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
-  teks = `${anu.display_url}`
-  ranp = getRandom('.gif')
-  rano = getRandom('.webp')
-  anu1 = `https://some-random-api.ml/canvas/wasted?avatar=${teks}`
-  exec(`wget ${anu1} -O ${ranp} && ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${rano}`, (err) => {
-fs.unlinkSync(ranp)
-if (err) return reply(mess.error.stick)
-nobg = fs.readFileSync(rano)
-samu.sendMessage(from, nobg, sticker, {
-  quoted: mek
-})
-fs.unlinkSync(rano)
-  })
-
-} else {
-  reply('Manda la foto:v')
-}
-break
+				  case 'was':
+				if(!isRegistered) return reply(ind.noregis())
+				if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
+				  ger = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
+				  reply(ind.wait())
+				  owgi = await client.downloadAndSaveMediaMessage(ger)
+				  anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
+				  teks = `${anu.display_url}`
+				  ranp = getRandom('.gif')
+				  rano = getRandom('.webp')
+				  anu1 = `https://some-random-api.ml/canvas/wasted?avatar=${teks}`
+				  exec(`wget ${anu1} -O ${ranp} && ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${rano}`, (err) => {
+				fs.unlinkSync(ranp)
+				if (err) return reply(ind.stikga())
+				nobg = fs.readFileSync(rano)
+				samu.sendMessage(from, nobg, sticker, {
+				  quoted: mek
+				})
+				fs.unlinkSync(rano)
+				  })
+				
+				} else {
+				  reply('Envia la foto!')
+				}
+				break 
 
 case 'drawing':
 if (!isRegistered) return reply(ind.noregis())
@@ -1318,61 +1352,79 @@ break
 
 
 case 'wanted':
-if (!isRegistered) return reply(ind.noregis())
-var imgbb = require('imgbb-uploader')
-if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
-  ted = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
-  reply(ind.wait())
-  owgi = await samu.downloadAndSaveMediaMessage(ted)
-  tels = body.slice(7)
-  anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
-  hehe = await getBuffer(`https://videfikri.com/api/textmaker/wanted/?urlgbr=${anu.display_url}&text1=Dicari&text2=${tels}`)
- samu.sendMessage(from, hehe, image, {quoted:mek})
-} else {
-  reply('Manda la foto:v')
-}
-break
+				if (!isRegistered) return reply( ind.noregis())
+				if (isLimit(sender)) return reply(ind.limitend(pusname))
+				var imgbb = require('imgbb-uploader')
+				if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
+				ted = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
+				  reply(ind.wait())
+				  owgi = await client.downloadAndSaveMediaMessage(ted)
+				  tels = body.slice(7)
+				  anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
+				  hehe = await getBuffer(`https://videfikri.com/api/textmaker/wanted/?urlgbr=${anu.display_url}&text1=Dicari&text2=${tels}`)
+				 samu.sendMessage(from, hehe, image, {quoted:mek})
+				} else {
+				  reply('Envia la foto, con el comando')
+				}
+				break
+			case 'crossgun':
+				if (!isRegistered) return reply( ind.noregis())
+				if (isLimit(sender)) return reply(ind.limitend(pusname))
+				var imgbb = require('imgbb-uploader')
+				if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
+				  ted = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
+				  reply(ind.wait())
+				  owgi = await client.downloadAndSaveMediaMessage(ted)
+				  tels = body.slice(7)
+				  anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
+				  hehe = await getBuffer(`https://videfikri.com/api/textmaker/crossgun/?urlgbr=${anu.display_url}`)
+				 samu.sendMessage(from, hehe, image, {quoted:mek})
+				} else {
+				  reply('Envia el link despues del comando')
+				}
+				break
 
 case 'gtav':
-if (!isRegistered) return reply(ind.noregis())
-var imgbb = require('imgbb-uploader')
-if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
-  ted = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
-  reply(ind.wait())
-  owgi = await samu.downloadAndSaveMediaMessage(ted)
-  tels = body.slice(7)
-  anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
-  hehe = await getBuffer(`https://videfikri.com/api/textmaker/gtavposter/?urlgbr=${anu.display_url}`)
- samu.sendMessage(from, hehe, image, {quoted:mek})
-} else {
-  reply('Manda la foto:v')
-}
-break
+				if (!isRegistered) return reply( ind.noregis())
+				if (isLimit(sender)) return reply(ind.limitend(pusname))
+				var imgbb = require('imgbb-uploader')
+				if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
+				  ted = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
+				  reply(ind.wait())
+				  owgi = await client.downloadAndSaveMediaMessage(ted)
+				  tels = body.slice(7)
+				  anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
+				  hehe = await getBuffer(`https://videfikri.com/api/textmaker/gtavposter/?urlgbr=${anu.display_url}`)
+				 samu.sendMessage(from, hehe, image, {quoted:mek})
+				} else {
+				  reply('Envia la foto')
+				}
+				break
 		
 			case 'triggered':
- if (!isRegistered) return reply(ind.noregis())
-            var imgbb = require('imgbb-uploader')
-           if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
-           ger = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
-           reply(ind.wait())
-         owgi = await samu.downloadAndSaveMediaMessage(ger)
-           anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
-        teks = `${anu.display_url}`
-         ranp = getRandom('.gif')
-        rano = getRandom('.webp')
-        anu1 = `https://some-random-api.ml/canvas/triggered?avatar=${teks}`
-       exec(`wget ${anu1} -O ${ranp} && ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${rano}`, (err) => {
-                                                fs.unlinkSync(ranp)
-                                                if (err) return reply('Ocurrio un error')
-                                                nobg = fs.readFileSync(rano)
-                                                samu.sendMessage(from, nobg, sticker, {quoted: mek})
-                                                fs.unlinkSync(rano)
-                                        })
-                                    
-                                             } else {
-                                                 reply('Envia la foto!')
-                                          }
-                                             break
+				case 'ger':
+				 if (!isRegistered) return reply(ind.noregis())
+				           if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
+				           ger = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
+				           reply(ind.wait())
+				         owgi = await client.downloadAndSaveMediaMessage(ger)
+				           anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
+				        teks = `${anu.display_url}`
+				         ranp = getRandom('.gif')
+				        rano = getRandom('.webp')
+				        anu1 = `https://some-random-api.ml/canvas/triggered?avatar=${teks}`
+				       exec(`wget ${anu1} -O ${ranp} && ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${rano}`, (err) => {
+                        fs.unlinkSync(ranp)
+                        if (err) return reply(imd.stikga())
+                        nobg = fs.readFileSync(rano)
+                        samu.sendMessage(from, nobg, sticker, {quoted: mek})
+                        fs.unlinkSync(rano)
+                })
+            
+                     } else {
+                         reply('Envia la foto foto!')
+                  }
+                     break
 
 
 case 'tourl':
