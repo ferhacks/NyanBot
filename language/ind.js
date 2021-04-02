@@ -1,4 +1,4 @@
-const a = '```'
+const a = '*```'
 
 exports.wait = () => {
 	return`*「 ⌛ WAIT ⌛ 」 EN PROCESO*`
@@ -120,14 +120,21 @@ exports.menu = (pushname, prefix, getLevelingLevel, getLevelingXp, sender, reqXp
 	return `
 ${a} ╭══• ೋ•✧๑🐬NyanBot🐬๑✧•ೋ •══╮${a}
 ${a} ⊨ *「✅ACERCA DEL USUARIO✅」*${a}
-${a}︱○ *🙍🏻‍♂️nombre* : ${pushname}${a}
-${a}︱○ Premium :${a} ${premi}
-${a}︱○ *📲numero* : wa.me/${sender.split("@")[0]}${a}
+${a}︱○ *🙍🏻‍♂️nombre : ${pushname}${a}
+${a}︱○ Premium : ${premi}${a}
+${a}︱○ 📲numero : wa.me/${sender.split("@")[0]}${a}
 ${a}︱○ 💵Dinero : Rp${uangku}${a}
-${a}︱○ *✨XP* : ${getLevelingXp(sender)}/${reqXp} ${a}
-${a}︱○ *♻level* : ${getLevelingLevel(sender)}${a}
+${a}︱○ ✨XP : ${getLevelingXp(sender)}/${reqXp} ${a}
+${a}︱○ ♻level : ${getLevelingLevel(sender)}${a}
 ${a}︱○ Rol : ${role}${a}
-${a}︱○ *💻Usuarios registrados* : ${_registered.length}${a}
+${a}︱○ 💻Usuarios registrados* : ${_registered.length}${a} 
+${a}︱○ ♻Nombre : ${client.user.name}${a}
+${a}︱○ 🌐Navegador : ${client.browserDescription[1]}${a}
+${a}︱○ 📡server : ${client.browserDescription[0]}${a}
+${a}︱○ ✏version : ${client.browserDescription[2]}${a}
+${a}︱○ 🚄Velocidad : ${process.uptime()}${a}
+${a}︱○ 📲Celular : ${client.user.phone.device_manufacturer}${a}
+${a}︱○ ✅version de wa : ${client.user.phone.wa_version}${a}
 
  *${prefix}info*
  *${prefix}owner*
@@ -180,98 +187,9 @@ ${a}┃➥${prefix}ssweb${a}
 ${a}┃➥${prefix}kbbi${a}
 ${a}└─────────────────
 
-${a}❏NSFW${a}
- ${a}│•${prefix}anjing${a}
- ${a}│•${prefix}blowjob${a}
- ${a}│•${prefix}nekonime${a}
- ${a}│•${prefix}pokemon${a}
- ${a}│•${prefix}husbu${a}
- ${a}│•${prefix}nangis${a}
- ${a}│•${prefix}cium${a}
- ${a}│•${prefix}peluk${a}
- ${a}╰•${prefix}ranime${a}
- 
-${a}❏LIMITE Y DINERO${a}
- ${a}│•${prefix}limit${a}
- ${a}│•${prefix}buylimit${a}
- ${a}│•${prefix}transfer${a}
- ${a}│•${prefix}dompet${a}
- ${a}│•${prefix}giftlimit${a}
- ${a}╰•${prefix}leaderboard${a}
- 
-${a}❏MENU PARA GRUPOS${a}
- ${a}│•${prefix}delete${a}
- ${a}│•${prefix}hidetag${a}
- ${a}│•${prefix}blocklist${a}
- ${a}│•${prefix}grouplist${a}
- ${a}│•${prefix}level${a}
- ${a}│•${prefix}linkgc${a}
- ${a}│•${prefix}all/all2/all3${a}
- ${a}│•${prefix}setpp${a}
- ${a}│•${prefix}add${a}
- ${a}│•${prefix}kick${a}
- ${a}│•${prefix}kickall${a}
- ${a}│•${prefix}setname${a}
- ${a}│•${prefix}setdesc${a}
- ${a}│•${prefix}demote${a}
- ${a}│•${prefix}promote${a}
- ${a}│•${prefix}listadmin${a}
- ${a}│•${prefix}closegc${a}
- ${a}│•${prefix}opengc${a}
- ${a}│•${prefix}leveling [enable/disable]${a}
- ${a}│•${prefix}nsfw [1/0]${a}
- ${a}│•${prefix}simih [1/0]${a}
- ${a}│•${prefix}welcome [1/0]${a}
- ${a}│•${prefix}antilink [1/0]${a}
- ${a}╰•${prefix}nobadword [enable/disable]${a}
- 
-${a}❏HERRAMIENTAS${a}
- ${a}│•${prefix}bass${a}
- ${a}│•${prefix}tomp3${a}
- ${a}│•${prefix}slowmo${a}
- ${a}│•${prefix}gemok${a}
- ${a}╰•${prefix}tupai${a}
- 
-${a}❏ALMACENAMIENTO EN LA NUBE${a}
- ${a}│•${prefix}addstik${a}
- ${a}│•${prefix}getstik${a}
- ${a}│•${prefix}liststik${a}
- ${a}│•${prefix}addvid${a}
- ${a}│•${prefix}getvid${a}
- ${a}│•${prefix}listvid${a}
- ${a}│•${prefix}getimg${a}
- ${a}│•${prefix}addimg${a}
- ${a}│•${prefix}listimg${a}
- ${a}│•${prefix}addvn${a}
- ${a}│•${prefix}getvn${a}
- ${a}╰•${prefix}listvn${a}
- 
-${a}❏MENU DEL DUEÑO${a}
- ${a}│•${prefix}bc${a}
- ${a}│•${prefix}addbadword${a}
- ${a}│•${prefix}delbadword${a}
- ${a}│•${prefix}kickall${a}
- ${a}│•${prefix}setreply${a}
- ${a}│•${prefix}setprefix${a}
- ${a}│•${prefix}clearall${a}
- ${a}│•${prefix}block${a}
- ${a}│•${prefix}unblock${a}
- ${a}│•${prefix}leave${a}
- ${a}│•${prefix}event [1/0]${a}
- ${a}│•${prefix}clone${a}
- ${a}╰•${prefix}setppbot${a}
- 
-${a}❏SOBRE EL BOT${a}
- ${a}│ ♻Nombre : ${client.user.name}${a}
- ${a}│ 🌐Navegador : ${client.browserDescription[1]}${a}
- ${a}│ 📡server : ${client.browserDescription[0]}${a}
- ${a}│ ✏version : ${client.browserDescription[2]}${a}
- ${a}│ 🚄Velocidad : ${process.uptime()}${a}
- ${a}│ 📲Celular : ${client.user.phone.device_manufacturer}${a}
- ${a}╰ ✅version de wa : ${client.user.phone.wa_version}${a}
- 
-${a}❏THANGKS TO${a}
- ${a}│${a}
+Por el momento no tengo un menu formal, no todos mis comandos aparecen, espera a que Samu lanze la version oficial
+  
+${a} THANGKS TO${a}
  ${a}│ 🔐Samu330👑${a}
  ${a}╰ NOTE : Siganme en YouTube${a}
 li.✵⃘⃘⃘⃘่่่่่่่่่่่่่่่่่่่่่่่่่่͜͡✵⃘͜͡ํ่่่่่่่่่่่่่่่่่่่่่่่่่͜✵⃘่่่่่่่่่่่่่่่่่่่่่่่่่่͜͡✵⃘่่่่่่่่่่่่่่่͜͡✵⃘่่่่่่่่่่่่่่่่่่่่่่่่่͜͡✵⃘่่่่่่่่่่่่่่่่่͜͡✵⃘่่่่่่่่่่่่่่่่่่่่่่่่่͜͡✵⃘⃘่่่่่่่่่่่่่่่่่่͜͡✵⃘่่่่่่่่่่่่่่่่่่่่่่่่่่͜͡✵⃘⃘⃘⃘่่่่่่่่่่่่่่่่่͜͡✵⃘͜͡ํ่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่͜✵⃘่่่่่่่่่่่่่่่่͜͡✵⃘่่่่่่่่่่่่่่่่่่่่่่่่่่͜͡✵⃘่่่่่่่่่่่่่่่่่่่่่่่่่่͜͡✵⃘่่่่่่่่่่่่่่่่่͜͡✵⃘͜͡ํ่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่͜✵⃘่่่่่่่่่่่่่่่่่͜͡✵.li
