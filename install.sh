@@ -52,6 +52,7 @@ npm install fluent-ffmpeg
 pkg install pulseaudio
 pkg install sox
 pulse audio -D
+apt install termimage
 echo -e '\033[0m\033[1;35m
       _   _   _       _   _   _            ____  
      | | | | | |     | | | | | |   __  __ |  _ \ 
@@ -133,15 +134,8 @@ echo -e '\033[0m\033[1;32m
    \ V /   | |___  |  _ <   | |  |  _|    | |  | |___   / ___ \  | |\  | | |_| | | |_| |  _   _   _ 
     \_/    |_____| |_| \_\ |___| |_|     |___|  \____| /_/   \_\ |_| \_| |____/   \___/  (_) (_) (_)
  \033[0m'
- echo " "
- echo " "
- echo " "
- echo " "
- echo " "
- echo " "
- echo " "
- echo " "
- sleep 1.0
+ sleep 3.0
+ npm i ffmpeg
  echo -e '\033[0m\033[1;37m
    __    __                                    
   / _|  / _|  _ __ ___    _ __     ___    __ _ 
@@ -156,15 +150,7 @@ echo -e '\033[0m\033[1;32m
  |_| |_| |_| |___/  \__|  \__,_| |_|  \__,_|  \__,_|  \___/ 
                                                             
 \033[0m'
-echo " "
- echo " "
- echo " "
- echo " "
- echo " "
- echo " "
- echo " "
- echo " "
- sleep 1.0
+ sleep 3.0
 echo -e '\034[0m\033[1;37m
   _   _               _        
  | \ | |   ___     __| |   ___ 
@@ -177,15 +163,7 @@ echo -e '\034[0m\033[1;37m
  | | | | | | \__ \ | |_  | (_| | | | | (_| | | (_| | | (_) |
  |_| |_| |_| |___/  \__|  \__,_| |_|  \__,_|  \__,_|  \___/ 
  \033[0m'
- echo " "
- echo " "
- echo " "
- echo " "
- echo " "
- echo " "
- echo " "
- echo " "
- sleep 1.0
+ sleep 3.0
  echo -e '\033[0m\034[1;36m
   ____                          _                     _        
  |  _ \   _ __   _   _    ___  | |__     __ _      __| |   ___ 
@@ -199,6 +177,7 @@ echo -e '\034[0m\033[1;37m
   \__,_|  \__,_|  \__,_| |_|  \___/  (_) (_) (_)           
  \033[0m'                      
  play Samu330.wav
+ termimage nyan.png
 echo -e '\033[0m\033[1;31m
 SI ESCUCHASTE EL AUDIO, TODO ESTA BIEN, PROSEDE A INICIAR EL BOT CON: npm start
 \033[0m'                      
