@@ -355,6 +355,15 @@ async function starts() {
         fs.writeFileSync('./samu.json', JSON.stringify(samu.base64EncodedAuthInfo(), null, '\t'))
 
 
+samu.on('credentials-updated', () => {
+	const authInfo = samu.base64EncodedAuthInfo()
+   console.log(`credentials updated!`)
+   fs.writeFileSync('./session.json', JSON.stringify(authInfo, null, '\t'))
+})
+fs.existsSync('./session.json') && samu.loadAuthInfo('./session.json')
+samu.connect();
+
+
 samu.on('group-participants-update', async (anu) => {
 		if (!welkom.includes(anu.jid)) return
 		try {
@@ -362,31 +371,31 @@ samu.on('group-participants-update', async (anu) => {
 			console.log(anu)
 			if (anu.action == 'add') {
 				num = anu.participants[0]
-				teks = `Hola @${num.split('@')[0]}
-Bienvenid@ a 
-*${mdata.subject}*
-────────────────
-┏━━━━━━━━━━━━━━━━━━━━
-┃──────✅  *Info* ✅───────
-┃━━━━━━━━━━━━━━━━━━━━
-┠➢ *🙍🏻‍♂️Nombre* :
-┠➢ *🌐Edad* :
-┠➢ *🗺Pais* :
-┠➢ *🧬Género* :
-┗━━━━━━━━━━━━━━━━━━━━
-Usa *${prefix}reg* para verificarte y poder usar el bot.`
-				samu.sendMessage(mdata.id, teks, MessageType.text, { contextInfo: {"mentionedJid": [num]}})
+				try {
+					ppimg = await samu.getProfilePicture(`${anu.participants[0].split('@')[0]}@c.us`)
+				} catch {
+					ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
+				}
+				teks = `@${num.split('@')[0]}\ Hola, *${mdata.subject}* Bienvenido Pasatela bien aqui`
+				let buff = await getBuffer(ppimg)
+				samu.sendMessage(mdata.id, buff, MessageType.image, {caption: teks, contextInfo: {"mentionedJid": [num]}})
 			} else if (anu.action == 'remove') {
 				num = anu.participants[0]
-				teks = `Uno menos @${num.split('@')[0]}, que le vaya bien, total, aqui nadie lo extrañará 👋`
-				samu.sendMessage(mdata.id, teks, MessageType.text, {contextInfo: {"mentionedJid": [num]}})
+				try {
+					ppimg = await samu.getProfilePicture(`${num.split('@')[0]}@c.us`)
+				} catch {
+					ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
+				}
+				teks = `Adios pedazo de.... nadie te extrañara, eurte en la otra vida🥳 @${num.split('@')[0]}`
+				let buff = await getBuffer(ppimg)
+				client.sendMessage(mdata.id, buff, MessageType.image, {caption: teks, contextInfo: {"mentionedJid": [num]}})
 			}
 		} catch (e) {
 			console.log('Error : %s', color(e, 'red'))
 		}
 	})
 	samu.on('CB:Blocklist', json => {
-            if (blocked.length > 2) return
+		if (blocked.length > 2) return
 	    for (let i of json[1].blocklist) {
 	    	blocked.push(i.replace('c.us','s.whatsapp.net'))
 	    }
