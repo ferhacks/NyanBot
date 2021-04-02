@@ -52,7 +52,7 @@ npm install fluent-ffmpeg
 pkg install pulseaudio
 pkg install sox
 pulse audio -D
-apt install termimage
+pkg install termimage
 echo -e '\033[0m\033[1;35m
       _   _   _       _   _   _            ____  
      | | | | | |     | | | | | |   __  __ |  _ \ 
