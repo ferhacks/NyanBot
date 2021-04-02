@@ -354,16 +354,6 @@ async function starts() {
 	await samu.connect({timeoutMs: 30*1000})
         fs.writeFileSync('./samu.json', JSON.stringify(samu.base64EncodedAuthInfo(), null, '\t'))
 
-
-samu.on('credentials-updated', () => {
-	const authInfo = samu.base64EncodedAuthInfo()
-   console.log(`credentials updated!`)
-   fs.writeFileSync('./session.json', JSON.stringify(authInfo, null, '\t'))
-})
-fs.existsSync('./session.json') && samu.loadAuthInfo('./session.json')
-samu.connect();
-
-
 samu.on('group-participants-update', async (anu) => {
 		if (!welkom.includes(anu.jid)) return
 		try {
@@ -429,14 +419,13 @@ samu.on('group-participants-update', async (anu) => {
 			const q = args.join(' ')
 			const botNumber = samu.user.jid
 			const sender = isGroup ? mek.participant : mek.key.remoteJid
-	    pushname = samu.contacts[sender] != undefined ? samu.contacts[sender].vname || samu.contacts[sender].notify : undefined
+			pushname = samu.contacts[sender] != undefined ? samu.contacts[sender].vname || samu.contacts[sender].notify : undefined
 			const groupMetadata = isGroup ? await samu.groupMetadata(from) : ''
 			const groupName = isGroup ? groupMetadata.subject : ''
 			const groupId = isGroup ? groupMetadata.jid : ''
 			const groupMembers = isGroup ? groupMetadata.participants : ''
 			const groupDesc = isGroup ? groupMetadata.desc : ''
             const groupAdmins = isGroup ? getGroupAdmins(groupMembers) : ''
-      const is = budy.slice(0).trim().split(/ +/).shift().toLowerCase()
 
             
             //:::::::::::::::::::: SCURITY FEATURE ::::::::::::::::::::
