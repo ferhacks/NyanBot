@@ -41,6 +41,7 @@ const { ind } = require('./language')
 
 
 //:::::LOAD SETTINGS::::::::
+const settingan = JSON.parse(fs.readFileSync('./samu/config.json'))
 const {
 	limitawal,
 	memberlimit,
