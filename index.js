@@ -1,5 +1,5 @@
 const {
-   WAConnection,
+    WAConnection,
    MessageType,
    Presence,
    MessageOptions,
@@ -11,7 +11,7 @@ const {
    GroupSettingChange,
    waChatKey,
    mentionedJid,
-   processTime
+   processTime,
 } = require('@adiwajshing/baileys');
 const qrcode = require("qrcode-terminal") 
 const moment = require("moment-timezone") 
@@ -34,47 +34,214 @@ const ffmpeg = require('fluent-ffmpeg')
 const ms = require('parse-ms')
 const toMs = require('ms')
 const path = require('path')
-const PhoneNumber = require('awesome-phonenumber')
 const cd = 4.32e+7
-const imgbb = require('imgbb-uploader')
 const { ind } = require('./language')
 
-
-//:::::LOAD SETTINGS::::::::
-const settingan = JSON.parse(fs.readFileSync('./samu/config.json'))
-const {
-	limitawal,
-	memberlimit,
-	cr,
-	BotPrefix,
-	owner
-} = settingan
-
-//::::::::::::::::::::::::::::::::::::::
-const ownerNumber = `${owner}@s.whatsapp.net`
-prefix = BotPrefix
+/********** MENU SETTING **********/
+const vcard = 'BEGIN:VCARD\n' 
+            + 'VERSION:3.0\n' 
+            + 'FN:🐬Nyanbot\n' 
+            + 'ORG: 🔐Samu330👑;\n' 
+            + 'TEL;type=CELL;type=VOICE;waid=529984907794:+529984907794\n' 
+            + 'END:VCARD' 
 blocked = []   
+prefix = '.'
+limitawal = 30
+memberlimit = 0
+ator = 'Samu330'
+namo = 'NyanBot'
+cr = '*✅S A M U 3 3 0✅*'
+/*************************************/
 
-//:::::FUNCIONES Y NIVEL::::::::::::::::
-const {
-	getLevelingXp,
-	getLevelingLevel,
-	getLevelingId,
-	addLevelingXp,
-	addLevelingLevel,
-	addLevelingId
-} = require('./lib/level.js')
+/******** OWNER NUMBER**********/
+const ownerNumber = ["14694222222@s.whatsapp.net","14694222222@s.whatsapp.net"] 
+/************************************/
 
-//:::::::REGISTRO::::::::::::::::::::::
-const {
-	getRegisteredRandomId,
-	addRegisteredUser,
-	createSerial,
-	checkRegisteredUser
-} = require('./lib/register.js')
+       
+/*********** LOAD FILE ***********/
+const setiker = JSON.parse(fs.readFileSync('./strg/stik.json'))
+const videonye = JSON.parse(fs.readFileSync('./strg/video.json'))
+const audionye = JSON.parse(fs.readFileSync('./strg/audio.json'))
+const imagenye = JSON.parse(fs.readFileSync('./strg/image.json'))
+const _leveling = JSON.parse(fs.readFileSync('./database/group/leveling.json'))
+const _level = JSON.parse(fs.readFileSync('./database/user/level.json'))
+const _registered = JSON.parse(fs.readFileSync('./database/bot/registered.json'))
+const welkom = JSON.parse(fs.readFileSync('./database/bot/welkom.json'))
+const nsfw = JSON.parse(fs.readFileSync('./database/bot/nsfw.json'))
+const samih = JSON.parse(fs.readFileSync('./database/bot/simi.json'))
+const event = JSON.parse(fs.readFileSync('./database/bot/event.json'))
+const _limit = JSON.parse(fs.readFileSync('./database/user/limit.json'))
+const uang = JSON.parse(fs.readFileSync('./database/user/uang.json'))
+const prem = JSON.parse(fs.readFileSync('./database/user/prem.json'))
+const antilink = JSON.parse(fs.readFileSync('./database/group/antilink.json'))
+const bad = JSON.parse(fs.readFileSync('./database/group/bad.json'))
+const badword = JSON.parse(fs.readFileSync('./database/group/badword.json'))
+/*********** END LOAD ***********/
 
+/********** FUNCTION ***************/
+		const getLevelingXp = (sender) => {
+            let position = false
+            Object.keys(_level).forEach((i) => {
+                if (_level[i].id === sender) {
+                    position = i
+                }
+            })
+            if (position !== false) {
+                return _level[position].xp
+            }
+        }
 
-const getPremiumExpired = (sender) => {
+        const getLevelingLevel = (sender) => {
+            let position = false
+            Object.keys(_level).forEach((i) => {
+                if (_level[i].id === sender) {
+                    position = i
+                }
+            })
+            if (position !== false) {
+                return _level[position].level
+            }
+        }
+
+        const getLevelingId = (sender) => {
+            let position = false
+            Object.keys(_level).forEach((i) => {
+                if (_level[i].id === sender) {
+                    position = i
+                }
+            })
+            if (position !== false) {
+                return _level[position].id
+            }
+        }
+
+        const addLevelingXp = (sender, amount) => {
+            let position = false
+            Object.keys(_level).forEach((i) => {
+                if (_level[i].id === sender) {
+                    position = i
+                }
+            })
+            if (position !== false) {
+                _level[position].xp += amount
+                fs.writeFileSync('./database/user/level.json', JSON.stringify(_level))
+            }
+        }
+
+        const addLevelingLevel = (sender, amount) => {
+            let position = false
+            Object.keys(_level).forEach((i) => {
+                if (_level[i].id === sender) {
+                    position = i
+                }
+            })
+            if (position !== false) {
+                _level[position].level += amount
+                fs.writeFileSync('./database/user/level.json', JSON.stringify(_level))
+            }
+        }
+
+        const addLevelingId = (sender) => {
+            const obj = {id: sender, xp: 1, level: 1}
+            _level.push(obj)
+            fs.writeFileSync('./database/user/level.json', JSON.stringify(_level))
+        }
+             
+         const getRegisteredRandomId = () => {
+            return _registered[Math.floor(Math.random() * _registered.length)].id
+        }
+
+        const addRegisteredUser = (userid, sender, age, time, serials) => {
+            const obj = { id: userid, name: sender, age: age, time: time, serial: serials }
+            _registered.push(obj)
+            fs.writeFileSync('./database/bot/registered.json', JSON.stringify(_registered))
+        }
+
+        const createSerial = (size) => {
+            return crypto.randomBytes(size).toString('hex').slice(0, size)
+        }
+
+        const checkRegisteredUser = (sender) => {
+            let status = false
+            Object.keys(_registered).forEach((i) => {
+                if (_registered[i].id === sender) {
+                    status = true
+                }
+            })
+            return status
+        }
+        
+        const addATM = (sender) => {
+        	const obj = {id: sender, uang : 0}
+            uang.push(obj)
+            fs.writeFileSync('./database/user/uang.json', JSON.stringify(uang))
+        }
+        
+        const addKoinUser = (sender, amount) => {
+            let position = false
+            Object.keys(uang).forEach((i) => {
+                if (uang[i].id === sender) {
+                    position = i
+                }
+            })
+            if (position !== false) {
+                uang[position].uang += amount
+                fs.writeFileSync('./database/user/uang.json', JSON.stringify(uang))
+            }
+        }
+        
+        const checkATMuser = (sender) => {
+        	let position = false
+            Object.keys(uang).forEach((i) => {
+                if (uang[i].id === sender) {
+                    position = i
+                }
+            })
+            if (position !== false) {
+                return uang[position].uang
+            }
+        }
+        
+        const bayarLimit = (sender, amount) => {
+        	let position = false
+            Object.keys(_limit).forEach((i) => {
+                if (_limit[i].id === sender) {
+                    position = i
+                }
+            })
+            if (position !== false) {
+                _limit[position].limit -= amount
+                fs.writeFileSync('./database/user/limit.json', JSON.stringify(_limit))
+            }
+        }
+        	
+        const confirmATM = (sender, amount) => {
+        	let position = false
+            Object.keys(uang).forEach((i) => {
+                if (uang[i].id === sender) {
+                    position = i
+                }
+            })
+            if (position !== false) {
+                uang[position].uang -= amount
+                fs.writeFileSync('./database/user/uang.json', JSON.stringify(uang))
+            }
+        }
+        
+        const limitAdd = (sender) => {
+             let position = false
+            Object.keys(_limit).forEach((i) => {
+                if (_limit[i].id == sender) {
+                    position = i
+                }
+            })
+            if (position !== false) {
+                _limit[position].limit += 1
+                fs.writeFileSync('./database/user/limit.json', JSON.stringify(_limit))
+            }
+        } 
+        
+        const getPremiumExpired = (sender) => {
 		    let position = null
 		    Object.keys(prem).forEach((i) => {
 		        if (prem[i].id === sender) {
@@ -109,63 +276,8 @@ const getPremiumExpired = (sender) => {
 		    })
 		    return array
 		}
-
-
-const {
-	addATM,
-	addKoinUser,
-	checkATMuser,
-	bayarLimit,
-	confirmATM,
-	limitAdd
-} = require('./lib/limitatm.js')
-
-
-const {
-	addAfkUser,
-    checkAfkUser,
-    getAfkReason,
-    getAfkTime,
-    getAfkId,
-    getAfkPosition,
-    afkDel
-} = require('./lib/afk.js')
-
-
-const {
-	cmdadd
-} = require('./lib/totalcmd.js')
-	
-//::::::::V-CARD:::::::::::::::::::::
-const vcard = 'BEGIN:VCARD\n' 
-            + 'VERSION:3.0\n' 
-            + 'FN:🐬NyanBot🐬\n' 
-            + `ORG: 👑Samu330👑;\n`
-            + `TEL;type=CELL;type=VOICE;waid=${owner}:${PhoneNumber('+' + owner).getNumber('international')}\n` 
-            + 'END:VCARD' 
-
-       
-//::::::::::::FILES:::::::::::::::::
-const setiker = JSON.parse(fs.readFileSync('./strg/stik.json'))
-const videonye = JSON.parse(fs.readFileSync('./strg/video.json'))
-const audionye = JSON.parse(fs.readFileSync('./strg/audio.json'))
-const imagenye = JSON.parse(fs.readFileSync('./strg/image.json'))
-const _leveling = JSON.parse(fs.readFileSync('./database/group/leveling.json'))
-const _level = JSON.parse(fs.readFileSync('./database/user/level.json'))
-const _registered = JSON.parse(fs.readFileSync('./database/bot/registered.json'))
-const welkom = JSON.parse(fs.readFileSync('./database/bot/welkom.json'))
-const nsfw = JSON.parse(fs.readFileSync('./database/bot/nsfw.json'))
-const samih = JSON.parse(fs.readFileSync('./database/bot/simi.json'))
-const event = JSON.parse(fs.readFileSync('./database/bot/event.json'))
-const _limit = JSON.parse(fs.readFileSync('./database/user/limit.json'))
-const uang = JSON.parse(fs.readFileSync('./database/user/uang.json'))
-const prem = JSON.parse(fs.readFileSync('./database/user/prem.json'))
-const antilink = JSON.parse(fs.readFileSync('./database/group/antilink.json'))
-const bad = JSON.parse(fs.readFileSync('./database/group/bad.json'))
-const badword = JSON.parse(fs.readFileSync('./database/group/badword.json'))
-const _afk = JSON.parse(fs.readFileSync('./database/user/afk.json'))
-
-//:::::::FUNCIONES::::::::::::
+		
+         
 function kyun(seconds){
   function pad(s){
     return (s < 10 ? '0' : '') + s;
@@ -175,9 +287,9 @@ function kyun(seconds){
   var seconds = Math.floor(seconds % 60);
   return `${pad(hours)} Horas ${pad(minutes)} Minutos ${pad(seconds)} Segundos`
 }
-//:::::::::::STIKERS::::::::::::
+
 function addMetadata(packname, author) {	
-	if (!packname) packname = 'NyanBot'; if (!author) author = 'Samu330';	
+	if (!packname) packname = 'WABot'; if (!author) author = 'Bot';	
 	author = author.replace(/[^a-zA-Z0-9]/g, '');	
 	let name = `${author}_${packname}`
 	if (fs.existsSync(`./${name}.exif`)) return `./${name}.exif`
@@ -217,30 +329,27 @@ function addMetadata(packname, author) {
 
 } 
 
+/********** FUNCTION ***************/
 
-//:::::::INICIANDO BOT::::::::::::
-const samu = new WAConnection()
-samu.logger.level = 'warn'
-samu.on('qr', qr => {
-   qrcode.generate(qr, { small: true })
-   console.log(color('[','white'),color('!','red'),color(']','white'),color('qr already scan.subscribe','white'),color('YOU','red'),color('TUBE','white'),color('Samu330','cyan'))
-})
+async function starts() {
+	const samu = new WAConnection()
+	samu.logger.level = 'warn'
+	console.log(banner.string)
+	samu.on('qr', () => {
+		console.log(color('[','white'), color('!','red'), color(']','white'), color(' Scan the qr code above'))
+	})
 
-samu.on('credentials-updated', () => {
-	const authInfo = samu.base64EncodedAuthInfo()
-   console.log(color('credentials updated!','red'))
-   fs.writeFileSync('./session.json', JSON.stringify(authInfo, null, '\t'))
-})
-fs.existsSync('./session.json') && samu.loadAuthInfo('./session.json')
-samu.on('connecting', () => {
-	console.log(color('Bot Conecting...','red'))
-})
-samu.on('open', () => {
-	console.log(color('Bot Conected...','green'))
-})
-samu.connect({timeoutMs: 30*1000})
+	fs.existsSync('./samu.json') && samu.loadAuthInfo('./samu.json')
+	samu.on('connecting', () => {
+		start('2', 'Connecting...')
+	})
+	samu.on('open', () => {
+		success('2', 'Connected')
+	})
+	await samu.connect({timeoutMs: 30*1000})
+        fs.writeFileSync('./samu.json', JSON.stringify(samu.base64EncodedAuthInfo(), null, '\t'))
 
-//:::::::BIENVENIDA AALOS GRUPOS:::::::::::::::
+
 samu.on('group-participants-update', async (anu) => {
 		if (!welkom.includes(anu.jid)) return
 		try {
@@ -249,11 +358,11 @@ samu.on('group-participants-update', async (anu) => {
 			if (anu.action == 'add') {
 				num = anu.participants[0]
 				try {
-					ppimg = await samu.getProfilePicture(`${anu.participants[0].split('@')[0]}@c.us`)
+					ppimg = await client.getProfilePicture(`${anu.participants[0].split('@')[0]}@c.us`)
 				} catch {
 					ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
 				}
-				teks = `Hola @${num.split('@')[0]}\nBienvenido a *${mdata.subject}* Pasatela bien:D`
+				teks = `@${num.split('@')[0]}\ Bienvenido a *${mdata.subject}* Pasatela bien aqui`
 				let buff = await getBuffer(ppimg)
 				samu.sendMessage(mdata.id, buff, MessageType.image, {caption: teks, contextInfo: {"mentionedJid": [num]}})
 			} else if (anu.action == 'remove') {
@@ -263,7 +372,7 @@ samu.on('group-participants-update', async (anu) => {
 				} catch {
 					ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
 				}
-				teks = `Adios @${num.split('@')[0]} te cuidas, aqui nadie te extrañara:3`
+				teks = `Bye @${num.split('@')[0]}`
 				let buff = await getBuffer(ppimg)
 				samu.sendMessage(mdata.id, buff, MessageType.image, {caption: teks, contextInfo: {"mentionedJid": [num]}})
 			}
@@ -271,8 +380,6 @@ samu.on('group-participants-update', async (anu) => {
 			console.log('Error : %s', color(e, 'red'))
 		}
 	})
-	
-	//:::::::ACTUALIZAR::::::::::::::::
 	samu.on('CB:Blocklist', json => {
 		if (blocked.length > 2) return
 	    for (let i of json[1].blocklist) {
@@ -280,11 +387,8 @@ samu.on('group-participants-update', async (anu) => {
 	    }
 	})
 
-	//::::::::ACTUALIZAR MENSAJES:::::
-	samu.on('chat-update', async (mek) => {
+	samu.on('message-new', async (mek) => {
 		try {
-             if (!mek.hasNewMessage) return
-            mek = JSON.parse(JSON.stringify(mek)).messages[0]
 			if (!mek.message) return
 			if (mek.key && mek.key.remoteJid == 'status@broadcast') return
 			if (mek.key.fromMe) return
@@ -317,7 +421,7 @@ samu.on('group-participants-update', async (anu) => {
 			const groupDesc = isGroup ? groupMetadata.desc : ''
             const groupAdmins = isGroup ? getGroupAdmins(groupMembers) : ''
             
-            //::::::::::::::COMANDOS::::::::::::::::
+            /************** SCURITY FEATURE ************/
             const isEventon = isGroup ? event.includes(from) : false
             const isRegistered = checkRegisteredUser(sender)
             const isBadWord = isGroup ? badword.includes(from) : false
@@ -329,7 +433,6 @@ samu.on('group-participants-update', async (anu) => {
 			const isSimi = isGroup ? samih.includes(from) : false
 			const isOwner = ownerNumber.includes(sender)
 			const isPrem = prem.includes(sender) || isOwner
-			const isAfkOn = checkAfkUser(sender)
 			const isAntiLink = isGroup ? antilink.includes(from) : false
 			const isImage = type === 'imageMessage'
 			const isUrl = (url) => {
@@ -466,7 +569,7 @@ samu.on('group-participants-update', async (anu) => {
                     for (let lmt of _limit) {
                         if (lmt.id === sender) {
                             let limitCounts = limitawal - lmt.limit
-                            if (limitCounts <= 0) return samu.sendMessage(from,`Lo siento, pero es necesario limites para usar este comando.\n\n_Nota: Puedes reclamar tu limite gratias con el comando: *${prefix}buylimit* para subir de nivel_`, text,{ quoted: mek})
+                            if (limitCounts <= 0) return client.sendMessage(from,`Su solicitud límite se ha agotado\n\n_Nota : puede adquirir un límite mediante ${prefix}buylimit y subiendo de nivel_`, text,{ quoted: mek})
                             samu.sendMessage(from, ind.limitcount(limitCounts), text, { quoted : mek})
                             found = true
                         }
@@ -475,13 +578,13 @@ samu.on('group-participants-update', async (anu) => {
                         let obj = { id: sender, limit: 0 }
                         _limit.push(obj)
                         fs.writeFileSync('./database/user/limit.json', JSON.stringify(_limit))
-                        client.sendMessage(from, ind.limitcount(limitCounts), text, { quoted : mek})
+                        samu.sendMessage(from, ind.limitcount(limitCounts), text, { quoted : mek})
                     }
-				}
+				} 
 		
 			//::::::FIN DE LIMITES:::::::
             const isLimit = (sender) =>{ 
-          	if (isOwner ) {return false;}
+          	if (isOwner && isPrem) {return false;}
 		      let position = false
               for (let i of _limit) {
               if (i.id === sender) {
@@ -2364,5 +2467,3 @@ break
 			console.log('Error : %s', color(e, 'red'))
 		}
 	})
-
-starts()
