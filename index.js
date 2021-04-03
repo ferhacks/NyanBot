@@ -47,9 +47,7 @@ const {
 	memberlimit,
 	cr,
 	BotPrefix,
-	owner,
-	author,
-	pack
+	owner
 } = settingan
 
 //::::::::::::::::::::::::::::::::::::::
@@ -74,6 +72,43 @@ const {
 	createSerial,
 	checkRegisteredUser
 } = require('./lib/register.js')
+
+
+const getPremiumExpired = (sender) => {
+		    let position = null
+		    Object.keys(prem).forEach((i) => {
+		        if (prem[i].id === sender) {
+		            position = i
+		        }
+		    })
+		    if (position !== null) {
+		        return prem[position].expired
+		    }
+		} 
+		
+		const expiredCheck = () => {
+		    setInterval(() => {
+		        let position = null
+		        Object.keys(prem).forEach((i) => {
+		            if (Date.now() >= prem[i].expired) {
+		                position = i
+		            }
+		        })
+		        if (position !== null) {
+		            console.log(`Premium expired: ${prem[position].id}`)
+		            prem.splice(position, 1)
+		            fs.writeFileSync('./database/bot/prem.json', JSON.stringify(prem))
+		        }
+		    }, 1000)
+		} 
+		
+		const getAllPremiumUser = () => {
+		    const array = []
+		    Object.keys(prem).forEach((i) => {
+		        array.push(prem[i].id)
+		    })
+		    return array
+		}
 
 
 const {
@@ -124,6 +159,7 @@ const samih = JSON.parse(fs.readFileSync('./database/bot/simi.json'))
 const event = JSON.parse(fs.readFileSync('./database/bot/event.json'))
 const _limit = JSON.parse(fs.readFileSync('./database/user/limit.json'))
 const uang = JSON.parse(fs.readFileSync('./database/user/uang.json'))
+const prem = JSON.parse(fs.readFileSync('./database/user/prem.json'))
 const antilink = JSON.parse(fs.readFileSync('./database/group/antilink.json'))
 const bad = JSON.parse(fs.readFileSync('./database/group/bad.json'))
 const badword = JSON.parse(fs.readFileSync('./database/group/badword.json'))
@@ -292,6 +328,7 @@ samu.on('group-participants-update', async (anu) => {
 			const isNsfw = isGroup ? nsfw.includes(from) : false
 			const isSimi = isGroup ? samih.includes(from) : false
 			const isOwner = ownerNumber.includes(sender)
+			const isPrem = prem.includes(sender) || isOwner
 			const isAfkOn = checkAfkUser(sender)
 			const isAntiLink = isGroup ? antilink.includes(from) : false
 			const isImage = type === 'imageMessage'
@@ -1396,7 +1433,7 @@ break
 							})
 							.on('end', function () {
 								console.log('Finish')
-								exec(`webpmux -set exif ${addMetadata(namo, ator)} ${ran} -o ${ran}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('Samu330')} ${ran} -o ${ran}`, async (error) => {
 									//if (error) {
 											// reply(ind.stikga())
 											// fs.unlinkSync(media)	
