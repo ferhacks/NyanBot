@@ -334,7 +334,6 @@ function addMetadata(packname, author) {
 async function starts() {
 	const samu = new WAConnection()
 	samu.logger.level = 'warn'
-	console.log(banner.string)
 	samu.on('qr', () => {
 		console.log(color('[','white'), color('!','red'), color(']','white'), color(' Scan the qr code above'))
 	})
@@ -350,41 +349,35 @@ async function starts() {
         fs.writeFileSync('./samu.json', JSON.stringify(samu.base64EncodedAuthInfo(), null, '\t'))
 
 
-samu.on('group-participants-update', async (anu) => {
+	samu.on('group-participants-update', async (anu) => {
 		if (!welkom.includes(anu.jid)) return
 		try {
 			const mdata = await samu.groupMetadata(anu.jid)
 			console.log(anu)
 			if (anu.action == 'add') {
 				num = anu.participants[0]
-				try {
-					ppimg = await client.getProfilePicture(`${anu.participants[0].split('@')[0]}@c.us`)
-				} catch {
-					ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
-				}
-				teks = `@${num.split('@')[0]}\ Bienvenido a *${mdata.subject}* Pasatela bien aqui`
-				let buff = await getBuffer(ppimg)
-				samu.sendMessage(mdata.id, buff, MessageType.image, {caption: teks, contextInfo: {"mentionedJid": [num]}})
+				teks = `Hola @${num.split('@')[0]}
+Bienvenid@ a 
+*${mdata.subject}*
+────────────────
+┏━━━━━━━━━━━━━━━━━━━━
+┃──────〘  *Intro* 〙───────
+┃━━━━━━━━━━━━━━━━━━━━
+┠⊷️ *Nombre* :
+┠⊷️ *Edad* :
+┠⊷️ *Pais* :
+┠⊷️ *Género* :
+┗━━━━━━━━━━━━━━━━━━━━
+Usa ${prefix}reg para verificarte y poder usar el bot.`
+				samu.sendMessage(mdata.id, teks, MessageType.text, { contextInfo: {"mentionedJid": [num]}})
 			} else if (anu.action == 'remove') {
 				num = anu.participants[0]
-				try {
-					ppimg = await samu.getProfilePicture(`${num.split('@')[0]}@c.us`)
-				} catch {
-					ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
-				}
-				teks = `Bye @${num.split('@')[0]}`
-				let buff = await getBuffer(ppimg)
-				samu.sendMessage(mdata.id, buff, MessageType.image, {caption: teks, contextInfo: {"mentionedJid": [num]}})
+				teks = `Adios @${num.split('@')[0]}`
+				samu.sendMessage(mdata.id, teks, MessageType.text, {contextInfo: {"mentionedJid": [num]}})
 			}
 		} catch (e) {
 			console.log('Error : %s', color(e, 'red'))
 		}
-	})
-	samu.on('CB:Blocklist', json => {
-		if (blocked.length > 2) return
-	    for (let i of json[1].blocklist) {
-	    	blocked.push(i.replace('c.us','s.whatsapp.net'))
-	    }
 	})
 
 	samu.on('message-new', async (mek) => {
