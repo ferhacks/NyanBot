@@ -1,18 +1,17 @@
 const {
-  WAConnection,
-  MessageType,
-  Presence,
-  Mimetype,
-  GroupSettingChange,
-  MessageOptions,
-  WALocationMessage,
-  WA_MESSAGE_STUB_TYPES,
-  ReconnectMode,
-  ProxyAgent,
-  waChatKey,
-  mentionedJid,
-  processTime,
-  ChatModification,
+   WAConnection,
+   MessageType,
+   Presence,
+   MessageOptions,
+   Mimetype,
+   WALocationMessage,
+   WA_MESSAGE_STUB_TYPES,
+   ReconnectMode,
+   ProxyAgent,
+   GroupSettingChange,
+   waChatKey,
+   mentionedJid,
+   processTime
 } = require('@adiwajshing/baileys');
 const qrcode = require("qrcode-terminal") 
 const moment = require("moment-timezone") 
@@ -23,8 +22,6 @@ const os = require('os')
 const crypto = require('crypto')
 const imageToBase64 = require('image-to-base64')
 const axios = require('axios')
-const {removeBackgroundFromImageFile} = require('remove.bg');
-const imgbb = require('imgbb-uploader');
 const { color, bgcolor } = require('./lib/color')
 const { donasi } = require('./lib/donasi')
 const { fetchJson } = require('./lib/fetcher')
@@ -37,34 +34,82 @@ const ffmpeg = require('fluent-ffmpeg')
 const ms = require('parse-ms')
 const toMs = require('ms')
 const path = require('path')
+const PhoneNumber = require('awesome-phonenumber')
 const cd = 4.32e+7
+const imgbb = require('imgbb-uploader')
 const { ind } = require('./language')
 
-//::::::::::::::::::::::::::::::::::::::::::::::
+
+//:::::LOAD SETTINGS::::::::
+const {
+	limitawal,
+	memberlimit,
+	cr,
+	BotPrefix,
+	owner,
+	author,
+	pack
+} = settingan
+
+//::::::::::::::::::::::::::::::::::::::
+const ownerNumber = `${owner}@s.whatsapp.net`
+prefix = BotPrefix
+blocked = []   
+
+//:::::FUNCIONES Y NIVEL::::::::::::::::
+const {
+	getLevelingXp,
+	getLevelingLevel,
+	getLevelingId,
+	addLevelingXp,
+	addLevelingLevel,
+	addLevelingId
+} = require('./lib/level.js')
+
+//:::::::REGISTRO::::::::::::::::::::::
+const {
+	getRegisteredRandomId,
+	addRegisteredUser,
+	createSerial,
+	checkRegisteredUser
+} = require('./lib/register.js')
 
 
-//::::::::::::::::::::::::::::::::::::::::::::::
+const {
+	addATM,
+	addKoinUser,
+	checkATMuser,
+	bayarLimit,
+	confirmATM,
+	limitAdd
+} = require('./lib/limitatm.js')
+
+
+const {
+	addAfkUser,
+    checkAfkUser,
+    getAfkReason,
+    getAfkTime,
+    getAfkId,
+    getAfkPosition,
+    afkDel
+} = require('./lib/afk.js')
+
+
+const {
+	cmdadd
+} = require('./lib/totalcmd.js')
+	
+//::::::::V-CARD:::::::::::::::::::::
 const vcard = 'BEGIN:VCARD\n' 
             + 'VERSION:3.0\n' 
-            + 'FN:✅Samu330✅\n' 
-            + 'ORG: 🐬NyanBot🐬;\n' 
-            + 'TEL;type=CELL;type=VOICE;waid=50373488366:+503 7348-8366\n' 
+            + 'FN:🐬NyanBot🐬\n' 
+            + `ORG: 👑Samu330👑;\n`
+            + `TEL;type=CELL;type=VOICE;waid=${owner}:${PhoneNumber('+' + owner).getNumber('international')}\n` 
             + 'END:VCARD' 
-blocked = []   
-prefix = '.'
-limitawal = 1
-memberlimit = 0
-ator = 'NyanBot'
-namo = 'Samu330'
-cr = '✅Ｓａｍｕ３３０✅'
-/*************************************/
-
-//Owner
-const ownerNumber = ["14694222222@s.whatsapp.net","14694222222@s.whatsapp.net"] 
-//::::::::::::::::::::::::::::::::::::::::::::::
 
        
-//::::::::::::::::::::Load files:::::::::::::::::::
+//::::::::::::FILES:::::::::::::::::
 const setiker = JSON.parse(fs.readFileSync('./strg/stik.json'))
 const videonye = JSON.parse(fs.readFileSync('./strg/video.json'))
 const audionye = JSON.parse(fs.readFileSync('./strg/audio.json'))
@@ -78,212 +123,12 @@ const samih = JSON.parse(fs.readFileSync('./database/bot/simi.json'))
 const event = JSON.parse(fs.readFileSync('./database/bot/event.json'))
 const _limit = JSON.parse(fs.readFileSync('./database/user/limit.json'))
 const uang = JSON.parse(fs.readFileSync('./database/user/uang.json'))
-const prem = JSON.parse(fs.readFileSync('./database/user/prem.json'))
 const antilink = JSON.parse(fs.readFileSync('./database/group/antilink.json'))
 const bad = JSON.parse(fs.readFileSync('./database/group/bad.json'))
 const badword = JSON.parse(fs.readFileSync('./database/group/badword.json'))
-//::::::::::::::::::::::::::::::::::::::::::::::
+const _afk = JSON.parse(fs.readFileSync('./database/user/afk.json'))
 
-//::::::::::::::::::::::FUNCIONES::::::::::::::
-		const getLevelingXp = (sender) => {
-            let position = false
-            Object.keys(_level).forEach((i) => {
-                if (_level[i].id === sender) {
-                    position = i
-                }
-            })
-            if (position !== false) {
-                return _level[position].xp
-            }
-        }
-
-        const getLevelingLevel = (sender) => {
-            let position = false
-            Object.keys(_level).forEach((i) => {
-                if (_level[i].id === sender) {
-                    position = i
-                }
-            })
-            if (position !== false) {
-                return _level[position].level
-            }
-        }
-
-        const getLevelingId = (sender) => {
-            let position = false
-            Object.keys(_level).forEach((i) => {
-                if (_level[i].id === sender) {
-                    position = i
-                }
-            })
-            if (position !== false) {
-                return _level[position].id
-            }
-        }
-
-        const addLevelingXp = (sender, amount) => {
-            let position = false
-            Object.keys(_level).forEach((i) => {
-                if (_level[i].id === sender) {
-                    position = i
-                }
-            })
-            if (position !== false) {
-                _level[position].xp += amount
-                fs.writeFileSync('./database/user/level.json', JSON.stringify(_level))
-            }
-        }
-
-        const addLevelingLevel = (sender, amount) => {
-            let position = false
-            Object.keys(_level).forEach((i) => {
-                if (_level[i].id === sender) {
-                    position = i
-                }
-            })
-            if (position !== false) {
-                _level[position].level += amount
-                fs.writeFileSync('./database/user/level.json', JSON.stringify(_level))
-            }
-        }
-
-        const addLevelingId = (sender) => {
-            const obj = {id: sender, xp: 1, level: 1}
-            _level.push(obj)
-            fs.writeFileSync('./database/user/level.json', JSON.stringify(_level))
-        }
-             
-         const getRegisteredRandomId = () => {
-            return _registered[Math.floor(Math.random() * _registered.length)].id
-        }
-
-        const addRegisteredUser = (userid, sender, age, time, serials) => {
-            const obj = { id: userid, name: sender, age: age, time: time, serial: serials }
-            _registered.push(obj)
-            fs.writeFileSync('./database/bot/registered.json', JSON.stringify(_registered))
-        }
-
-        const createSerial = (size) => {
-            return crypto.randomBytes(size).toString('hex').slice(0, size)
-        }
-
-        const checkRegisteredUser = (sender) => {
-            let status = false
-            Object.keys(_registered).forEach((i) => {
-                if (_registered[i].id === sender) {
-                    status = true
-                }
-            })
-            return status
-        }
-        
-        const addATM = (sender) => {
-        	const obj = {id: sender, uang : 0}
-            uang.push(obj)
-            fs.writeFileSync('./database/user/uang.json', JSON.stringify(uang))
-        }
-        
-        const addKoinUser = (sender, amount) => {
-            let position = false
-            Object.keys(uang).forEach((i) => {
-                if (uang[i].id === sender) {
-                    position = i
-                }
-            })
-            if (position !== false) {
-                uang[position].uang += amount
-                fs.writeFileSync('./database/user/uang.json', JSON.stringify(uang))
-            }
-        }
-        
-        const checkATMuser = (sender) => {
-        	let position = false
-            Object.keys(uang).forEach((i) => {
-                if (uang[i].id === sender) {
-                    position = i
-                }
-            })
-            if (position !== false) {
-                return uang[position].uang
-            }
-        }
-        
-        const bayarLimit = (sender, amount) => {
-        	let position = false
-            Object.keys(_limit).forEach((i) => {
-                if (_limit[i].id === sender) {
-                    position = i
-                }
-            })
-            if (position !== false) {
-                _limit[position].limit -= amount
-                fs.writeFileSync('./database/user/limit.json', JSON.stringify(_limit))
-            }
-        }
-        	
-        const confirmATM = (sender, amount) => {
-        	let position = false
-            Object.keys(uang).forEach((i) => {
-                if (uang[i].id === sender) {
-                    position = i
-                }
-            })
-            if (position !== false) {
-                uang[position].uang -= amount
-                fs.writeFileSync('./database/user/uang.json', JSON.stringify(uang))
-            }
-        }
-        
-        const limitAdd = (sender) => {
-             let position = false
-            Object.keys(_limit).forEach((i) => {
-                if (_limit[i].id == sender) {
-                    position = i
-                }
-            })
-            if (position !== false) {
-                _limit[position].limit += 1
-                fs.writeFileSync('./database/user/limit.json', JSON.stringify(_limit))
-            }
-        } 
-        
-        const getPremiumExpired = (sender) => {
-		    let position = null
-		    Object.keys(prem).forEach((i) => {
-		        if (prem[i].id === sender) {
-		            position = i
-		        }
-		    })
-		    if (position !== null) {
-		        return prem[position].expired
-		    }
-		} 
-		
-		const expiredCheck = () => {
-		    setInterval(() => {
-		        let position = null
-		        Object.keys(prem).forEach((i) => {
-		            if (Date.now() >= prem[i].expired) {
-		                position = i
-		            }
-		        })
-		        if (position !== null) {
-		            console.log(`Premium expired: ${prem[position].id}`)
-		            prem.splice(position, 1)
-		            fs.writeFileSync('./database/bot/prem.json', JSON.stringify(prem))
-		        }
-		    }, 1000)
-		} 
-		
-		const getAllPremiumUser = () => {
-		    const array = []
-		    Object.keys(prem).forEach((i) => {
-		        array.push(prem[i].id)
-		    })
-		    return array
-		}
-		
-         
+//:::::::FUNCIONES::::::::::::
 function kyun(seconds){
   function pad(s){
     return (s < 10 ? '0' : '') + s;
@@ -293,9 +138,9 @@ function kyun(seconds){
   var seconds = Math.floor(seconds % 60);
   return `${pad(hours)} Horas ${pad(minutes)} Minutos ${pad(seconds)} Segundos`
 }
-
+//:::::::::::STIKERS::::::::::::
 function addMetadata(packname, author) {	
-	if (!packname) packname = 'Samu330'; if (!author) author = 'NyanBot';	
+	if (!packname) packname = 'NyanBot'; if (!author) author = 'Samu330';	
 	author = author.replace(/[^a-zA-Z0-9]/g, '');	
 	let name = `${author}_${packname}`
 	if (fs.existsSync(`./${name}.exif`)) return `./${name}.exif`
@@ -335,25 +180,30 @@ function addMetadata(packname, author) {
 
 } 
 
-//:::::::::::::::::::::::::::::::::::::::::::::::
 
-async function starts() {
-	const samu = new WAConnection()
-	samu.logger.level = 'warn'
-	samu.on('qr', () => {
-		console.log(color('[','white'), color('!','red'), color(']','white'), color(' Scan the qr code above'))
-	})
+//:::::::INICIANDO BOT::::::::::::
+const samu = new WAConnection()
+samu.logger.level = 'warn'
+samu.on('qr', qr => {
+   qrcode.generate(qr, { small: true })
+   console.log(color('[','white'),color('!','red'),color(']','white'),color('qr already scan.subscribe','white'),color('YOU','red'),color('TUBE','white'),color('Samu330','cyan'))
+})
 
-	fs.existsSync('./samu.json') && samu.loadAuthInfo('./samu.json')
-	samu.on('connecting', () => {
-		start('2', 'Connecting...')
-	})
-	samu.on('open', () => {
-		success('2', 'Connected')
-	})
-	await samu.connect({timeoutMs: 30*1000})
-        fs.writeFileSync('./samu.json', JSON.stringify(samu.base64EncodedAuthInfo(), null, '\t'))
+samu.on('credentials-updated', () => {
+	const authInfo = samu.base64EncodedAuthInfo()
+   console.log(color('credentials updated!','red'))
+   fs.writeFileSync('./session.json', JSON.stringify(authInfo, null, '\t'))
+})
+fs.existsSync('./session.json') && samu.loadAuthInfo('./session.json')
+samu.on('connecting', () => {
+	console.log(color('Bot Conecting...','red'))
+})
+samu.on('open', () => {
+	console.log(color('Bot Conected...','green'))
+})
+samu.connect({timeoutMs: 30*1000})
 
+//:::::::BIENVENIDA AALOS GRUPOS:::::::::::::::
 samu.on('group-participants-update', async (anu) => {
 		if (!welkom.includes(anu.jid)) return
 		try {
@@ -366,7 +216,7 @@ samu.on('group-participants-update', async (anu) => {
 				} catch {
 					ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
 				}
-				teks = `@${num.split('@')[0]}\ Hola, *${mdata.subject}* Bienvenido Pasatela bien aqui`
+				teks = `Hola @${num.split('@')[0]}\nBienvenido a *${mdata.subject}* Pasatela bien:D`
 				let buff = await getBuffer(ppimg)
 				samu.sendMessage(mdata.id, buff, MessageType.image, {caption: teks, contextInfo: {"mentionedJid": [num]}})
 			} else if (anu.action == 'remove') {
@@ -376,30 +226,33 @@ samu.on('group-participants-update', async (anu) => {
 				} catch {
 					ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
 				}
-				teks = `Adios pedazo de.... nadie te extrañara, eurte en la otra vida🥳 @${num.split('@')[0]}`
+				teks = `Adios @${num.split('@')[0]} te cuidas, aqui nadie te extrañara:3`
 				let buff = await getBuffer(ppimg)
-				client.sendMessage(mdata.id, buff, MessageType.image, {caption: teks, contextInfo: {"mentionedJid": [num]}})
+				samu.sendMessage(mdata.id, buff, MessageType.image, {caption: teks, contextInfo: {"mentionedJid": [num]}})
 			}
 		} catch (e) {
 			console.log('Error : %s', color(e, 'red'))
 		}
 	})
+	
+	//:::::::ACTUALIZAR::::::::::::::::
 	samu.on('CB:Blocklist', json => {
 		if (blocked.length > 2) return
 	    for (let i of json[1].blocklist) {
 	    	blocked.push(i.replace('c.us','s.whatsapp.net'))
 	    }
 	})
-	
+
+	//::::::::ACTUALIZAR MENSAJES:::::
 	samu.on('chat-update', async (mek) => {
 		try {
-            if (!mek.hasNewMessage) return
-            mek = mek.messages.all()[0]
+             if (!mek.hasNewMessage) return
+            mek = JSON.parse(JSON.stringify(mek)).messages[0]
 			if (!mek.message) return
 			if (mek.key && mek.key.remoteJid == 'status@broadcast') return
 			if (mek.key.fromMe) return
-		global.prefix
-		global.blocked
+            global.prefix
+			global.blocked
 			const content = JSON.stringify(mek.message)
 			const from = mek.key.remoteJid
 			const type = Object.keys(mek.message)[0]
@@ -426,9 +279,8 @@ samu.on('group-participants-update', async (anu) => {
 			const groupMembers = isGroup ? groupMetadata.participants : ''
 			const groupDesc = isGroup ? groupMetadata.desc : ''
             const groupAdmins = isGroup ? getGroupAdmins(groupMembers) : ''
-
             
-            //:::::::::::::::::::: SCURITY FEATURE ::::::::::::::::::::
+            //::::::::::::::COMANDOS::::::::::::::::
             const isEventon = isGroup ? event.includes(from) : false
             const isRegistered = checkRegisteredUser(sender)
             const isBadWord = isGroup ? badword.includes(from) : false
@@ -439,7 +291,7 @@ samu.on('group-participants-update', async (anu) => {
 			const isNsfw = isGroup ? nsfw.includes(from) : false
 			const isSimi = isGroup ? samih.includes(from) : false
 			const isOwner = ownerNumber.includes(sender)
-			const isPrem = prem.includes(sender) || isOwner
+			const isAfkOn = checkAfkUser(sender)
 			const isAntiLink = isGroup ? antilink.includes(from) : false
 			const isImage = type === 'imageMessage'
 			const isUrl = (url) => {
@@ -461,7 +313,7 @@ samu.on('group-participants-update', async (anu) => {
 			samu.sendMessage(from, pesan, tipe, {quoted: { key: { fromMe: false, participant: `${target}`, ...(from ? { remoteJid: from } : {}) }, message: { conversation: `${target2}` }}})
 			}
 			const costumimg = ( pesan , tipe, target , caption) => {
-			samu.sendMessage(from, pesan , tipe , {quoted: { key: { fromMe: false, participant: `${target}`, ...(from ? { remoteJid: from } : {}) }, message: {"imageMessage":{url: 'https://lh3.googleusercontent.com/proxy/5nbuE-Aw7WCsoFQuYC2zW450OCxbwZRZxHBJGbyTlDjWaQvDxbTryo1HqrCJi1pVowvZe0LTupbI95G0YObLauZQaYBQU22S0QEkO0D8a9nzb4rL19YjIwOi7AczotEkFtq5CNvdSKgInHQpe9RDp1O0CKQGONC4-MRMqkuLsqGmMP6Iths1',mimetype: 'image/jpeg',caption: `${caption}`,fileSha256: '0Pk0qJyQFn9FCtslZrydJHRQDKryjYcdP7I3CmRrHRs=',fileLength: '20696',height: 360,width: 382,mediaKey: 'N43d/3GY7GYQpgBymb9qFY5O9iNDXuBirXsNZk+X61I=',fileEncSha256: 'IdFM58vy8URV+IUmOqAY3OZsvCN6Px8gaJlRCElqhd4=',directPath: '/v/t62.7118-24/35174026_475909656741093_8174708112574209693_n.enc?oh=2a690b130cf8f912a9ca35f366558743&oe=6061F0C6',mediaKeyTimestamp: '1614240917',jpegThumbnail: '/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z//////////////8BGxsbGxwbHiEhHiotKC0qPTgzMzg9XUJHQkdCXY1YZ1hYZ1iNfZd7c3uXfeCwnJyw4P/Zztn////////////////CABEIAEMASAMBIgACEQEDEQH/xAAwAAADAAMBAAAAAAAAAAAAAAAABAUBAwYCAQADAQEAAAAAAAAAAAAAAAABAgMABP/aAAwDAQACEAMQAAAAoy6kcWS2eH8miq17B553Thh1BgyTY9iULYfndGBmbSwNEV3eWXpjwZElG09WJckXCj8sWBVc1ZKXj2ZYaoWHnc67K3PbKwtZOqzLrzdQAg5fWFRUeCNTQG2pEKJ0wCD/xAAoEAACAgIBAQkAAwEAAAAAAAABAgADBBEScQUQEyEiMTJBYSNRYmP/2gAIAQEAAT8AaZzfEdwWcGMTE1jNv3M1ozDb+SD2jTO+Yigk6A3KqhseIdfkroTYbXQRrkVuJOplKEuOpjtpxF+IjTO+YnZoBvj4pa/msHtMnHZrgymZ6hCnSJsDl+ys7rTpGmevxMwLFS/1fcA7iNzPsDXaH1NccYH+2lJ1SnSNMlOdcbY6iYGa9g4OJzXW9zI7SBJrpjqxsA9zMkcMetf2V7NKD/McgAkxsis7EcA2fkxkqSkaYbMGRu3hr0x6q6ckufaUMpsexj0ma4Y0qDKhqlektyntXiQO4qWI0PONVZWNsNTmZwewekEwo1fpYaMZdvWf2DYrXoO/ARWLNL6VuXiYcSsuK9eXGYtHhM/nsTPVQgb7iDkydRCNBYYx1Ozj6nmSStRIgJ8UH/nMJiTZs/c7RPwExhu+vrH+p//EAB4RAAIBBAMBAAAAAAAAAAAAAAABAhAREjIhMDFC/9oACAECAQE/AOpJsxEqIj4TfNqXygIWpLc+ZEdBH//EAB4RAAICAgIDAAAAAAAAAAAAAAABAjEQETJBAxJx/9oACAEDAQE/AHWVeHQtYrDaNkno7GOzxP10xzWipDHZHidx+EuQz//Z',scansSidecar: 'choizTOCOFXo21QcOR/IlCehTFztHGnB3xo4F4d/kwmxSJJIbMmvxg==',scanLengths: [Array],midQualityFileSha256: '68OHK4IyhiKDNgNAZ3SoXsngzYENebQkV4b/RwhhYIY=',midQualityFileEncSha256: '2EYOLCXx+aqg9RyP6xJYChQNbEjXZmc0EcSwHzoyXx0='}}}})
+			samu.sendMessage(from, pesan , tipe , {quoted: { key: { fromMe: false, participant: `${target}`, ...(from ? { remoteJid: from } : {}) }, message: {"imageMessage":{url: 'https://mmg.whatsapp.net/d/f/Ahj0ACnTjSHHm6-HjqAUBYiCu2-85zMZp_-EhiXlsd6A.enc',mimetype: 'image/jpeg',caption: `${caption}`,fileSha256: '0Pk0qJyQFn9FCtslZrydJHRQDKryjYcdP7I3CmRrHRs=',fileLength: '20696',height: 360,width: 382,mediaKey: 'N43d/3GY7GYQpgBymb9qFY5O9iNDXuBirXsNZk+X61I=',fileEncSha256: 'IdFM58vy8URV+IUmOqAY3OZsvCN6Px8gaJlRCElqhd4=',directPath: '/v/t62.7118-24/35174026_475909656741093_8174708112574209693_n.enc?oh=2a690b130cf8f912a9ca35f366558743&oe=6061F0C6',mediaKeyTimestamp: '1614240917',jpegThumbnail: '/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z//////////////8BGxsbGxwbHiEhHiotKC0qPTgzMzg9XUJHQkdCXY1YZ1hYZ1iNfZd7c3uXfeCwnJyw4P/Zztn////////////////CABEIAEMASAMBIgACEQEDEQH/xAAwAAADAAMBAAAAAAAAAAAAAAAABAUBAwYCAQADAQEAAAAAAAAAAAAAAAABAgMABP/aAAwDAQACEAMQAAAAoy6kcWS2eH8miq17B553Thh1BgyTY9iULYfndGBmbSwNEV3eWXpjwZElG09WJckXCj8sWBVc1ZKXj2ZYaoWHnc67K3PbKwtZOqzLrzdQAg5fWFRUeCNTQG2pEKJ0wCD/xAAoEAACAgIBAQkAAwEAAAAAAAABAgADBBEScQUQEyEiMTJBYSNRYmP/2gAIAQEAAT8AaZzfEdwWcGMTE1jNv3M1ozDb+SD2jTO+Yigk6A3KqhseIdfkroTYbXQRrkVuJOplKEuOpjtpxF+IjTO+YnZoBvj4pa/msHtMnHZrgymZ6hCnSJsDl+ys7rTpGmevxMwLFS/1fcA7iNzPsDXaH1NccYH+2lJ1SnSNMlOdcbY6iYGa9g4OJzXW9zI7SBJrpjqxsA9zMkcMetf2V7NKD/McgAkxsis7EcA2fkxkqSkaYbMGRu3hr0x6q6ckufaUMpsexj0ma4Y0qDKhqlektyntXiQO4qWI0PONVZWNsNTmZwewekEwo1fpYaMZdvWf2DYrXoO/ARWLNL6VuXiYcSsuK9eXGYtHhM/nsTPVQgb7iDkydRCNBYYx1Ozj6nmSStRIgJ8UH/nMJiTZs/c7RPwExhu+vrH+p//EAB4RAAIBBAMBAAAAAAAAAAAAAAABAhAREjIhMDFC/9oACAECAQE/AOpJsxEqIj4TfNqXygIWpLc+ZEdBH//EAB4RAAICAgIDAAAAAAAAAAAAAAABAjEQETJBAxJx/9oACAEDAQE/AHWVeHQtYrDaNkno7GOzxP10xzWipDHZHidx+EuQz//Z',scansSidecar: 'choizTOCOFXo21QcOR/IlCehTFztHGnB3xo4F4d/kwmxSJJIbMmvxg==',scanLengths: [Array],midQualityFileSha256: '68OHK4IyhiKDNgNAZ3SoXsngzYENebQkV4b/RwhhYIY=',midQualityFileEncSha256: '2EYOLCXx+aqg9RyP6xJYChQNbEjXZmc0EcSwHzoyXx0='}}}})
 			}
 	        //::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -551,7 +403,7 @@ samu.on('group-participants-update', async (anu) => {
 			}
 				
 				
-	        //function leveling
+	        //:::::::::FUNCIONES DE NIVEL::::::::::
             if (isGroup && isRegistered && isLevelingOn) {
             const currentLevel = getLevelingLevel(sender)
             const checkId = getLevelingId(sender)
@@ -570,13 +422,13 @@ samu.on('group-participants-update', async (anu) => {
                 console.error(err)
             }
         }
-          //function check limit
+          //::::::::::::LIMIT CHECKER:::::::::::::::::
           const checkLimit = (sender) => {
           	let found = false
                     for (let lmt of _limit) {
                         if (lmt.id === sender) {
                             let limitCounts = limitawal - lmt.limit
-                            if (limitCounts <= 0) return samu.sendMessage(from,`Sus límites se han agotado\n\n_Nota : los límites se pueden obtener mediante ${prefix}buylimit y subiendo de nivel_`, text,{ quoted: mek})
+                            if (limitCounts <= 0) return samu.sendMessage(from,`Lo siento, pero es necesario limites para usar este comando.\n\n_Nota: Puedes reclamar tu limite gratias con el comando: *${prefix}buylimit* para subir de nivel_`, text,{ quoted: mek})
                             samu.sendMessage(from, ind.limitcount(limitCounts), text, { quoted : mek})
                             found = true
                         }
@@ -585,13 +437,13 @@ samu.on('group-participants-update', async (anu) => {
                         let obj = { id: sender, limit: 0 }
                         _limit.push(obj)
                         fs.writeFileSync('./database/user/limit.json', JSON.stringify(_limit))
-                        samu.sendMessage(from, ind.limitcount(limitCounts), text, { quoted : mek})
+                        client.sendMessage(from, ind.limitcount(limitCounts), text, { quoted : mek})
                     }
-				} 
+				}
 		
-			//funtion limited
+			//::::::FIN DE LIMITES:::::::
             const isLimit = (sender) =>{ 
-          	if (isOwner && isPrem) {return false;}
+          	if (isOwner ) {return false;}
 		      let position = false
               for (let i of _limit) {
               if (i.id === sender) {
@@ -717,16 +569,20 @@ samu.on('group-participants-update', async (anu) => {
 				}
  	       
  	     
- 	          if (isRegistered ) {
+ 	          //::::::::MONEY:::::::::::
+ 	           if (isRegistered ) {
  	           const checkATM = checkATMuser(sender)
  	           try {
  	               if (checkATM === undefined) addATM(sender)
- 	               const uangsaku = Math.floor(Math.random() * 10) + 90
+ 	               const uangsaku = Math.floor(Math.random() * 10) + 290
 	                addKoinUser(sender, uangsaku)
   	          } catch (err) {
    	             console.error(err)
    	         }
 	        }
+	
+			 //feature total command
+			 if (isCmd) cmdadd()
 
 			colors = ['red','white','black','blue','yellow','green']
 			
