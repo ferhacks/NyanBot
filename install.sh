@@ -67,9 +67,9 @@ apt-get install tesseract
 wget -O ~/../usr/share/tessdata/ind.traineddata "https://github.com/tesseract-ocr/tessdata/blob/master/ind.traineddata?raw=true"
 npm install
 pkg install neofetch
-pkg install screanfetch
+pkg install screnfetch
 neofetch
-screanfetch
+screnfetch
 echo -e '\033[0m\033[1;31m
                              _       _                       _         
    ___    __ _   _ __ ___   | |__   (_)   __ _   _ __     __| |   ___  
@@ -151,7 +151,7 @@ echo -e '\033[0m\033[1;31m
 VERIFICANDO SI TODO ESTA CORRECTO
 \033[0m'
 
-echo -e '\033[0m\033[1;32m
+echo -e '\033[0m\033[1;36m
  __     __  _____   ____    ___   _____   ___    ____      _      _   _   ____     ___              
  \ \   / / | ____| |  _ \  |_ _| |  ___| |_ _|  / ___|    / \    | \ | | |  _ \   / _ \             
   \ \ / /  |  _|   | |_) |  | |  | |_     | |  | |       / _ \   |  \| | | | | | | | | |            
@@ -160,7 +160,7 @@ echo -e '\033[0m\033[1;32m
  \033[0m'
  sleep 3.0
  npm i ffmpeg
- echo -e '\033[0m\033[1;37m
+ echo -e '\033[0m\033[1;32m
    __    __                                    
   / _|  / _|  _ __ ___    _ __     ___    __ _ 
  | |_  | |_  | `_ ` _ \  | `_ \   / _ \  / _` |
@@ -175,7 +175,7 @@ echo -e '\033[0m\033[1;32m
                                                             
 \033[0m'
  sleep 3.0
-echo -e '\033[0m\033[1;37m
+echo -e '\033[0m\033[1;32m
   _   _               _        
  | \ | |   ___     __| |   ___ 
  |  \| |  / _ \   / _` |  / _ \
