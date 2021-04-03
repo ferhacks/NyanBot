@@ -562,7 +562,7 @@ Usa ${prefix}reg para verificarte y poder usar el bot.`
                     for (let lmt of _limit) {
                         if (lmt.id === sender) {
                             let limitCounts = limitawal - lmt.limit
-                            if (limitCounts <= 0) return client.sendMessage(from,`Su solicitud límite se ha agotado\n\n_Nota : puede adquirir un límite mediante ${prefix}buylimit y subiendo de nivel_`, text,{ quoted: mek})
+                            if (limitCounts <= 0) return samu.sendMessage(from,`Su solicitud límite se ha agotado\n\n_Nota : puede adquirir un límite mediante ${prefix}buylimit y subiendo de nivel_`, text,{ quoted: mek})
                             samu.sendMessage(from, ind.limitcount(limitCounts), text, { quoted : mek})
                             found = true
                         }
@@ -1302,7 +1302,7 @@ case 'wasted':
 				if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
 				  ger = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
 				  reply(ind.wait())
-				  nyan = await client.downloadAndSaveMediaMessage(ger)
+				  nyan = await samu.downloadAndSaveMediaMessage(ger)
 				  anu = await imgbb("08579d070df9a07cb1c2ee565aece767", nyan)
 				  teks = `${anu.display_url}`
 				  ranp = getRandom('.gif')
@@ -1347,7 +1347,7 @@ case 'wanted':
 				if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
 				ted = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
 				  reply(ind.wait())
-				  owgi = await client.downloadAndSaveMediaMessage(ted)
+				  owgi = await samu.downloadAndSaveMediaMessage(ted)
 				  tels = body.slice(7)
 				  anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
 				  hehe = await getBuffer(`https://videfikri.com/api/textmaker/wanted/?urlgbr=${anu.display_url}&text1=Dicari&text2=${tels}`)
@@ -1363,7 +1363,7 @@ case 'wanted':
 				if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
 				  ted = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
 				  reply(ind.wait())
-				  owgi = await client.downloadAndSaveMediaMessage(ted)
+				  owgi = await samu.downloadAndSaveMediaMessage(ted)
 				  tels = body.slice(7)
 				  anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
 				  hehe = await getBuffer(`https://videfikri.com/api/textmaker/crossgun/?urlgbr=${anu.display_url}`)
@@ -1380,7 +1380,7 @@ case 'gtav':
 				if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
 				  ted = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo: mek
 				  reply(ind.wait())
-				  owgi = await client.downloadAndSaveMediaMessage(ted)
+				  owgi = await samu.downloadAndSaveMediaMessage(ted)
 				  tels = body.slice(7)
 				  anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
 				  hehe = await getBuffer(`https://videfikri.com/api/textmaker/gtavposter/?urlgbr=${anu.display_url}`)
@@ -1396,7 +1396,7 @@ case 'gtav':
 				           if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
 				           ger = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
 				           reply(ind.wait())
-				         owgi = await client.downloadAndSaveMediaMessage(ger)
+				         owgi = await samu.downloadAndSaveMediaMessage(ger)
 				           anu = await imgbb("08579d070df9a07cb1c2ee565aece767", owgi)
 				        teks = `${anu.display_url}`
 				         ranp = getRandom('.gif')
