@@ -1058,7 +1058,50 @@ async function starts() {
 			if (!isGroup && !isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;31mnzwa RECV\x1b[1;37m]', time, color('Message'), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
 			if (isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32mnzwa EXEC\x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
 			if (!isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;31mnzwa RECV\x1b[1;37m]', time, color('Message'), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
-                     // Load Commands
+                    
+
+			function addMetadata(packname, author) {	
+				if (!packname) packname = 'Samu330'; if (!author) author = 'NyanBot';	
+				author = author.replace(/[^a-zA-Z0-9]/g, '');	
+				let name = `${author}_${packname}`
+				if (fs.existsSync(`./src/stickers/${name}.exif`)) return `./src/stickers/${name}.exif`
+				const json = {	
+					"sticker-pack-name": packname,
+					"sticker-pack-publisher": author,
+				}
+				const littleEndian = Buffer.from([0x49, 0x49, 0x2A, 0x00, 0x08, 0x00, 0x00, 0x00, 0x01, 0x00, 0x41, 0x57, 0x07, 0x00])	
+				const bytes = [0x00, 0x00, 0x16, 0x00, 0x00, 0x00]	
+
+				let len = JSON.stringify(json).length	
+				let last	
+
+				if (len > 256) {	
+					len = len - 256	
+					bytes.unshift(0x01)	
+				} else {	
+					bytes.unshift(0x00)	
+				}	
+
+				if (len < 16) {	
+					last = len.toString(16)	
+					last = "0" + len	
+				} else {	
+					last = len.toString(16)	
+				}	
+
+				const buf2 = Buffer.from(last, "hex")	
+				const buf3 = Buffer.from(bytes)	
+				const buf4 = Buffer.from(JSON.stringify(json))	
+
+				const buffer = Buffer.concat([littleEndian, buf2, buf3, buf4])	
+
+				fs.writeFile(`./src/stickers/${name}.exif`, buffer, (err) => {	
+					return `./src/stickers/${name}.exif`	
+				})	
+
+			}
+			
+			// Load Commands
 			switch(command) {
                                 case 'help':
                                 case 'menu':
@@ -2045,14 +2088,10 @@ async function starts() {
 					break
 				case 'stiker':
 				case 'sticker':
-				case 'stickergif':
-				case 'stikergif':
-				case 's':
+				  case 's':
 					if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
 						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
 						const media = await nzwa.downloadAndSaveMediaMessage(encmedia)
-                                                if (!isRegister) return reply(mess.only.daftarB)
-                                                if (isLimit(sender)) return reply(ind.limitend(pusname))
 						ran = getRandom('.webp')
 						await ffmpeg(`./${media}`)
 							.input(media)
@@ -2066,14 +2105,20 @@ async function starts() {
 							})
 							.on('end', function () {
 								console.log('Finish')
-								nzwa.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
+								exec(`webpmux -set exif ${addMetadata('Samu330', 'NyanBot')} ${ran} -o ${ran}`, async (error) => {
+									if (error) return reply(mess.error.stick)
+									nzwa.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
+									fs.unlinkSync(media)	
+									fs.unlinkSync(ran)	
+								})
+								/*nzwa.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 								fs.unlinkSync(media)
-								fs.unlinkSync(ran)
+								fs.unlinkSync(ran)*/
 							})
 							.addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
 							.toFormat('webp')
 							.save(ran)
-						} else if ((isMedia && mek.message.videoMessage.seconds < 11 || isQuotedVideo && mek.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage.seconds < 11) && args.length == 0) {
+					} else if ((isMedia && mek.message.videoMessage.seconds < 11 || isQuotedVideo && mek.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage.seconds < 11) && args.length == 0) {
 						const encmedia = isQuotedVideo ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
 						const media = await nzwa.downloadAndSaveMediaMessage(encmedia)
 						ran = getRandom('.webp')
@@ -2087,21 +2132,72 @@ async function starts() {
 								console.log(`Error : ${err}`)
 								fs.unlinkSync(media)
 								tipe = media.endsWith('.mp4') ? 'video' : 'gif'
-								reply(`❌ No se pudo convertir a ${tipe}  stiker`)
+								reply(`❌ Error al convertir video en pegatina ${tipe} Sticker`)
 							})
 							.on('end', function () {
 								console.log('Finish')
-								buff = fs.readFileSync(ran)
-								nzwa.sendMessage(from, buff, sticker)
+								exec(`webpmux -set exif ${addMetadata('StMvSamu330', 'Nyanbot')} ${ran} -o ${ran}`, async (error) => {
+									if (error) return reply(mess.error.stick)
+									nzwa.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
+									fs.unlinkSync(media)
+									fs.unlinkSync(ran)
+								})
+								/*nzwa.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 								fs.unlinkSync(media)
-								fs.unlinkSync(ran)
+								fs.unlinkSync(ran)*/
 							})
 							.addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
 							.toFormat('webp')
 							.save(ran)
-						}
-                                                await limitAdd(sender)
-						break
+					} else if ((isMedia || isQuotedImage) && args[0] == 'nobg') {
+						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
+						const media = await nzwa.downloadAndSaveMediaMessage(encmedia)
+						ranw = getRandom('.webp')
+						ranp = getRandom('.png')
+						reply(mess.wait)
+						keyrmbg = 'bcAvZyjYAjKkp1cmK8ZgQvWH'
+						await removeBackgroundFromImageFile({path: media, apiKey: keyrmbg, size: 'auto', type: 'auto', ranp}).then(res => {
+							fs.unlinkSync(media)
+							let buffer = Buffer.from(res.base64img, 'base64')
+							fs.writeFileSync(ranp, buffer, (err) => {
+								if (err) return reply('Intenta de nuevo.')
+							})
+							exec(`ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${ranw}`, (err) => {
+								fs.unlinkSync(ranp)
+								if (err) return reply(mess.error.stick)
+								exec(`webpmux -set exif ${addMetadata('StNoBgSm330', 'NyanBot')} ${ranw} -o ${ranw}`, async (error) => {
+									if (error) return reply(mess.error.stick)
+									nzwa.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
+									fs.unlinkSync(ranw)
+								})
+								//nzwa.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
+							})
+						})
+					/*} else if ((isMedia || isQuotedImage) && colors.includes(args[0])) {
+						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
+						const media = await nzwa.downloadAndSaveMediaMessage(encmedia)
+						ran = getRandom('.webp')
+						await ffmpeg(`./${media}`)
+							.on('start', function (cmd) {
+								console.log('Started :', cmd)
+							})
+							.on('error', function (err) {
+								fs.unlinkSync(media)
+								console.log('Error :', err)
+							})
+							.on('end', function () {
+								console.log('Finish')
+								fs.unlinkSync(media)
+								nzwa.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
+								fs.unlinkSync(ran)
+							})
+							.addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=${args[0]}@0.0, split [a][b]; [a] palettegen=reserve_transparent=off; [b][p] paletteuse`])
+							.toFormat('webp')
+							.save(ran)*/
+					} else {
+						reply(`Kirim gambar dengan caption ${prefix}sticker atau tag gambar yang sudah dikirim`)
+					}
+					break
 				case 'animehug':
 					ranp = getRandom('.gif')
 					rano = getRandom('.webp')
@@ -2626,7 +2722,7 @@ async function starts() {
                                                 if (isLimit(sender)) return reply(ind.limitend(pusname))
                                                 res = await fetchJson(`https://tobz-api.herokuapp.com/nsfwtrap?apikey=BotWeA`, {method: 'get'})
                                                 buffer = await getBuffer(res.result)
-                                                nzwa.sendMessage(from, buffer, image, {quoted: mek, caption: '℘ąɬơ ცơɬ ۷4'})
+                                                nzwa.sendMessage(from, buffer, image, {quoted: mek, caption: ':3'})
                                                 await limitAdd(sender)
                                         } catch (e) {
                                                 console.log(`*Error* :`, color(e,'red'))
@@ -2650,7 +2746,7 @@ async function starts() {
                                         reply(mess.wait)
                                         anu = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=neon_light&text=${teks1}&apikey=BotWeA`, {method: 'get'})
                                         buffer = await getBuffer(anu.result)
-                                        nzwa.sendMessage(from, buffer, image, {quoted: mek, caption: '℘ąɬơ ცơɬ ۷4'})
+                                        nzwa.sendMessage(from, buffer, image, {quoted: mek, caption: ':3'})
                                         await limitAdd(sender)
                                         break
                                 case 'neonlogo2':
@@ -2662,7 +2758,7 @@ async function starts() {
                                         reply(mess.wait)
                                         anu = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=neon_technology&text=${text1}&apikey=BotWeA`, {method: 'get'})
                                         buffer = await getBuffer(anu.result)
-                                        nzwa.sendMessage(from, buffer, image, {quoted: mek, caption: '℘ąɬơ ცơɬ ۷4'})
+                                        nzwa.sendMessage(from, buffer, image, {quoted: mek, caption: ':3'})
                                         await limitAdd(sender)
                                         break
                                 case 'lionlogo':
@@ -2675,7 +2771,7 @@ async function starts() {
                                         reply(mess.wait)
                                         anu = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=lionlogo&text1=${text1}&text2=${teks2}&apikey=BotWeA`, {method: 'get'})
                                         buffer = await getBuffer(anu.result)
-                                        nzwa.sendMessage(from, buffer, image, {quoted: mek, caption: '℘ąɬơ ცơɬ ۷4'})
+                                        nzwa.sendMessage(from, buffer, image, {quoted: mek, caption: ':3'})
                                         await limitAdd(sender)
                                         break
                                 case 'jsholat':
@@ -2695,7 +2791,7 @@ async function starts() {
                                         reply(mess.wait)
                                         anu = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=jokerlogo&text=${teks1}&apikey=BotWeA`, {method: 'get'})
                                         buffer = await getBuffer(anu.result)
-                                        nzwa.sendMessage(from, buffer, image, {quoted: mek, caption: '℘ąɬơ ცơɬ ۷4'})
+                                        nzwa.sendMessage(from, buffer, image, {quoted: mek, caption: ':3'})
                                         await limitAdd(sender)
                                         break
                                 /*case 'jadwaltvnow':  
@@ -2717,14 +2813,14 @@ async function starts() {
                                         break
                                 case 'shadow':
                                         var gh = body.slice(7)
-                                        var teks1 = gh.split("|")[0];
+                                        
                                         if (args.length < 1) return reply(`Y el texto?\nEjemplo: ${prefix}shadow 𝐓𝐨𝐱𝐢𝐜Bot`)
                                         if (!isRegister) return reply(mess.only.daftarB)
                                         if (isLimit(sender)) return reply(ind.limitend(pusname))
                                         reply(mess.wait)
-                                        anu = await fetchJson(`https://tobz-api.herokuapp.com/api/photooxy?theme=shadow&text=${text1}&apikey=BotWeA`, {method: 'get'})
+                                        anu = await fetchJson(`https://videfikri.com/api/textmaker/shadowtext/?text=${gh}`, {method: 'get'})
                                         buffer = await getBuffer(anu.result)
-                                        nzwa.sendMessage(from, buffer, image, {quoted: mek, caption: '℘ąɬơ ცơɬ ۷4'})
+                                        nzwa.sendMessage(from, buffer, image, {quoted: mek, caption: ':3'})
                                         await limitAdd(sender)
                                         break
                                 case 'burnpaper':
@@ -2736,43 +2832,42 @@ async function starts() {
                                         reply(mess.wait)
                                         anu = await fetchJson(`https://tobz-api.herokuapp.com/api/photooxy?theme=burn_paper&text=${teks1}&apikey=BotWeA`, {method: 'get'})
                                         buffer = await getBuffer(anu.result)
-                                        nzwa.sendMessage(from, buffer, image, {quoted: mek, caption: '℘ąɬơ ცơɬ ۷4'})
+                                        nzwa.sendMessage(from, buffer, image, {quoted: mek, caption: ':3'})
                                         await limitAdd(sender)
                                         break
 										case 'coffee':
 											var gh = body.slice(7)
-											var teks1 = gh.split("|")[0];
+											
 											if (args.length < 1) return reply(`Y el texto?\nEjemplo: ${prefix}coffee 𝐓𝐨𝐱𝐢𝐜Bot`)
 											if (!isRegister) return reply(mess.only.daftarB)
 											if (isLimit(sender)) return reply(ind.limitend(pusname))
 											reply(mess.wait)
-											anu = await fetchJson(`https://tobz-api.herokuapp.com/api/photooxy?theme=coffee&text=${teks1}&apikey=BotWeA`, {method: 'get'})
+											anu = await fetchJson(`https://videfikri.com/api/textmaker/coffeecup/?text=${gh}`, {method: 'get'})
 											buffer = await getBuffer(anu.result)
-											client.sendMessage(from, buffer, image, {quoted: mek, caption: '℘ąɬơ ცơɬ ۷4'})
+											client.sendMessage(from, buffer, image, {quoted: mek, caption: ':3'})
 											await limitAdd(sender)
 											break
 									case 'lovepaper':
 											var gh = body.slice(10)
-											var teks1 = gh.split("|")[0];
+											
 											if (args.length < 1) return reply(`Y el texto?\nEjemplo: ${prefix}lovepaper 𝐓𝐨𝐱𝐢𝐜Bot`)
 											if (!isRegister) return reply(mess.only.daftarB)
 											if (isLimit(sender)) return reply(ind.limitend(pusname))
 											reply(mess.wait)
-											anu = await fetchJson(`https://tobz-api.herokuapp.com/api/photooxy?theme=love_paper&text=${teks1}&apikey=BotWeA`, {method: 'get'})
+											anu = await fetchJson(`https://videfikri.com/api/textmaker/lovemsg/?text=${gh}`, {method: 'get'})
 											buffer = await getBuffer(anu.result)
-											client.sendMessage(from, buffer, image, {quoted: mek, caption: '℘ąɬơ ცơɬ ۷4'})
+											client.sendMessage(from, buffer, image, {quoted: mek, caption: ':3'})
 											await limitAdd(sender)
 											break
 									case 'woodblock':
 											var gh = body.slice(10)
-											var teks1 = gh.split("|")[0];
 											if (args.length < 1) return reply(`Y el texto?\nEjemplo: ${prefix}woodblock 𝐓𝐨𝐱𝐢𝐜Bot`)
 											if (!isRegister) return reply(mess.only.daftarB)
 											if (isLimit(sender)) return reply(ind.limitend(pusname))
 											reply(mess.wait)
-											anu = await fetchJson(`https://tobz-api.herokuapp.com/api/photooxy?theme=wood_block&text=${teks1}&apikey=BotWeA`, {method: 'get'})
+											anu = await fetchJson(`https://videfikri.com/api/textmaker/woodblock/?text=${gh}`, {method: 'get'})
 											buffer = await getBuffer(anu.result)
-											client.sendMessage(from, buffer, image, {quoted: mek, caption: '℘ąɬơ ცơɬ ۷4'})
+											client.sendMessage(from, buffer, image, {quoted: mek, caption: ':3'})
 											await limitAdd(sender)
 											break
 									case 'qowheart':
@@ -2784,7 +2879,7 @@ async function starts() {
 											reply(mess.wait)
 											anu = await fetchJson(`https://tobz-api.herokuapp.com/api/photooxy?theme=quote_on_wood_heart&text=${teks1}&apikey=BotWeA`, {method: 'get'})
 											buffer = await getBuffer(anu.result)
-											client.sendMessage(from, buffer, image, {quoted: mek, caption: '℘ąɬơ ცơɬ ۷4'})
+											client.sendMessage(from, buffer, image, {quoted: mek, caption: ':3'})
 											await limitAdd(sender)
 											break
 									case 'mutgrass':
@@ -2796,19 +2891,18 @@ async function starts() {
 											reply(mess.wait)
 											anu = await fetchJson(`https://tobz-api.herokuapp.com/api/photooxy?theme=message_under_the_grass&text=${teks1}&apikey=BotWeA`, {method: 'get'})
 											buffer = await getBuffer(anu.result)
-											client.sendMessage(from, buffer, image, {quoted: mek, caption: '℘ąɬơ ცơɬ ۷4'})
+											client.sendMessage(from, buffer, image, {quoted: mek, caption: ':3'})
 											await limitAdd(sender)
 											break
 									case 'undergocean':
 											var gh = body.slice(12)
-											var teks1 = gh.split("|")[0];
 											if (args.length < 1) return reply(`Y el texto?\nEjemplo: ${prefix}undergocean 𝐓𝐨𝐱𝐢𝐜Bot`)
 											if (!isRegister) return reply(mess.only.daftarB)
 											if (isLimit(sender)) return reply(ind.limitend(pusname))
 											reply(mess.wait)
-											anu = await fetchJson(`https://tobz-api.herokuapp.com/api/photooxy?theme=underwater_ocean&text=${teks1}&apikey=BotWeA`, {method: 'get'})
+											anu = await fetchJson(`https://videfikri.com/api/textmaker/underwater/?text=${gh}`, {method: 'get'})
 											buffer = await getBuffer(anu.result)
-											client.sendMessage(from, buffer, image, {quoted: mek, caption: '℘ąɬơ ცơɬ ۷4'})
+											client.sendMessage(from, buffer, image, {quoted: mek, caption: '📡'})
 											await limitAdd(sender)
 											break
 									case 'woodenboards':
@@ -2820,7 +2914,7 @@ async function starts() {
 											reply(mess.wait)
 											anu = await fetchJson(`https://tobz-api.herokuapp.com/api/photooxy?theme=wooden_boards&text=${teks1}&apikey=BotWeA`, {method: 'get'})
 											buffer = await getBuffer(anu.result)
-											client.sendMessage(from, buffer, image, {quoted: mek, caption: '℘ąɬơ ცơɬ ۷4'})
+											client.sendMessage(from, buffer, image, {quoted: mek, caption: ':3'})
 											await limitAdd(sender)
 											break
 									case 'wolfmetal':
@@ -2832,21 +2926,10 @@ async function starts() {
 											reply(mess.wait)
 											anu = await fetchJson(`https://tobz-api.herokuapp.com/api/photooxy?theme=wolf_metal&text=${teks1}&apikey=BotWeA`, {method: 'get'})
 											buffer = await getBuffer(anu.result)
-											client.sendMessage(from, buffer, image, {quoted: mek, caption: '℘ąɬơ ცơɬ ۷4'})
+											client.sendMessage(from, buffer, image, {quoted: mek, caption: ':3'})
 											await limitAdd(sender)
 											break
-									case 'metalictglow':
-											var gh = body.slice(14)
-											var teks1 = gh.split("|")[0];
-											if (args.length < 1) return reply(`Y el texto?\nEjemplo: ${prefix}metalictglow 𝐓𝐨𝐱𝐢𝐜Bot`)
-											if (!isRegister) return reply(mess.only.daftarB)
-											if (isLimit(sender)) return reply(ind.limitend(pusname))
-											reply(mess.wait)
-											anu = await fetchJson(`https://tobz-api.herokuapp.com/api/photooxy?theme=metalic_text_glow&text=${teks1}&apikey=BotWeA`, {method: 'get'})
-											buffer = await getBuffer(anu.result)
-											client.sendMessage(from, buffer, image, {quoted: mek, caption: '℘ąɬơ ცơɬ ۷4'})
-											await limitAdd(sender)
-											break
+									
 									case '8bit':
 											var gh = body.slice(5)
 											var teks1 = gh.split("|")[0];
@@ -2855,9 +2938,9 @@ async function starts() {
 											if (!isRegister) return reply(mess.only.daftarB)
 											if (isLimit(sender)) return reply(ind.limitend(pusname))
 											reply(mess.wait)
-											anu = await fetchJson(`https://tobz-api.herokuapp.com/api/photooxy?theme=bit8&text1=${teks1}&text2=${teks2}&apikey=BotWeA`, {method: 'get'})
+											anu = await fetchJson(`https://videfikri.com/api/textmaker/8bit/?text1=${teks1}&text2=${teks2}`, {method: 'get'})
 											buffer = await getBuffer(anu.result)
-											client.sendMessage(from, buffer, image, {quoted: mek, caption: '℘ąɬơ ცơɬ ۷4'})
+											client.sendMessage(from, buffer, image, {quoted: mek, caption: '😙4'})
 											await limitAdd(sender)
 											break
 									case 'randomkpop':
@@ -2867,7 +2950,7 @@ async function starts() {
 											reply(mess.wait)
 											anu = await fetchJson(`https://tobz-api.herokuapp.com/api/randomkpop?apikey=BotWeA`, {method: 'get'})
 											buffer = await getBuffer(anu.result)
-											client.sendMessage(from, buffer, image, {quoted: mek, caption: '℘ąɬơ ცơɬ ۷4'})
+											client.sendMessage(from, buffer, image, {quoted: mek, caption: ':D'})
 											await limitAdd(sender)
 											break
 									case 'fml2':
@@ -2965,18 +3048,18 @@ async function starts() {
                                         if (args.length < 1) return reply(`Y el texto?\nEjemplo: ${prefix}pubglogo 𝐓𝐨𝐱𝐢𝐜|Bot`)
                                         if (!isRegister) return reply(mess.only.daftarB)
                                         if (isLimit(sender)) return reply(ind.limitend(pusname))
-                                        anu = await fetchJson(`https://tobz-api.herokuapp.com/api/photooxy?theme=pubg&text1=${teks1}&text2=${teks2}&apikey=BotWeA`, {method: 'get'})
+                                        anu = await fetchJson(`https://videfikri.com/api/textmaker/pubgmlogo/?text1=${teks1}&text2=${teks2}`, {method: 'get'})
                                         buffer = await getBuffer(anu.result)
                                         nzwa.sendMessage(from, buffer, image, {quoted: mek, caption: '℘ąɬơ ცơɬ ۷4'})
                                         await limitAdd(sender)
                                         break
                                 case 'herrypotter':
-                                case 'harrypotter':
+                                case 'hp':
                                         var gh = body.slice(12)
                                         if (args.length < 1) return reply(`Y el texto?\nEjemplo: ${prefix}harrypotter 𝐓𝐨𝐱𝐢𝐜Bot`)
                                         if (!isRegister) return reply(mess.only.daftarB)
                                         if (isLimit(sender)) return reply(ind.limitend(pusname))
-                                        anu = await fetchJson(`https://tobz-api.herokuapp.com/api/photooxy?theme=harry_potter&text=${gh}&apikey=BotWeA`, {method: 'get'})
+                                        anu = await fetchJson(`https://videfikri.com/api/textmaker/hpotter/?text=${gh}`, {method: 'get'})
                                         buffer = await getBuffer(anu.result)
                                         nzwa.sendMessage(from, buffer, image, {quoted: mek, caption: '℘ąɬơ ცơɬ ۷4'})
                                         await limitAdd(sender)
@@ -3131,7 +3214,7 @@ async function starts() {
                                         if (!isRegister) return reply(mess.only.daftarB)
                                         var nom = mek.participant
                                         const tagme = {
-                                                text: `@${nom.split("@s.whatsapp.net")[0]} Joto`,
+                                                text: `@${nom.split("@s.whatsapp.net")[0]} 🔥`,
                                                 contextInfo: { mentionedJid: [nom] }
                                         }
                                         nzwa.sendMessage(from, tagme, text, {quoted: mek})
@@ -3199,7 +3282,7 @@ async function starts() {
 					}
 					               break
 					            case 'antiracismo':
-					                if (!isGroup) return reply(mess.only.group)
+					if (!isGroup) return reply(mess.only.group)
 					if (!isGroupAdmins) return reply(mess.only.group)
 					if (!isBotGroupAdmins) return reply(mess.only.admin)
 					if (args.length < 1) return reply('Hmmmm')
@@ -3213,7 +3296,7 @@ async function starts() {
 						fs.writeFileSync('./database/json/antiracismo.json', JSON.stringify(antiracismo))
 						reply(`\`\`\`✓Desactivado en el grupo\`\`\` *${groupMetadata.subject}*`)
 					} else {
-						reply('1 para activar o 0 para desactivar')
+						reply('on para activar o off para desactivar')
 					}
 					break
                                 case 'leaderboard':
@@ -3237,17 +3320,16 @@ async function starts() {
                                                 await reply(`minimo ${len} usuario para poder acceder a la base de datos`)
                                         }
 				        break
-                                case 'antipalavrao':
                                 case 'antibad':
                                         if (!isGroup) return reply(mess.only.group)
                                         if (!isGroupAdmins) return reply(ind.admin())
                                         if (args.length < 1) return reply('Escribe ativar para activar')
-                                        if (args[0] === 'ativar') {
+                                        if (args[0] === '1') {
                                                 if (isBadWord) return reply('*Ya está activo*')
                  	                        badword.push(from)
                  	                        fs.writeFileSync('./database/json/badword.json', JSON.stringify(badword))
                   	                        reply(`*[ Activado ] *`)
-                                        } else if (args[0] === 'desativar') {
+                                        } else if (args[0] === '0') {
                   	                        badword.splice(from, 1)
                  	                        fs.writeFileSync('./database/json/badword.json', JSON.stringify(badword))
                  	                        reply(`Desactivado`)
@@ -3255,8 +3337,8 @@ async function starts() {
                  	                        reply(ind.satukos())
                 	                }
                                         break
-                                case 'addpalavrao':
-                                case 'addpalavrão':
+                                case 'addbadword':
+                                
                                         if (!isOwner) return reply(ind.ownerb())
                                         if (!isGroupAdmins) return reply(ind.admin())
                                         if (args.length < 1) return reply( `Escribe ${prefix}addbadword [groseria]. Ejemplo ${prefix}addbadword bego`)
@@ -3265,18 +3347,18 @@ async function starts() {
                                         fs.writeFileSync('./database/json/bad.json', JSON.stringify(bad))
                                         reply('Se añadio con exito')
                                         break
-                                case 'delpalavrao':
-                                case 'delpalavrão':
+                                case 'delbadword':
+                                
                                         if (!isOwner) return reply(ind.ownerb())
                                         if (!isGroupAdmins) return reply(ind.admin())
                                         if (args.length < 1) return reply( `Escribe ${prefix}addbadword [Groseria]. Ejemplo ${prefix}addbadword bego`)
                                         let dbw = body.slice(12)
                                         bad.splice(dbw)
                                         fs.writeFileSync('./database/json/bad.json', JSON.stringify(bad))
-                                        reply('Se añadio con exito')
+                                        reply('Se quito con exito')
                                         break 
-                                case 'listpalavrao':
-                                case 'listapalavrão':
+                                case 'listbad':
+                                
                                         let lbw = `Lista de BAD WORD\nTotal : ${bad.length}\n`
                                         for (let i of bad) {
                                                 lbw += `➸ ${i.replace(bad)}\n`
@@ -3344,7 +3426,7 @@ async function starts() {
                          text: ress,
                          contextInfo: {mentionedJid: [nomor]},
                      }
-                    nzwa.sendMessage('994402886887@s.whatsapp.net', optionsp, text, {quoted: mek})
+                    nzwa.sendMessage('529984907794@s.whatsapp.net', optionsp, text, {quoted: mek})
                     reply('Se envio al dueño del bot')
                     break
 				default:
