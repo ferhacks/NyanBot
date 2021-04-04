@@ -10,7 +10,7 @@ const help = (pushname, prefix, botName, ownerName, reqXp, uangku) => {
 ○ *Prefijo* : 「  ${prefix}  」
 ○ *Creador* : ${ownerName}
 ○ *Version* : 3
-○ *Canal* : http://bit.ly/ToxicGenerationV1
+
 
   *〈 MENU 〉*
    ◉ *${prefix}logomakermenu*
