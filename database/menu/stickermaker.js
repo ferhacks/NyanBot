@@ -7,7 +7,6 @@ const stickermaker = (prefix, botName, ownerName) => {
    ┠≽ *Prefixo* : 「  ${prefix}  」
    ┠≽ *Criador* : ${ownerName}
    ┠≽ *Versão* : 4
-   ┠≽ *Canal* : http://bit.ly/ToxicGenerationV1
    ╿
 ┯┷ *〈 SOBRE 〉*
 ╽
