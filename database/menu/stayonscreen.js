@@ -7,7 +7,6 @@ const stayonscreen = (prefix, botName, ownerName) => {
    ┠≽ *Prefix* : 「  ${prefix}  」
    ┠≽ *Creator* : ${ownerName}
    ┠≽ *Version* : 4
-   ┠≽ *Canal* : http://bit.ly/ToxicGenerationV1
    ╿
 ┯┷ *〈 ABOUT 〉*
 ╽
