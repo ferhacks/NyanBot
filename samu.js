@@ -306,7 +306,7 @@ const isQuotedSticker = type === 'extendedTextMessage' && content.includes('stic
 
 //---Metadata stiker
 			function addMetadata(packname, author) {	
-				if (!packname) packname = 'Samu330'; if (!author) author = 'Nyanbot;	
+				if (!packname) packname = 'Samu330'; if (!author) author = 'Nyanbot';	
 				author = author.replace(/[^a-zA-Z0-9]/g, '');	
 				let name = `${author}_${packname}`
 				if (fs.existsSync(`./src/stickers/${name}.exif`)) return `./src/stickers/${name}.exif`
