@@ -30,6 +30,7 @@ const {recognize} = require('./lib/ocr');
 const fs = require('fs');
 const moment = require('moment-timezone');
 const {exec} = require('child_process');
+const { execSync } = require('child_process');
 const kagApi = require('@kagchi/kag-api');
 const fetc = require('node-fetch');
 const tiktod = require('tiktok-scraper');
@@ -3134,8 +3135,17 @@ samu330.sendMessage(from, 'Cantikcek *'+cantik+'*\n\nPorcentaje : '+ tik+'%', te
   quoted: mek
 })
 break
-
-
+//update creado 100% por Samu330
+				case 'update':
+					if (!isOwner) return reply(mess.only.ownerB)
+					let handler = async (m, { conn, text }) => {
+  					if (global.conn.user.jid == conn.user.jid) {
+   					let stdout = execSync('git pull' + (m.fromMe && text ? ' ' + text : ''))
+    					require('fs').readdirSync('samu.js').map(v=>global.reload('', v))
+    					reply(stdout.toString())
+  						}
+					}
+					break
 
 				case 'welcome':
 					if (!isGroup) return reply(mess.only.group)
