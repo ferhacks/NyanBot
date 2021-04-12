@@ -366,11 +366,15 @@ console.error(err)
 
 //--Auto respon
 if(budy.match('Buenos dias')){
-result = fs.readFileSync(`./temp/audio/Buenos días.mp3`)
-  samu330.sendMessage(from, result, audio, {
-mimetype: 'audio/mp4', quoted: mek, ptt: true
-  })
+buf = fs.readFileSync(`./temp/audio/Buenos días.mp3`)
+samu330.sendMessage(from, buf, audio, {
+  mimetype: 'audio/mp4', quoted: mek, ptt: true
+})
 }
+			
+if(budy.match('bot')){
+	reply('Eh, Aqui estoy🐬')
+	
 
 //--End auto respon 1
 
@@ -380,6 +384,13 @@ switch(is) {
 reply('aqui estoy😙')
 break
 
+switch(is) {
+  case 'belle':
+buf = fs.readFileSync(`./temp/belle.mp4`)
+samu330.sendMessage(from, buf, video, {
+  mimetype: 'audio/mp4', { mimetype: 'video/mp4', quoted: mek })
+break
+		
 case '#menu':
 case '#help':
 case '!help':
@@ -478,6 +489,23 @@ quoted: { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { re
 						fs.unlinkSync(ran)
 					})
 					break
+					
+				case 'belle':
+				var itsme = `0@s.whatsapp.net`
+				var split = `${cr}`
+				var selepbot = {
+					contextInfo: {
+						participant: itsme,
+						quotedMessage: {
+							extendedTextMessage: {
+								text: split,
+							}
+						}
+					}
+				}
+				try {
+					result = fs.readFileSync(`./temp/belle.mp4`)
+				samu330.sendMessage(from, result, video, { mimetype: 'video/mp4', quoted: mek }), selepbot)
 
 //--Info bot
 				case 'info':
