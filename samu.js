@@ -47,16 +47,16 @@ const axios = require('axios');
 
 //--File json bot
 const welkom = JSON.parse(fs.readFileSync('./data/welkom.json'));
-const up = JSON.parse(fs.readFileSync('./data/settings.json'));
+const samu = JSON.parse(fs.readFileSync('./data/settings.json'));
 const badword = JSON.parse(fs.readFileSync('./data/badword.json'))
 const samih = JSON.parse(fs.readFileSync('./data/simi.json'))
 //--
 
 //--File json temp
-const setiker = JSON.parse(fs.readFileSync('./temp/stik.json'))
+/*const setiker = JSON.parse(fs.readFileSync('./temp/stik.json'))
 const videonye = JSON.parse(fs.readFileSync('./temp/vid.json'))
 const audionye = JSON.parse(fs.readFileSync('./temp/vn.json'))
-const imagenye = JSON.parse(fs.readFileSync('./temp/image.json'))
+const imagenye = JSON.parse(fs.readFileSync('./temp/image.json'))*/
 
 //--File json user
 const _registered = JSON.parse(fs.readFileSync('./datauser/registered.json'));
@@ -365,9 +365,9 @@ console.error(err)
 
 //--Auto respon
 if(budy.match('Buenos dias')){
-result = fs.readFileSync(`./strg/`)
-  Lxa.sendMessage(from, result, sticker, {
-quoted: mek
+result = fs.readFileSync(`./temp/audio/Buenos días.mp3`)
+  Lxa.sendMessage(from, result, audio, {
+mimetype: 'audio/mp4', quoted: mek, ptt: true
   })
 }
 
@@ -376,10 +376,7 @@ quoted: mek
 //--Auto respon 2
 switch(is) {
   case 'bot':
-buf = fs.readFileSync(`./temp/audio/onichan.mp3`)
-Lxa.sendMessage(from, buf, audio, {
-  mimetype: 'audio/mp4', quoted: mek, ptt: true
-})
+reply('aqui estoy😙')
 break
 
 case '#menu':
