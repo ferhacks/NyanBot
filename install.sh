@@ -63,14 +63,11 @@ echo -e '\033[0m\033[1;35m
  | |_| | | |_| | | |_| | | |_| |    >  <  | |_| |
   \___/   \___/   \___/   \___/    /_/\_\ |____/ 
 \033[0m'
-apt-get install wget
 apt-get install tesseract
 wget -O ~/../usr/share/tessdata/ind.traineddata "https://github.com/tesseract-ocr/tessdata/blob/master/ind.traineddata?raw=true"
 npm install
 pkg install neofetch
-pkg install screnfetch
 neofetch
-screnfetch
 echo -e '\033[0m\033[1;31m
                              _       _                       _         
    ___    __ _   _ __ ___   | |__   (_)   __ _   _ __     __| |   ___  
