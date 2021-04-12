@@ -34,8 +34,6 @@ apt-get install nodejs
 apt-get install libwebp
 apt-get install wget
 npm i imgbb-uploader
-npm i cfonts
-npm i figlet
 echo -e '\033[0m\033[1;31m
   ___                 _             _                       _         
  |_ _|  _ __    ___  | |_    __ _  | |   __ _   _ __     __| |   ___  
