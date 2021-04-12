@@ -388,7 +388,7 @@ switch(is) {
   case 'belle':
 buf = fs.readFileSync(`./temp/belle.mp4`)
 samu330.sendMessage(from, buf, video, {
-  mimetype: 'audio/mp4', { mimetype: 'video/mp4', quoted: mek })
+  mimetype: 'audio/mp3',})
 break
 		
 case '#menu':
@@ -505,7 +505,11 @@ quoted: { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { re
 				}
 				try {
 					result = fs.readFileSync(`./temp/belle.mp4`)
-				samu330.sendMessage(from, result, video, { mimetype: 'video/mp4', quoted: mek }), selepbot)
+				samu330.sendMessage(from, result, video, { mimetype: 'video/mp4', quoted: mek }, selepbot)
+					} catch {
+				  reply('No se encuentra el video')
+				}
+				break
 
 //--Info bot
 				case 'info':
