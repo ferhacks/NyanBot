@@ -54,8 +54,8 @@ const samih = JSON.parse(fs.readFileSync('./data/simi.json'))
 //--
 
 //--File json temp
-/*const setiker = JSON.parse(fs.readFileSync('./temp/stik.json'))
-const videonye = JSON.parse(fs.readFileSync('./temp/vid.json'))
+const setiker = JSON.parse(fs.readFileSync('./temp/stik.json'))
+/*const videonye = JSON.parse(fs.readFileSync('./temp/vid.json'))
 const audionye = JSON.parse(fs.readFileSync('./temp/vn.json'))
 const imagenye = JSON.parse(fs.readFileSync('./temp/image.json'))*/
 
@@ -365,30 +365,26 @@ console.error(err)
 
 
 //--Auto respon
-if(budy.match('Buenos dias')){
-buf = fs.readFileSync(`./temp/audio/Buenos días.mp3`)
-samu330.sendMessage(from, buf, audio, {
-  mimetype: 'audio/mp4', quoted: mek, ptt: true
-})
+if(budy.match('bot')){
+result = fs.readFileSync(`./temp/stick/Samu.webp`)
+  samu330.sendMessage(from, result, sticker, {
+quoted: mek
+  })
 }
 			
-if(budy.match('bot')){
-	reply('Eh, Aqui estoy🐬')
+/*if(budy.match('bot')){
+	reply('Eh, Aqui estoy🐬')*/
 	
 
 //--End auto respon 1
 
 //--Auto respon 2
 switch(is) {
-  case 'bot':
-reply('aqui estoy😙')
-break
-
-switch(is) {
-  case 'belle':
-buf = fs.readFileSync(`./temp/belle.mp4`)
-samu330.sendMessage(from, buf, video, {
-  mimetype: 'audio/mp3',})
+  case 'buenos dias':
+buf = fs.readFileSync(`./temp/audio/Buenos días.mp3`)
+samu330.sendMessage(from, buf, audio, {
+  mimetype: 'audio/mp4', quoted: mek, ptt: true
+})
 break
 		
 case '#menu':
@@ -2398,7 +2394,7 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 			
 			  case 'getstik':
 				var itsme = `0@s.whatsapp.net`
-				var split = `${cr}`
+				var split = `🏆Sticker🏆`
 				var selepbot = {
 					contextInfo: {
 						participant: itsme,
