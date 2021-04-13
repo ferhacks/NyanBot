@@ -55,9 +55,9 @@ const samih = JSON.parse(fs.readFileSync('./data/simi.json'))
 
 //--File json temp
 const setiker = JSON.parse(fs.readFileSync('./temp/stik.json'))
-/*const videonye = JSON.parse(fs.readFileSync('./temp/vid.json'))
-const audionye = JSON.parse(fs.readFileSync('./temp/vn.json'))
-const imagenye = JSON.parse(fs.readFileSync('./temp/image.json'))*/
+const videonye = JSON.parse(fs.readFileSync('./temp/vid.json'))
+//const audionye = JSON.parse(fs.readFileSync('./temp/vn.json'))
+const imagenye = JSON.parse(fs.readFileSync('./temp/image.json'))
 
 //--File json user
 const _registered = JSON.parse(fs.readFileSync('./datauser/registered.json'));
@@ -2490,14 +2490,26 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 				imagenye.push(`${svst}`)
 				fs.writeFileSync(`./temp/foto/${svst}.jpeg`, delb)
 				fs.writeFileSync('./temp/image.json', JSON.stringify(imagenye))
-				samu330.sendMessage(from, `Video añadido\ncompruebalo con${prefix}listimage`, MessageType.text, { quoted: mek })
+				samu330.sendMessage(from, `Video añadido\ncompruebalo con: *${prefix}listimage*`, MessageType.text, { quoted: mek })
 				break
 
 			case 'getimg':
+				var itsme = `0@s.whatsapp.net`
+				var split = `✅Imagen✅`
+				var selepbot = {
+					contextInfo: {
+						participant: itsme,
+						quotedMessage: {
+							extendedTextMessage: {
+								text: split,
+							}
+						}
+					}
+				}
 				namastc = body.slice(8)
 				try {
 				buffer = fs.readFileSync(`./temp/foto/${namastc}.jpeg`)
-				samu330.sendMessage(from, buffer, image, { quoted: mek, caption: `Resultadoos : ${namastc}.jpeg` })
+				samu330.sendMessage(from, buffer, image, { quoted: mek, caption: `Resultados : ${namastc}.jpeg` }, selepbot)
 				} catch {
 				  reply('Paquete no registrado')
 				}
@@ -2522,7 +2534,7 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 				videonye.push(`${svst}`)
 				fs.writeFileSync(`./temp/video/${svst}.mp4`, delb)
 				fs.writeFileSync('./temp/vid.json', JSON.stringify(videonye))
-				samu330.sendMessage(from, `Video añadido con exito\ncompruebalo con ${prefix}listvid`, MessageType.text, { quoted: mek })
+				samu330.sendMessage(from, `Video añadido con exito\ncompruebalo con *${prefix}listvid*`, MessageType.text, { quoted: mek })
 				break
 
 			case 'getvid':
