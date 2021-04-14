@@ -29,6 +29,7 @@ const {recognize} = require('./lib/ocr');
 //*********Pakage Npm
 const fs = require('fs');
 const os = require('os');
+const batteryLevel = require('battery-level');
 const moment = require('moment-timezone');
 const {exec} = require('child_process');
 const { execSync } = require('child_process');
@@ -272,12 +273,12 @@ Usa *${prefix}reg* para registrarte y usar a *NyanBot*.`
 			
 //*********Balasan bot
 			const reply = (teks) => {
-				samu330.sendMessage(from, teks, text, {quoted: mek, contextInfo: {"forwardingScore": 9999, "isForwarded": true}, tescuk
+				samu330.sendMessage(from, teks, text, {quoted: mek, tescuk, cr, contextInfo: {"forwardingScore": 9999, "isForwarded": true}
 })
 			}
 			const sendMess = (hehe, teks) => {
-				samu330.sendMessage(hehe, teks, text, {quoted: mek, contextInfo: {"forwardingScore": 9999, "isForwarded": true}, tescuk
-}))
+				samu330.sendMessage(hehe, teks, text, {quoted: mek, tescuk, cr, contextInfo: {"forwardingScore": 9999, "isForwarded": true}
+})
 			}
 			const mentions = (teks, memberr, id) => {
 				(id == null || id == undefined || id == false) ? samu330.sendMessage(from, teks.trim(), extendedText, {contextInfo: {"mentionedJid": memberr}}) : samu330.sendMessage(from, teks.trim(), extendedText, {quoted: mek, contextInfo: {"mentionedJid": memberr}})
@@ -292,7 +293,7 @@ conversation: `${target2}`
 }
 const sendPtt = (teks) => {
   samu330.sendMessage(from, audio, mp3, {
-quoted: mek, contextInfo: {"forwardingScore": 9999, "isForwarded": true}, tescuk
+quoted: mek, contextInfo: {"forwardingScore": 9999, "isForwarded": true}
   })
 }
 			
@@ -310,7 +311,7 @@ if (isGroup && isBadWord) {
                                         return reply("😠")
                                         .then(() => {
                                                 samu330.sendMessage(from, `*「 ANTI BADWORD 」*\nEliminado por grocero:v`, text, {quoted: mek})
-						samu330.groupRemove(from, sender))
+						samu330.groupRemove(from, sender)
                                         }).catch(() => samu330.sendMessage(from, `Te salvaste xq no soy admin si no te saco a patadas!`, text , {quoted : mek}))
                                 } else {
                                         return reply( "Cuidado 😇")
@@ -572,17 +573,17 @@ text: `👑Samu330🏆
 ${samu}❑ Prefijo:${samu}「 ${prefix} 」
 ${samu}❑ Tiempo de actividad:${samu} *${kyun(uptime)}*
 ${samu}❑ Modo:${samu} *ON*
-${samu}❑ Grupo:  *${groupName}*
+${samu}❑ Grupo:${samu} *${groupName}*
 ${samu}❑ Número de grupos:${samu} *${_registered.length}*
 ${samu}❑ Número de chats:${samu} *${totalchat.length}*
 ${samu}❑ Numero del Dueño wa.me/+529984907794${samu}
 
 ⍣ *BOT INFO* ⍣
-${samu}◦ 🌐Navegador :${samu} ${samu330.browserDescription[1]}
-${samu}◦ 📡servidor :${samu} ${samu330.browserDescription[0]}
-${samu}◦ ✅version :${samu} ${samu330.browserDescription[2]}
-${samu}◦ 🚄Velocidad :${samu} ${process.uptime()}
-${samu}◦ 📲Sistema operativo :${samu} ${samu330.user.phone.device_manufacturer}
+${samu}◦ 🌐Navegador :${samu} *${samu330.browserDescription[1]}*
+${samu}◦ 📡servidor :${samu} *${samu330.browserDescription[0]}*
+${samu}◦ ✅version :${samu} *${samu330.browserDescription[2]}*
+${samu}◦ 🚄Velocidad :${samu} *${process.uptime()}*
+${samu}◦ 📲Sistema operativo : *${samu} ${samu330.user.phone.device_manufacturer}*
 ${samu}◦ 🪀version de *WhatsApp* :${samu} ${samu330.user.phone.wa_version}
 
 **SIN MENU, CREANDO MENU**
@@ -680,7 +681,7 @@ const latensi = speed() - timestamp
 samu330.updatePresence(from, Presence.composing)
 uptime = process.uptime()
 samu330.sendMessage(from, `*Pong.... xD*\n‣ *Speed* : ${latensi.toFixed(4)} _Segundos_\n\n*Info bot*\n‣ *Total de chats* : ${totalchat.length}\n‣ *Total de usuarios* : ${_registered.length}\n‣ *Bloqueados* : ${blocked.length}\n‣ *Tiempo activo* : ${kyun(uptime)}`, text, {
-	quoted: mek
+	quoted: mek, contextInfo: {"forwardingScore": 9999, "isForwarded": true}
 })
 break
 
