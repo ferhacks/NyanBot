@@ -271,7 +271,8 @@ Usa *${prefix}reg* para registrarte y usar a *NyanBot*.`
 			
 //*********Balasan bot
 			const reply = (teks) => {
-				samu330.sendMessage(from, teks, text, {quoted:mek}, contextInfo: {"forwardingScore": 9999, "isForwarded": true})
+				samu330.sendMessage(from, teks, text, {quoted: mek, contextInfo: {"forwardingScore": 9999, "isForwarded": true}
+})
 			}
 			const sendMess = (hehe, teks) => {
 				samu330.sendMessage(hehe, teks, text)
@@ -307,8 +308,9 @@ if (isGroup && isBadWord) {
                                         return reply("😠")
                                         .then(() => samu330.groupRemove(from, sender))
                                         .then(() => {
-                                                samu330.sendMessage(from, `*「 ANTI BADWORD 」*\nEliminado por grocero:v`, text ,{quoted: mek})
-                                        }).catch(() => samu330.sendMessage(from, `Te salvaste xq no soy admin si no te saco a patadas!`, text , {quoted : mek}, contextInfo: {"forwardingScore": 9999, "isForwarded": true}))
+                                                samu330.sendMessage(from, `*「 ANTI BADWORD 」*\nEliminado por grocero:v`, text , {quoted: mek, contextInfo: {"forwardingScore": 9999, "isForwarded": true}
+})
+                                        }).catch(() => samu330.sendMessage(from, `Te salvaste xq no soy admin si no te saco a patadas!`, text , {quoted : mek}))
                                 } else {
                                         return reply( "Cuidado 😇")
                                 }
