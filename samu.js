@@ -2749,6 +2749,28 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
                                         await reply(lbw)
                                         break 
 
+				case 'antilink':
+                                	if (!isGroup) return reply(mess.only.group)
+					if (!isGroupAdmins) return reply(mess.only.admin)
+					if (!isBotGroupAdmins) return reply(mess.only.Badmin)
+					if (args.length < 1) return reply('escriba *1* para activar')
+					if (Number(args[0]) === 1) {
+						if (isAntiLink) return reply('Ya esta activo')
+						antilink.push(from)
+						fs.writeFileSync('./data/antilink.json', JSON.stringify(antilink))
+						reply('*Anti-link activado ✔️*')
+						samu330.sendMessage(from,`Los miembros que manden un link serán eliminados, *OJO* _CULAQUIER TIPO DE LINK_`, text)
+					} else if (Number(args[0]) === 0) {
+						if (!isantilink) return reply('Se desactivo el anti-link')
+						var ini = anti.indexOf(from)
+						antilink.splice(ini, 1)
+						fs.writeFileSync('./data/antilink.json', JSON.stringify(antilink))
+						reply('Anti-link desactivado ✔️')
+					} else {
+						reply('*1 para activar, 0 para desactivar*')
+					}
+					break
+					
 //*********--caklontong
   case 'caklontong':
 
