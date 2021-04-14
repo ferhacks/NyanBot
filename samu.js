@@ -28,6 +28,7 @@ const {recognize} = require('./lib/ocr');
 
 //*********Pakage Npm
 const fs = require('fs');
+const os = require('os');
 const moment = require('moment-timezone');
 const {exec} = require('child_process');
 const { execSync } = require('child_process');
@@ -49,7 +50,9 @@ const axios = require('axios');
 //*********File json bot
 const welkom = JSON.parse(fs.readFileSync('./data/welkom.json'));
 const samu = JSON.parse(fs.readFileSync('./data/settings.json'));
+const bad = JSON.parse(fs.readFileSync('./data/bad.json'))
 const badword = JSON.parse(fs.readFileSync('./data/badword.json'))
+const antilink = JSON.parse(fs.readFileSync('./data/antilink.json'))
 const samih = JSON.parse(fs.readFileSync('./data/simi.json'))
 //*********
 
@@ -216,6 +219,7 @@ Usa *${prefix}reg* para registrarte y usar a *NyanBot*.`
 			const time = moment.tz('Asia/Jakarta').format('DD/MM HH:mm:ss')
 			body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption.startsWith(prefix) ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text.startsWith(prefix) ? mek.message.extendedTextMessage.text : ''
 			budy = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : ''
+			const messagesC = pes.slice(0).trim().split(/ +/).shift().toLowerCase()
 			const command = body.slice(1).trim().split(/ +/).shift().toLowerCase()
 			const args = body.trim().split(/ +/).slice(1)
 			const isCmd = body.startsWith(prefix)
@@ -241,6 +245,7 @@ Usa *${prefix}reg* para registrarte y usar a *NyanBot*.`
 }
       const totalchat = await samu330.chats.all()
 			const botNumber = samu330.user.jid
+			const samu = '```'
 			const ownerNumber = [`${samu.ownerNumber}@s.whatsapp.net`]
 			const isGroup = from.endsWith('@g.us')
 			const sender = isGroup ? mek.participant : mek.key.remoteJid
@@ -255,6 +260,7 @@ Usa *${prefix}reg* para registrarte y usar a *NyanBot*.`
 			const isOwner = ownerNumber.includes(sender)
 			const isSimi = isGroup ? samih.includes(from): false
 			const isBadWord = isGroup ? badword.includes(from) : false
+			const isAntiLink = isGroup ? antilink.includes(from) : false
       const isRegister = checkRegisteredUser(sender)
       const q = args.join(' ')
       const tescuk = ["0@s.whatsapp.net"]
@@ -265,7 +271,7 @@ Usa *${prefix}reg* para registrarte y usar a *NyanBot*.`
 			
 //*********Balasan bot
 			const reply = (teks) => {
-				samu330.sendMessage(from, teks, text, {quoted:mek})
+				samu330.sendMessage(from, teks, text, {quoted:mek}, contextInfo: {"forwardingScore": 9999, "isForwarded": true})
 			}
 			const sendMess = (hehe, teks) => {
 				samu330.sendMessage(hehe, teks, text)
@@ -294,6 +300,154 @@ const isQuotedImage = type === 'extendedTextMessage' && content.includes('imageM
 const isQuotedVideo = type === 'extendedTextMessage' && content.includes('videoMessage')
 const isQuotedAudio = type === 'extendedTextMessage' && content.includes('audioMessage')
 const isQuotedSticker = type === 'extendedTextMessage' && content.includes('stickerMessage')
+
+if (isGroup && isBadWord) {
+                        if (bad.includes(messagesC)) {
+                                if (!isGroupAdmins) {
+                                        return reply("😠")
+                                        .then(() => samu330.groupRemove(from, sender))
+                                        .then(() => {
+                                                samu330.sendMessage(from, `*「 ANTI BADWORD 」*\nEliminado por grocero:v`, text ,{quoted: mek})
+                                        }).catch(() => samu330.sendMessage(from, `Te salvaste xq no soy admin si no te saco a patadas!`, text , {quoted : mek}, contextInfo: {"forwardingScore": 9999, "isForwarded": true}))
+                                } else {
+                                        return reply( "Cuidado 😇")
+                                }
+                        }
+                }
+
+			
+			 if (messagesC.includes("://chat.whatsapp.com/")){
+		        if (!isGroup) return
+		        if (!isAntiLink) return
+		        if (isGroupAdmins) return reply('Tienes suerte, eres admin y no te sacaré')
+		        samu330.updatePresence(from, Presence.composing)
+		        if (messagesC.includes("#izinadmin")) return reply("#izinadmin recebido")
+		        var kic = `${sender.split("@")[0]}@s.whatsapp.net`
+		        reply(`Link detectado ${sender.split("@")[0]} serás expulsado en 5 segundos`)
+		        setTimeout( () => {
+			        samu330.groupRemove(from, [kic]).catch((e)=>{reply(`*ERR:* ${e}`)})
+		        }, 5000)
+		        setTimeout( () => {
+			        samu330.updatePresence(from, Presence.composing)
+			        reply("1 segundo")
+		        }, 4000)
+		        setTimeout( () => {
+			        samu330.updatePresence(from, Presence.composing)
+		                reply("2 segundos")
+		        }, 3000)
+		        setTimeout( () => {
+			        samu330.updatePresence(from, Presence.composing)
+			        reply("3 segundos")
+		        }, 2000)
+		        setTimeout( () => {
+			        samu330.updatePresence(from, Presence.composing)
+			        reply("4 segundos")
+		        }, 1000)
+		        setTimeout( () => {
+			        samu330.updatePresence(from, Presence.composing)
+			        reply("5 segundos")
+		        }, 0)
+	        }
+	
+	            if (messagesC.includes("google.")){
+		        if (!isGroup) return
+		        if (!isAntiLink) return
+		        if (isGroupAdmins) return reply('Tienes suerte, eres admin y no te sacaré')
+		        samu330.updatePresence(from, Presence.composing)
+		        if (messagesC.includes("#izinadmin")) return reply("#izinadmin recebido")
+		        var kic = `${sender.split("@")[0]}@s.whatsapp.net`
+		        reply(`Link detectado ${sender.split("@")[0]} serás expulsado en 5 segundos`)
+		        setTimeout( () => {
+			        samu330.groupRemove(from, [kic]).catch((e)=>{reply(`*ERR:* ${e}`)})
+		        }, 5000)
+		        setTimeout( () => {
+			        samu330.updatePresence(from, Presence.composing)
+			        reply("1 segundo")
+		        }, 4000)
+		        setTimeout( () => {
+			        samu330.updatePresence(from, Presence.composing)
+		                reply("2 segundos")
+		        }, 3000)
+		        setTimeout( () => {
+			        samu330.updatePresence(from, Presence.composing)
+			        reply("3 segundos")
+		        }, 2000)
+		        setTimeout( () => {
+			        samu330.updatePresence(from, Presence.composing)
+			        reply("4 segundos")
+		        }, 1000)
+		        setTimeout( () => {
+			        samu330.updatePresence(from, Presence.composing)
+			        reply("5 segundos")
+		        }, 0)
+	        }
+	
+	            if (messagesC.includes("https://")){
+		        if (!isGroup) return
+		        if (!isAntiLink) return
+		        if (isGroupAdmins) return reply('Tienes suerte, eres admin y no te sacaré')
+		        samu330.updatePresence(from, Presence.composing)
+		        if (messagesC.includes("#izinadmin")) return reply("#izinadmin recebido")
+		        var kic = `${sender.split("@")[0]}@s.whatsapp.net`
+		        reply(`Link detectado ${sender.split("@")[0]} serás expulsado en 5 segundos`)
+		        setTimeout( () => {
+			        samu330.groupRemove(from, [kic]).catch((e)=>{reply(`*ERR:* ${e}`)})
+		        }, 5000)
+		        setTimeout( () => {
+			        samu330.updatePresence(from, Presence.composing)
+			        reply("1 segundo")
+		        }, 4000)
+		        setTimeout( () => {
+			        samu330.updatePresence(from, Presence.composing)
+		                reply("2 segundos")
+		        }, 3000)
+		        setTimeout( () => {
+			        samu330.updatePresence(from, Presence.composing)
+			        reply("3 segundos")
+		        }, 2000)
+		        setTimeout( () => {
+			        samu330.updatePresence(from, Presence.composing)
+			        reply("4 segundos")
+		        }, 1000)
+		        setTimeout( () => {
+			        samu330.updatePresence(from, Presence.composing)
+			        reply("5 segundos")
+		        }, 0)
+	        }
+	
+	            if (messagesC.includes("www.")){
+		        if (!isGroup) return
+		        if (!isAntiLink) return
+		        if (isGroupAdmins) return reply('Tienes suerte, eres admin y no te sacaré')
+		        samu330.updatePresence(from, Presence.composing)
+		        if (messagesC.includes("#izinadmin")) return reply("#izinadmin recebido")
+		        var kic = `${sender.split("@")[0]}@s.whatsapp.net`
+		        reply(`Link detectado ${sender.split("@")[0]} serás expulsado en 5 segundos`)
+		        setTimeout( () => {
+			        samu330.groupRemove(from, [kic]).catch((e)=>{reply(`*ERR:* ${e}`)})
+		        }, 5000)
+		        setTimeout( () => {
+			        samu330.updatePresence(from, Presence.composing)
+			        reply("1 segundo")
+		        }, 4000)
+		        setTimeout( () => {
+			        samu330.updatePresence(from, Presence.composing)
+		                reply("2 segundos")
+		        }, 3000)
+		        setTimeout( () => {
+			        samu330.updatePresence(from, Presence.composing)
+			        reply("3 segundos")
+		        }, 2000)
+		        setTimeout( () => {
+			        samu330.updatePresence(from, Presence.composing)
+			        reply("4 segundos")
+		        }, 1000)
+		        setTimeout( () => {
+			        samu330.updatePresence(from, Presence.composing)
+			        reply("5 segundos")
+		        }, 0)
+	        }
+			
 
 //*********Colors
       colors = ['red','white','black','blue','yellow','green']
@@ -368,7 +522,7 @@ console.error(err)
 if(budy.match('bot')){
 result = fs.readFileSync(`./temp/stick/Samu.webp`)
   samu330.sendMessage(from, result, sticker, {
-quoted: mek
+quoted: mek, contextInfo: {"forwardingScore": 9999, "isForwarded": true}
   })
 }
 			
@@ -412,15 +566,24 @@ case '?':
 text: `👑Samu330🏆
 🔐Hola *${pushname}* 
 
-❑ Prefijo:「 ${prefix} 」
-❑ Tiempo de actividad: *${kyun(uptime)}*
-❑ Modo: *ON*
-❑ Grupo:  *${groupName}*
-❑ Número de grupos: *${_registered.length}*
-❑ Número de chats: *${totalchat.length}*
-❑ Numero del Dueño wa.me/+529984907794 
+${samu}❑ Prefijo:「 ${prefix} 」${samu}
+${samu}❑ Tiempo de actividad: *${kyun(uptime)}*${samu}
+${samu}❑ Modo: *ON*${samu}
+${samu}❑ Grupo:  *${groupName}*${samu}
+${samu}❑ Número de grupos: *${_registered.length}*${samu}
+${samu}❑ Número de chats: *${totalchat.length}*${samu}
+${samu}❑ Numero del Dueño wa.me/+529984907794${samu}
+
+⍣ *BOT INFO* ⍣
+${samu}◦ 🌐Navegador : ${samu330.browserDescription[1]}${samu}
+${samu}◦ 📡servidor : ${samu330.browserDescription[0]}${samu}
+${samu}◦ ✅version : ${samu330.browserDescription[2]}${samu}
+${samu}◦ 🚄Velocidad : ${process.uptime()}${samu}
+${samu}◦ 📲Sistema operativo : ${samu330.user.phone.device_manufacturer}${samu}
+${samu}◦ 🪀version de *WhatsApp* : ${samu330.user.phone.wa_version}${samu}
+
 **SIN MENU, CREANDO MENU**
-YA CONOCES LOS COMANDOS BASICOS
+${samu}YA CONOCES LOS COMANDOS BASICOS${samu}
 `,
 
 contextInfo: {
@@ -428,7 +591,7 @@ contextInfo: {
 }
   }
   samu330.sendMessage(from, Menu, text, {
-quoted: { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc", "mimetype": "image/jpeg", "caption": "✯Samu330✅", "fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=", "fileLength": "28777", "height": 1080, "width": 1079, "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=", "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=", "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69", "mediaKeyTimestamp": "1610993486", "jpegThumbnail": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABERERESERMVFRMaHBkcGiYjICAjJjoqLSotKjpYN0A3N0A3WE5fTUhNX06MbmJiboyiiIGIosWwsMX46/j///8BERERERIRExUVExocGRwaJiMgICMmOiotKi0qOlg3QDc3QDdYTl9NSE1fToxuYmJujKKIgYiixbCwxfjr+P/////CABEIADoAUQMBIgACEQEDEQH/xAAsAAEAAwEBAQAAAAAAAAAAAAAAAgMFBAYBAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAADwYAAAAAEo2EoeggYctbsPMX7XIZPycABZWNvLoHTfnjTo4x0c4AAAAAAAf//EAC0QAAMAAgEDAwIDCQAAAAAAAAECAwQRAAUSMRMhImGSFCCRJEBBQlBRUmOx/9oACAEBAAE/AP3dFLsqjW2IA2QB+p5PHvUoJxdy7FU7VJ7iPcgcM6AMxRtKwVjrwT4B4Y2Hdub/ABRXb28K2tE/Q74+Nead7yZV+BHcNbDglSPodcKsp0wIOgf14mLeisyKCFAJII/ipf8A4vCrKFJBAYbH1Hj8kXWdFdpJUD+RywB+0g8z8N4dXtiQgHxlo5STuyy2qbbmXTHxhjt2SZ6I4yISuzy/17IZudWImmKoT0bvH9pkHc+DpAQxbma/bTqUE2hwEAlUO/eQjiXMARsnTUvAX/EZxgS7vtUQIAF03OjXcdSxJnbLS0kPzddbPbsFCOUFQQKBge1dBv8AEjY/JJ1m4ZpJQDfwbYB+0g8yOvXybpZ8eHm21AfTesgRuXrOpUpjzj9ELnf3luWyTe+Tek0L2ZmPkBSx3teX6lW4uTKS0v7Wou9v7huY/VDj+l24sG9K5vLff8GOv7NzEy/wl43WEneWivd3a7g2w3sRzKyGybeqyKnwRAq70AihB5/on//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AR//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AR//Z", "scansSidecar": "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw==" } } } })
+quoted: { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc", "mimetype": "image/jpeg", "caption": "✯Samu330✅", "fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=", "fileLength": "28777", "height": 1080, "width": 1079, "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=", "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=", "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69", "mediaKeyTimestamp": "1610993486", "jpegThumbnail": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABERERESERMVFRMaHBkcGiYjICAjJjoqLSotKjpYN0A3N0A3WE5fTUhNX06MbmJiboyiiIGIosWwsMX46/j///8BERERERIRExUVExocGRwaJiMgICMmOiotKi0qOlg3QDc3QDdYTl9NSE1fToxuYmJujKKIgYiixbCwxfjr+P/////CABEIADoAUQMBIgACEQEDEQH/xAAsAAEAAwEBAQAAAAAAAAAAAAAAAgMFBAYBAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAADwYAAAAAEo2EoeggYctbsPMX7XIZPycABZWNvLoHTfnjTo4x0c4AAAAAAAf//EAC0QAAMAAgEDAwIDCQAAAAAAAAECAwQRAAUSMRMhImGSFCCRJEBBQlBRUmOx/9oACAEBAAE/AP3dFLsqjW2IA2QB+p5PHvUoJxdy7FU7VJ7iPcgcM6AMxRtKwVjrwT4B4Y2Hdub/ABRXb28K2tE/Q74+Nead7yZV+BHcNbDglSPodcKsp0wIOgf14mLeisyKCFAJII/ipf8A4vCrKFJBAYbH1Hj8kXWdFdpJUD+RywB+0g8z8N4dXtiQgHxlo5STuyy2qbbmXTHxhjt2SZ6I4yISuzy/17IZudWImmKoT0bvH9pkHc+DpAQxbma/bTqUE2hwEAlUO/eQjiXMARsnTUvAX/EZxgS7vtUQIAF03OjXcdSxJnbLS0kPzddbPbsFCOUFQQKBge1dBv8AEjY/JJ1m4ZpJQDfwbYB+0g8yOvXybpZ8eHm21AfTesgRuXrOpUpjzj9ELnf3luWyTe+Tek0L2ZmPkBSx3teX6lW4uTKS0v7Wou9v7huY/VDj+l24sG9K5vLff8GOv7NzEy/wl43WEneWivd3a7g2w3sRzKyGybeqyKnwRAq70AihB5/on//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AR//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AR//Z", "scansSidecar": "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw==" }, contextInfo: {"forwardingScore": 9999, "isForwarded": true} } } })
   break
 
 
@@ -481,31 +644,11 @@ quoted: { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { re
 						fs.unlinkSync(bas)
 						if (err) return reply('Error!')
 						hah = fs.readFileSync(ran)
-						samu330.sendMessage(from, hah, audio, {mimetype: 'audio/mp4', ptt:true, quoted: mek})
+						samu330.sendMessage(from, hah, audio, {mimetype: 'audio/mp4', ptt:true, tescuk, quoted: mek})
 						fs.unlinkSync(ran)
 					})
 					break
 					
-				case 'belle':
-				var itsme = `0@s.whatsapp.net`
-				var split = `${cr}`
-				var selepbot = {
-					contextInfo: {
-						participant: itsme,
-						quotedMessage: {
-							extendedTextMessage: {
-								text: split,
-							}
-						}
-					}
-				}
-				try {
-					result = fs.readFileSync(`./temp/belle.mp4`)
-				samu330.sendMessage(from, result, video, { mimetype: 'video/mp4', quoted: mek }, selepbot)
-					} catch {
-				  reply('No se encuentra el video')
-				}
-				break
 
 //*********Info bot
 				case 'info':
@@ -2556,6 +2699,52 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 				samu330.sendMessage(from, teks.trim(), extendedText, { quoted: mek, contextInfo: { "mentionedJid": videonye } })
 				break
 
+					
+			case 'antibad':
+                                        if (!isGroup) return reply(mess.only.group)
+                                        if (!isGroupAdmins) return reply(mess.only.admin)
+                                        if (args.length < 1) return reply('Escribe *1* para activar')
+                                        if (args[0] === '1') {
+                                                if (isBadWord) return reply('*Ya está activo*')
+                 	                        badword.push(from)
+                 	                        fs.writeFileSync('./data/badword.json', JSON.stringify(badword))
+                  	                        reply(`*[ Activado ] *`)
+                                        } else if (args[0] === '0') {
+                  	                        badword.splice(from, 1)
+                 	                        fs.writeFileSync('./data/badword.json', JSON.stringify(badword))
+                 	                        reply(`Desactivado`)
+             	                        } else {
+                 	                        reply('1 para activar, 0 para desactivar')
+                	                }
+                                        break
+                                case 'addbad':
+                                
+                                        if (!isOwner) return reply(mess.only.ownerB)
+                                        if (!isGroupAdmins) return reply(mess.only.admin)
+                                        if (args.length < 1) return reply( `Escribe ${prefix}addbad [palabra]. Ejemplo: ${prefix}addbad pto`)
+                                        const bw = body.slice(12)
+                                        bad.push(bw)
+                                        fs.writeFileSync('./data/bad.json', JSON.stringify(bad))
+                                        reply('Se añadio con exito')
+                                        break
+                                case 'delbad':
+                                
+                                        if (!isOwner) return reply(mess.only.ownerB)
+                                        if (!isGroupAdmins) return reply(mess.only.admin)
+                                        if (args.length < 1) return reply( `Escribe ${prefix}delbad [palabra]. Ejemplo: ${prefix}delbad bego`)
+                                        let dbw = body.slice(12)
+                                        bad.splice(dbw)
+                                        fs.writeFileSync('./data/bad.json', JSON.stringify(bad))
+                                        reply('Se quito con exito')
+                                        break 
+                                case 'listbad':
+                                
+                                        let lbw = `Lista de BAD WORD\nTotal : ${bad.length}\n`
+                                        for (let i of bad) {
+                                                lbw += `◦ ${i.replace(bad)}\n`
+                                        }
+                                        await reply(lbw)
+                                        break 
 
 //*********--caklontong
   case 'caklontong':
