@@ -579,6 +579,7 @@ ${samu}❑ Número de chats:${samu} *${totalchat.length}*
 ${samu}❑ Numero del Dueño wa.me/+529984907794${samu}
 
 ⍣ *BOT INFO* ⍣
+${samu}◦ 🔋 nivel de bateria :${samu} ${batteryLevel}
 ${samu}◦ 🌐Navegador :${samu} *${samu330.browserDescription[1]}*
 ${samu}◦ 📡servidor :${samu} *${samu330.browserDescription[0]}*
 ${samu}◦ ✅version :${samu} *${samu330.browserDescription[2]}*
