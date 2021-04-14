@@ -272,11 +272,12 @@ Usa *${prefix}reg* para registrarte y usar a *NyanBot*.`
 			
 //*********Balasan bot
 			const reply = (teks) => {
-				samu330.sendMessage(from, teks, text, {quoted: mek, contextInfo: {"forwardingScore": 9999, "isForwarded": true}
+				samu330.sendMessage(from, teks, text, {quoted: mek, contextInfo: {"forwardingScore": 9999, "isForwarded": true}, tescuk
 })
 			}
 			const sendMess = (hehe, teks) => {
-				samu330.sendMessage(hehe, teks, text)
+				samu330.sendMessage(hehe, teks, text, {quoted: mek, contextInfo: {"forwardingScore": 9999, "isForwarded": true}, tescuk
+}))
 			}
 			const mentions = (teks, memberr, id) => {
 				(id == null || id == undefined || id == false) ? samu330.sendMessage(from, teks.trim(), extendedText, {contextInfo: {"mentionedJid": memberr}}) : samu330.sendMessage(from, teks.trim(), extendedText, {quoted: mek, contextInfo: {"mentionedJid": memberr}})
@@ -291,7 +292,7 @@ conversation: `${target2}`
 }
 const sendPtt = (teks) => {
   samu330.sendMessage(from, audio, mp3, {
-quoted: mek
+quoted: mek, contextInfo: {"forwardingScore": 9999, "isForwarded": true}, tescuk
   })
 }
 			
@@ -307,10 +308,9 @@ if (isGroup && isBadWord) {
                         if (bad.includes(messagesC)) {
                                 if (!isGroupAdmins) {
                                         return reply("😠")
-                                        .then(() => samu330.groupRemove(from, sender))
                                         .then(() => {
-                                                samu330.sendMessage(from, `*「 ANTI BADWORD 」*\nEliminado por grocero:v`, text , {quoted: mek, contextInfo: {"forwardingScore": 9999, "isForwarded": true}
-})
+                                                samu330.sendMessage(from, `*「 ANTI BADWORD 」*\nEliminado por grocero:v`, text, {quoted: mek})
+						samu330.groupRemove(from, sender))
                                         }).catch(() => samu330.sendMessage(from, `Te salvaste xq no soy admin si no te saco a patadas!`, text , {quoted : mek}))
                                 } else {
                                         return reply( "Cuidado 😇")
@@ -385,7 +385,7 @@ if (isGroup && isBadWord) {
 		        }, 0)
 	        }
 	
-	            if (messagesC.includes("https://")){
+	            /*if (messagesC.includes("https://")){
 		        if (!isGroup) return
 		        if (!isAntiLink) return
 		        if (isGroupAdmins) return reply('Tienes suerte, eres admin y no te sacaré')
@@ -416,7 +416,7 @@ if (isGroup && isBadWord) {
 			        samu330.updatePresence(from, Presence.composing)
 			        reply("5 segundos")
 		        }, 0)
-	        }
+	        }*/
 	
 	            if (messagesC.includes("www.")){
 		        if (!isGroup) return
@@ -525,7 +525,7 @@ console.error(err)
 if(budy.match('bot')){
 result = fs.readFileSync(`./temp/stick/Samu.webp`)
   samu330.sendMessage(from, result, sticker, {
-quoted: mek, contextInfo: {"forwardingScore": 9999, "isForwarded": true}
+quoted: mek
   })
 }
 			
@@ -569,21 +569,21 @@ case '?':
 text: `👑Samu330🏆
 🔐Hola *${pushname}* 
 
-${samu}❑ Prefijo:「 ${prefix} 」${samu}
-${samu}❑ Tiempo de actividad: *${kyun(uptime)}*${samu}
-${samu}❑ Modo: *ON*${samu}
-${samu}❑ Grupo:  *${groupName}*${samu}
-${samu}❑ Número de grupos: *${_registered.length}*${samu}
-${samu}❑ Número de chats: *${totalchat.length}*${samu}
+${samu}❑ Prefijo:${samu}「 ${prefix} 」
+${samu}❑ Tiempo de actividad:${samu} *${kyun(uptime)}*
+${samu}❑ Modo:${samu} *ON*
+${samu}❑ Grupo:  *${groupName}*
+${samu}❑ Número de grupos:${samu} *${_registered.length}*
+${samu}❑ Número de chats:${samu} *${totalchat.length}*
 ${samu}❑ Numero del Dueño wa.me/+529984907794${samu}
 
 ⍣ *BOT INFO* ⍣
-${samu}◦ 🌐Navegador : ${samu330.browserDescription[1]}${samu}
-${samu}◦ 📡servidor : ${samu330.browserDescription[0]}${samu}
-${samu}◦ ✅version : ${samu330.browserDescription[2]}${samu}
-${samu}◦ 🚄Velocidad : ${process.uptime()}${samu}
-${samu}◦ 📲Sistema operativo : ${samu330.user.phone.device_manufacturer}${samu}
-${samu}◦ 🪀version de *WhatsApp* : ${samu330.user.phone.wa_version}${samu}
+${samu}◦ 🌐Navegador :${samu} ${samu330.browserDescription[1]}
+${samu}◦ 📡servidor :${samu} ${samu330.browserDescription[0]}
+${samu}◦ ✅version :${samu} ${samu330.browserDescription[2]}
+${samu}◦ 🚄Velocidad :${samu} ${process.uptime()}
+${samu}◦ 📲Sistema operativo :${samu} ${samu330.user.phone.device_manufacturer}
+${samu}◦ 🪀version de *WhatsApp* :${samu} ${samu330.user.phone.wa_version}
 
 **SIN MENU, CREANDO MENU**
 ${samu}YA CONOCES LOS COMANDOS BASICOS${samu}
@@ -594,12 +594,12 @@ contextInfo: {
 }
   }
   samu330.sendMessage(from, Menu, text, {
-quoted: { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc", "mimetype": "image/jpeg", "caption": "✯Samu330✅", "fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=", "fileLength": "28777", "height": 1080, "width": 1079, "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=", "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=", "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69", "mediaKeyTimestamp": "1610993486", "jpegThumbnail": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABERERESERMVFRMaHBkcGiYjICAjJjoqLSotKjpYN0A3N0A3WE5fTUhNX06MbmJiboyiiIGIosWwsMX46/j///8BERERERIRExUVExocGRwaJiMgICMmOiotKi0qOlg3QDc3QDdYTl9NSE1fToxuYmJujKKIgYiixbCwxfjr+P/////CABEIADoAUQMBIgACEQEDEQH/xAAsAAEAAwEBAQAAAAAAAAAAAAAAAgMFBAYBAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAADwYAAAAAEo2EoeggYctbsPMX7XIZPycABZWNvLoHTfnjTo4x0c4AAAAAAAf//EAC0QAAMAAgEDAwIDCQAAAAAAAAECAwQRAAUSMRMhImGSFCCRJEBBQlBRUmOx/9oACAEBAAE/AP3dFLsqjW2IA2QB+p5PHvUoJxdy7FU7VJ7iPcgcM6AMxRtKwVjrwT4B4Y2Hdub/ABRXb28K2tE/Q74+Nead7yZV+BHcNbDglSPodcKsp0wIOgf14mLeisyKCFAJII/ipf8A4vCrKFJBAYbH1Hj8kXWdFdpJUD+RywB+0g8z8N4dXtiQgHxlo5STuyy2qbbmXTHxhjt2SZ6I4yISuzy/17IZudWImmKoT0bvH9pkHc+DpAQxbma/bTqUE2hwEAlUO/eQjiXMARsnTUvAX/EZxgS7vtUQIAF03OjXcdSxJnbLS0kPzddbPbsFCOUFQQKBge1dBv8AEjY/JJ1m4ZpJQDfwbYB+0g8yOvXybpZ8eHm21AfTesgRuXrOpUpjzj9ELnf3luWyTe+Tek0L2ZmPkBSx3teX6lW4uTKS0v7Wou9v7huY/VDj+l24sG9K5vLff8GOv7NzEy/wl43WEneWivd3a7g2w3sRzKyGybeqyKnwRAq70AihB5/on//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AR//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AR//Z", "scansSidecar": "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw==" }, contextInfo: {"forwardingScore": 9999, "isForwarded": true} } } })
+quoted: { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc", "mimetype": "image/jpeg", "caption": "🪀𝐒𝐚𝐦𝐮𝟑𝟑𝟎👑", "fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=", "fileLength": "28777", "height": 1080, "width": 1079, "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=", "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=", "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69", "mediaKeyTimestamp": "1610993486", "jpegThumbnail": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABERERESERMVFRMaHBkcGiYjICAjJjoqLSotKjpYN0A3N0A3WE5fTUhNX06MbmJiboyiiIGIosWwsMX46/j///8BERERERIRExUVExocGRwaJiMgICMmOiotKi0qOlg3QDc3QDdYTl9NSE1fToxuYmJujKKIgYiixbCwxfjr+P/////CABEIADoAUQMBIgACEQEDEQH/xAAsAAEAAwEBAQAAAAAAAAAAAAAAAgMFBAYBAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAADwYAAAAAEo2EoeggYctbsPMX7XIZPycABZWNvLoHTfnjTo4x0c4AAAAAAAf//EAC0QAAMAAgEDAwIDCQAAAAAAAAECAwQRAAUSMRMhImGSFCCRJEBBQlBRUmOx/9oACAEBAAE/AP3dFLsqjW2IA2QB+p5PHvUoJxdy7FU7VJ7iPcgcM6AMxRtKwVjrwT4B4Y2Hdub/ABRXb28K2tE/Q74+Nead7yZV+BHcNbDglSPodcKsp0wIOgf14mLeisyKCFAJII/ipf8A4vCrKFJBAYbH1Hj8kXWdFdpJUD+RywB+0g8z8N4dXtiQgHxlo5STuyy2qbbmXTHxhjt2SZ6I4yISuzy/17IZudWImmKoT0bvH9pkHc+DpAQxbma/bTqUE2hwEAlUO/eQjiXMARsnTUvAX/EZxgS7vtUQIAF03OjXcdSxJnbLS0kPzddbPbsFCOUFQQKBge1dBv8AEjY/JJ1m4ZpJQDfwbYB+0g8yOvXybpZ8eHm21AfTesgRuXrOpUpjzj9ELnf3luWyTe+Tek0L2ZmPkBSx3teX6lW4uTKS0v7Wou9v7huY/VDj+l24sG9K5vLff8GOv7NzEy/wl43WEneWivd3a7g2w3sRzKyGybeqyKnwRAq70AihB5/on//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AR//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AR//Z", "scansSidecar": "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw==" } } } })
   break
 
 
 
-	break
+	
 					case 'slow':
 					low = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
 					slo = await samu330.downloadAndSaveMediaMessage(low)
@@ -680,7 +680,7 @@ const latensi = speed() - timestamp
 samu330.updatePresence(from, Presence.composing)
 uptime = process.uptime()
 samu330.sendMessage(from, `*Pong.... xD*\n‣ *Speed* : ${latensi.toFixed(4)} _Segundos_\n\n*Info bot*\n‣ *Total de chats* : ${totalchat.length}\n‣ *Total de usuarios* : ${_registered.length}\n‣ *Bloqueados* : ${blocked.length}\n‣ *Tiempo activo* : ${kyun(uptime)}`, text, {
-	quoted: mek, contextInfo: {"forwardingScore": 9999, "isForwarded": true}
+	quoted: mek
 })
 break
 
@@ -2446,7 +2446,7 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 								console.log(`Error : ${err}`)
 								fs.unlinkSync(media)
 								tipe = media.endsWith('.mp4') ? 'video' : 'gif'
-								reply(`❌ Error al convertir video en pegatina ${tipe} Sticker`)
+								reply(`❌ Error al convertir video en sticker ${tipe} Sticker`)
 							})
 							.on('end', function () {
 								console.log('Finish')
@@ -2509,7 +2509,7 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 							.toFormat('webp')
 							.save(ran)*/
 					} else {
-						reply(`Kirim gambar dengan caption ${prefix}sticker atau tag gambar yang sudah dikirim`)
+						reply(`Envie una imagen con el comando: ${prefix}sticker`)
 					}
 					break
 
@@ -2517,7 +2517,7 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 			case 'gets':
 			  
 				var itsme = `0@s.whatsapp.net`
-				var split = `${cr}`
+				var split = `🐬NyanBot`
 				var selepbot = {
 					contextInfo: {
 						participant: itsme,
