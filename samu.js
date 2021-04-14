@@ -703,63 +703,24 @@ reply(hasil)
 }
 break
 
-//*********-couple pasangan
-case 'couple':
-samu330.updatePresence(from, Presence.composing)
-if (!isRegister) return reply(mess.only.daftarB)
-if (!q.includes(' & ')) return  reply('Formato de texto incorrecto')
-const aku = q.substring(0, q.indexOf(' &') - 0)
-const kamu = q.substring(q.lastIndexOf('& ') + 1)
-try {
-data = await fetchJson(`https://arugaz.herokuapp.com/api/jodohku?nama=${aku}&pasangan=${kamu}`, {
-  method: 'get'
-})
-yoi = `‣ *Nombre* : ${aku}
-‣ *Pareja* : ${kamu}
-‣ *Positivo* : ${data.positif}
-‣ *Negativo* : ${data.negatif}`
-samu330.sendMessage(from, yoi, text, {
-  quoted: mek
-})
-
-} catch {
-  reply(mess.ferr)
-}
-break
-
-//*********-Zodiak harian
-case 'zodiak':
-if (args.length < 1) return reply('Ingresa el signo zodiaco')
-samu330.updatePresence(from, Presence.composing)
-if (!isRegister) return reply(mess.only.daftarB)
-teks = body.slice(8)
-try {
-data = await fetchJson(`https://api.vhtear.com/zodiak?query=${teks}&apikey=${vKey}`)
-hasil = `Zodiaco : *${data.result.zodiak}*\nPronostico de hoy : *${data.result.ramalan}*\n${data.result.inspirasi}`
-reply(hasil)
-
-} catch {
-  reply(mess.ferr)
-}
-break
 
 //*********pencarian pinterest
   case 'img':
 if (!isRegister) return reply(mess.only.daftarB)
 
 if (args.length < 1) return reply('Ingresa lo que quieres buscar')
-tels = body.slice(5)
+texto = body.slice(4)
 samu330.updatePresence(from, Presence.composing)
 reply(mess.wait)
 try {
-data = await fetchJson(`https://api.fdci.se/sosmed/rep.php?gambar=${tels}`, {
+data = await fetchJson(`https://api.fdci.se/sosmed/rep.php?gambar=${texto}`, {
   method: 'get'
 })
 n = JSON.parse(JSON.stringify(data));
 nimek = n[Math.floor(Math.random() * n.length)];
 pok = await getBuffer(nimek)
 samu330.sendMessage(from, pok, image, {
-  quoted: mek, caption: `Resultado : *${tels}*`
+  quoted: mek, caption: `Resultado de: *${texto}*`
 })
 
 } catch {
@@ -767,7 +728,7 @@ samu330.sendMessage(from, pok, image, {
 }
 break
 
-//*********Pencarian pinterest
+
 case 'imagen':
 tels = body.slice(11)
 if (!isRegister) return reply(mess.only.daftarB)
@@ -783,7 +744,7 @@ n = JSON.parse(JSON.stringify(data));
 nimek = n[Math.floor(Math.random() * n.length)];
 pok = await getBuffer(nimek)
 samu330.sendMessage(from, pok, image, {
-  quoted: mek, caption: `Resultado : *${tels}*`
+  quoted: mek, caption: `Resultado de: *${tels}*`
 })
 
 } catch {
@@ -928,44 +889,14 @@ quoted: mek, caption: `.....`
   }
   break
 
-//*********Pinterest cecan
-case 'cecan':
-  if (!isRegister) return reply(mess.only.daftarB)
-  
-  tels = body.slice(5)
-  samu330.updatePresence(from, Presence.composing)
-  ty = ["ulzhang girl",
-"cewek cantik",
-"cewe hijab",
-"cewe rusia cantik",
-"cewe jepang cantik",
-"cecan indo"]
-  nk = ty[Math.floor(Math.random() * ty.length)]
-  try {
-  data = await fetchJson(`https://api.fdci.se/sosmed/rep.php?gambar=${nk}`, {
-method: 'get'
-  })
-  reply(mess.wait)
-  n = JSON.parse(JSON.stringify(data));
-  nimek = n[Math.floor(Math.random() * n.length)];
-  pok = await getBuffer(nimek)
-  samu330.sendMessage(from, pok, image, {
-quoted: mek, caption: `....`
-  })
-  
-  } catch {
-    reply(mess.ferr)
-  }
-  break
-
 //*********Pinterest quotes
 case 'quotes':
   if (!isRegister) return reply(mess.only.daftarB)
   
   tels = body.slice(5)
   samu330.updatePresence(from, Presence.composing)
-  qt = ["quotes galau",
-"quotes aestethic Indonesia"]
+  qt = ["quotes tristes",
+"tristes"]
   nk = qt[Math.floor(Math.random() * qt.length)]
   try {
   data = await fetchJson(`https://api.fdci.se/sosmed/rep.php?gambar=${nk}`, {
@@ -1034,105 +965,6 @@ quoted: mek
   }
   break
 
-case 'jadian':
-  if (!isRegister) return reply(mess.only.daftarB)
-  
-  if (args.length < 1) return samu330.sendMessage(from, `Ingrese la fecha-mes-año`, text, {
-quoted: mek
-  })
-  if (!q.includes('-')) return  reply('Ingrese la fecha-mes-año\n*Ejemplo : 09-09-2009*')
-  pc = body.slice(9)
-  teks1 = pc.split("-")[0];
-  teks2 = pc.split("-")[1];
-  teks3 = pc.split("-")[2];
-  reply(mess.wait)
-  try {
-  iya = await fetchJson(`http://lolhuman.herokuapp.com/api/jadian/${teks1}/${teks2}/${teks3}?apikey=${lolKey}`, {
-method: 'get'
-  })
-  hasil = `‣ *Características* : ${iya.result.karakteristik}\n‣ *Descripción* : ${iya.result.deskripsi}`
-  samu330.sendMessage(from, hasil, text, {
-quoted: mek
-  })
-  
-  } catch {
-    reply(mess.ferr)
-  }
-  break
-
-
-case 'asupan':
-  
-if (!isRegister) return reply(mess.only.daftarB)
-try {
-data = await fetchJson(`https://api.itsmeikyxsec404.xyz/asupan?apikey=${meKey}`)
-reply(mess.wait)
-hasil = await getBuffer(data.result)
-samu330.sendMessage(from, hasil, video, {
-  caption: 'Nih gan', quoted: mek
-})
-
-} catch {
-  reply(mess.ferr)
-}
-break
-
-case 'weton':
-  if (!isRegister) return reply(mess.only.daftarB)
-  
-  if (args.length < 1) return samu330.sendMessage(from, `Ingrese la fecha-mes-año`, text, {
-quoted: mek
-  })
-  if (!q.includes('-')) return  reply('Masukan tanggal-bulan-tahun dengan benar\n*Contoh : 09-09-2009*')
-  pc = body.slice(7)
-  teks1 = pc.split("-")[0];
-  teks2 = pc.split("-")[1];
-  teks3 = pc.split("-")[2];
-  reply(mess.wait)
-  try {
-  iya = await fetchJson(`http://lolhuman.herokuapp.com/api/weton/${teks1}/${teks2}/${teks3}?apikey=${lolKey}`, {
-method: 'get'
-  })
-  hasil = `${iya.result.weton}\n\nCaracterísticas: ${iya.result.karakter}\n Profesión : ${iya.result.pekerjaan}\n Rejeki : ${iya.result.rejeki}\nJodoh : ${iya.result.jodoh}`
-reply(hasil)
-break
-  
-  } catch {
-    reply(mess.ferr)
-  }
-  break
-
-case 'seberapagay':
-  if (!isRegister) return reply(mess.only.daftarB)
-  
-  if (args.length < 1) return samu330.sendMessage(from, 'Escribe el nombre', text, {
-quoted: mek
-  })
-  teks = body.slice(13)
-  samu330.updatePresence(from, Presence.composing)
-  data = await fetchJson(`https://arugaz.herokuapp.com/api/howgay`)
-  hasil = `*Gay Detectado*\n‣ Nombre : *${args[0]}*\n‣ Porcentaje : *${data.persen}%*\n*${data.desc}*`
-  reply(hasil)
-  
-  break
-
-case 'seberapabucin':
-  if (!isRegister) return reply(mess.only.daftarB)
-  
-  if (args.length < 1) return samu330.sendMessage(from, 'Ingresa el nombre', text, {
-quoted: mek
-  })
-  teks = body.slice(15)
-  try {
-  samu330.updatePresence(from, Presence.composing)
-  data = await fetchJson(`https://arugaz.herokuapp.com/api/howbucins`)
-  hasil = `*Bucin Detectado*\n‣ Nombre : *${args[0]}*\n‣ Porcentaje : *${data.persen}%*\n*${data.desc}*`
-  reply(hasil)
-  
-  } catch {
-    reply(mess.ferr)
-  }
-  break
 
 //*********searching lirik
 case 'lirik':
@@ -1184,162 +1016,6 @@ reply(data.text)
 break
 
 
-case 'gplaystore':
-samu330.updatePresence(from, Presence.composing)
-if (!isRegister) return reply(mess.only.daftarB)
-
-goo = body.slice(12)
-try {
-data = await fetchJson(`https://api.zeks.xyz/api/sgplay?apikey=${viKey}&q=${goo}`, {
-method: 'get'
-  })
-
-teks = '*Google Play Store*\n\n'
-				for (let i of data.result) {
-					teks += `        ────────────────\n\n‣ *Nombre* : ${i.title}\n‣ *Desarrollador* : ${i.developer}\n‣ *Calificación* : ${i.rating}\n‣ *Link* : ${i.url}\n\n`
-				}
-				teks += `        ────────────────`
-reply(teks.trim())
-
-} catch {
-  reply(mess.ferr)
-}
-
-break
-case 'bijak':
-samu330.updatePresence(from, Presence.composing)
-if (!isRegister) return reply(mess.only.daftarB)
-
-try {
-data = await fetchJson(`http://lolhuman.herokuapp.com/api/random/katabijak?apikey=${lolKey}`)
-reply(data.result)
-
-} catch {
-  reply(mess.ferr)
-}
-break
-
-case 'pantun':
-
-samu330.updatePresence(from, Presence.composing)
-if (!isRegister) return reply(mess.only.daftarB)
-
-try {
-data = await fetchJson(`http://lolhuman.herokuapp.com/api/random/pantun?apikey=${lolKey}`)
-reply(data.result)
-
-} catch {
-  reply(mess.ferr)
-}
-break
-
-case 'bucin':
-case 'gombal':
-
-  samu330.updatePresence(from, Presence.composing)
-  if (!isRegister) return reply(mess.only.daftarB)
-  
-  try {
-  data = await fetchJson(`http://lolhuman.herokuapp.com/api/random/bucin?apikey=${lolKey}`)
-  reply(data.result)
-  
-  } catch {
-    reply(mess.ferr)
-  }
-  break
-
-case 'charnime':
-  teks = body.slice(10)
-  samu330.updatePresence(from, Presence.composing)
-  if (!isRegister) return reply(mess.only.daftarB)
-  
-  if (args.length < 1) return reply('Escribe el nombre')
-  try {
-  data = await fetchJson(`http://lolhuman.herokuapp.com/api/character?apikey=${lolKey}&query=${teks}`)
-  buf = await getBuffer(data.result.image.large)
-  hasil = `‣ *Nombre* : ${data.result.name.full} *(${data.result.name.native})*\n‣ *Descripción* : ${data.result.description}`
-  samu330.sendMessage(from, buf, image, {
-caption: hasil, quoted: mek
-  })
-  
-  } catch {
-    reply(mess.ferr)
-  }
-  break
-
-case 'textgen':
-  teks = body.slice(9)
-  if (args.length < 1) return reply('Escribe el texto')
-  samu330.updatePresence(from, Presence.composing)
-  if (!isRegister) return reply(mess.only.daftarB)
-  
-  try {
-  data = await fetchJson(`https://api.arugaz.my.id/api/random/text/fancytext?text=${teks}`)
-  reply(data.result)
-  
-  } catch {
-    reply(mess.ferr)
-  }
-  break
-
-
-case 'kusonime':
-  teks = body.slice(6)
-  samu330.updatePresence(from, Presence.composing)
-  if (!isRegister) return reply(mess.only.daftarB)
-  
-  if (args.length < 1) return reply('Escribe el nombre')
-  try {
-  data = await fetchJson(`https://st4rz.herokuapp.com/api/kuso?q=${teks}`)
-  hasil = `‣ *Nombre* : ${data.title}\n‣ *Info* : ${data.info}\n‣ *Sinopsis* : ${data.sinopsis}\n‣ *Link download* :\n${data.link_dl}`
-  buf = await getBuffer(data.thumb)
-  samu330.sendMessage(from, buf, image, {
-quoted: mek, caption: hasil
-  })
-  
-  } catch {
-    reply(mess.ferr)
-  }
-  break
-
-case 'igstalk':
-yolo = body.slice(9)
-if (!isRegister) return reply(mess.only.daftarB)
-
-if (args.length < 1) return reply('Escribe el nombre de usuario')
-try {
-hmm = await fetchJson(`http://lolhuman.herokuapp.com/api/stalkig/${yolo}?apikey=${lolKey}`)
-reply(mess.wait)
-buffer = await getBuffer(hmm.result.photo_profile)
-hasil = `‣ *Usuario* : ${hmm.result.username}\n‣ *Nombre* : ${hmm.result.fullname}\n‣ *Seguidores* : ${hmm.result.followers}\n‣ *Seguidos* : ${hmm.result.following}\n‣ *Bio* : ${hmm.result.bio}\n‣ *Link* : https://www.instagram.com/${hmm.result.username}\n‣ Suscribete: ${Ig}`
-samu330.sendMessage(from, buffer, image, {
-  quoted: mek, caption: hasil
-})
-
-} catch {
-  reply(mess.ferr)
-}
-break
-
-
-case 'apakah':
-  if (args.length < 1) return reply('Escribe el nombre')
-  samu330.updatePresence(from, Presence.composing)
-  random = apakah[Math.floor(Math.random() * (apakah.length))]
-  hasil = `Apakah : *${body.slice(8)}*\n\nRespuesta : *${random}*`
-  reply(hasil)
-  break
-
-//bisakah
-case 'bisakah':
-  if (args.length < 1) return reply('Escribe el nombre')
-  samu330.updatePresence(from, Presence.composing)
-  if (!isRegister) return reply(mess.only.daftarB)
-  random = bisakah[Math.floor(Math.random() * (bisakah.length))]
-  hasil = `Bisakah : *${body.slice(9)}*\n\nRespuesta : *${random}*`
-  reply(hasil)
-  break
-
 case 'rate':
   if (args.length < 1) return reply('Escribe el nombre')
   samu330.updatePresence(from, Presence.composing)
@@ -1349,25 +1025,6 @@ case 'rate':
   reply(hasil)
   break
 
-case 'kapankah':
-  if (args.length < 1) return reply('Escribe el nombre')
-  samu330.updatePresence(from, Presence.composing)
-  if (!isRegister) return reply(mess.only.daftarB)
-  random = kapankah[Math.floor(Math.random() * (kapankah.length))]
-  random2 = `${Math.floor(Math.random() * 8)}`
-  hasil = `Kapankah : *${body.slice(10)}*\n\nRespuesta : *${random2} ${random}*`
-  reply(hasil)
-  break
-
-case 'kapan':
-  if (args.length < 1) return reply('Escribe el nombre')
-  samu330.updatePresence(from, Presence.composing)
-  if (!isRegister) return reply(mess.only.daftarB)
-  random = kapankah[Math.floor(Math.random() * (kapankah.length))]
-  random2 = `${Math.floor(Math.random() * 8)}`
-  hasil = `Kapankah : *${body.slice(7)}*\n\nRespuesta : *${random2} ${random}*`
-  reply(hasil)
-  break
 
 case 'setppgc':
 
@@ -1379,7 +1036,7 @@ const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM
 reply(mess.wait)
 const media = await samu330.downloadAndSaveMediaMessage(encmedia)
 await samu330.updateProfilePicture (from, media)
-reply('Cambio la foto del grupo')
+reply('Se cambio la foto del grupo')
 break
 
 case 'triggered':
@@ -1404,7 +1061,7 @@ case 'triggered':
                                         })
                                     
                                              } else {
-                                                 reply('Gunakan foto!')
+                                                 reply('Se nececita una foto!')
                                           }
                                              break
 
@@ -1501,14 +1158,14 @@ if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0)
 break
 
 //*********list kodebahasa
-case 'kodebahasa':
+case 'idiomas':
 samu330.sendMessage(from, bahasa(prefix, sender), text, {
   quoted: mek
 })
 break
 
 //*********list kode negara
-case 'kodenegara':
+case 'paises':
 samu330.sendMessage(from, negara(prefix, sender), text, {
   quoted: mek
 })
@@ -1528,21 +1185,6 @@ contextInfo: {
 quoted: mek
   })
   break
-
-//*********-quoted fuck my life
-case 'fml':
-  if (!isRegister) return reply(mess.only.daftarB)
-  
-  try {
-data = await fetchJson(`https://api.zeks.xyz/api/fml`)
-if (!isRegister) return reply(mess.only.daftarB)
-hasil = data.result
-reply(hasil)
-
-} catch {
-  reply(mess.ferr)
-}
-break
 
 //*********translate semua bahasa
   case 'tl':
@@ -1565,7 +1207,7 @@ reply(hasil)
 }
 break
 
-//*********-membalikan kalimat
+//*********
   case 'reverse':
     if (!isRegister) return reply(mess.only.daftarB)
   
@@ -1587,8 +1229,8 @@ break
 
 
 //*********fake reply
-case 'fitnah':
-if (args.length < 1) return reply(`Uso :\n${prefix}fitnah [@tag|pesan|balasanbot]]\n\nEx : \n${prefix}fitnah @tagmember|hai|hai juga`)
+case 'reply':
+if (args.length < 1) return reply(`Uso :\n${prefix}fitnah [@tag|frase a etiquetar|respuesta]]\n\nEx : \n${prefix}reply @tagmember|hola|hola que tal`)
 var gh = body.slice(7)
 mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
 var replace = gh.split("|")[0];
@@ -1605,18 +1247,10 @@ remoteJid: from
 }}})
 break
 
-//*********Kejujuran
-case 'truth':
+//*********
+case 'verdad':
 const ttrth = trut[Math.floor(Math.random() * trut.length)]
 samu330.sendMessage(from, `‣ *Verdad*\n${ttrth}`, text, {
-  quoted: mek
-})
-break
-
-//*********-Tantangan
-  case 'dare':
-const der = dare[Math.floor(Math.random() * dare.length)]
-samu330.sendMessage(from, `‣ *Mentira*\n${der}`, text, {
   quoted: mek
 })
 break
@@ -1646,109 +1280,8 @@ mentionedJid: jids
 await samu330.sendMessage(from, options, text)
 break
 
-//*********jawaban BRANLy
-  case 'brainly':
-if (!isRegister) return reply(mess.only.daftarB)
-  
-if (args.length < 1) return samu330.sendMessage(from, 'Escribe el nombre', text, {
-  quoted: mek
-})
-teks = body.slice(9)
-try {
-samu330.updatePresence(from, Presence.composing)
-data = await fetchJson(`https://api.vhtear.com/branly?query=${teks}&apikey=${vKey}`)
-hasil = data.result.data
-reply(hasil)
-await limitAdd(mess.ferr)
-} catch {
-  reply(mess.ferr)
-}
-break
 
-  //pencarian wiki
-  case 'wiki':
-    if (!isRegister) return reply(mess.only.daftarB)
-
-if (args.length < 1) return reply('Ingresa lo que quieres buscar')
-tels = body.slice(6)
-try {
-anu = await fetchJson(`https://tobz-api.herokuapp.com/api/wiki?q=${tels}&apikey=BotWeA`, {
-  method: 'get'
-})
-reply(anu.result)
-
-} catch {
-  reply(mess.ferr)
-}
-break
-
-
-//*********Goolge Image
-
-case 'google':
-  if (!isRegister) return reply(mess.only.daftarB)
-
-  if (args.length < 1) return reply('Ingresa el texto')
-  goo = body.slice(7)
-  try {
-  pint = await getBuffer(`http://lolhuman.herokuapp.com/api/gimage?apikey=${lolKey}&query=${goo}`, {
-method: 'get'
-  })
-  samu330.updatePresence(from, Presence.composing)
-  reply(mess.wait)
-  samu330.sendMessage(from, pint, image, {
-caption: '*Google Imagen*\n\n*Resultado de busqueda : '+goo+'*', quoted: mek
-  })
-  
-  } catch {
-    reply(mess.ferr)
-  }
-  break
-
-case 'alay2':
-  if (!isRegister) return reply(mess.only.userB)
-  if (args.length < 1) return reply('Ingresa el texto')
-  goo = body.slice(7)
-  try { 
-  pint = await fetchJson(`http://lolhuman.herokuapp.com/api/upperlower?apikey=${lolKey}&text=${goo}`, {
-method: 'get'
-  })
-  samu330.updatePresence(from, Presence.composing)
-  hasil = pint.result
-  samu330.sendMessage(from, hasil, text, {
-quoted: mek
-  })
-  
-  } catch {
-    reply(mess.ferr)
-  }
-  break
-
-//*********-Neonime search
-case 'neonime':
-if (!isRegister) return reply(mess.only.daftarB)
-
-samu330.updatePresence(from, Presence.composing)
-reply(mess.wait)
-if (args.length < 1) return reply(`Ingresa el nombre`)
-teks = body.slice(9)
-try {
-data = await fetchJson(`https://api.zeks.xyz/api/neonimesearch?q=${teks}&apikey=${viKey}`, {
-  method: 'get'
-})
-teks = '••••••••••••••••••••••\n'
-for (let i of data.result) {
-  teks += `‣ *Titulo* : ${i.title}\n‣ *link* : ${i.link}\n••••••••••••••••••••••\n`
-}
-reply(teks.trim())
-if (data.message) return reply(`La información de  *${teks} no se encontro`)
-
-} catch {
-  reply(mess.ferr)
-}
-break
-
-//*********-Ganti nama grup
+//*********
   case 'setname':
 if (!isGroup) return reply(mess.only.group)
 if (!isGroupAdmins) return reply(mess.only.admin)
@@ -1760,7 +1293,7 @@ samu330.sendMessage(from, 'Cambio nombre del grupo', text, {
 })
 break
 
-//*********ganti desk
+//*********
   case 'setdesk':
 if (!isGroup) return reply(mess.only.group)
 if (!isGroupAdmins) return reply(mess.only.admin)
@@ -1779,7 +1312,7 @@ case 'meme':
   if (!isRegister) return reply(mess.only.daftarB)
 
 try {
-  beh = await fetchJson(`https://api.zeks.xyz/api/memeindo?apikey=${viKey}`)
+  beh = await fetchJson(`https://meme-api.herokuapp.com/gimme/memesmexico`)
   pint = await getBuffer(beh.result)
   reply(mess.wait)
   samu330.sendMessage(from, pint, image, {
@@ -1803,29 +1336,12 @@ mentionedJid: [sender]
 samu330.sendMessage(from, tagme, text)
 break
 
-case 'kbbi':
-  samu330.updatePresence(from, Presence.composing)
-  if (args.length < 1) return reply(`Escribe el texto\nEjemplo : ${prefix}kbbi manusia`)
-  if (!isRegister) return reply(mess.only.daftarB)
-  
-  tels = body.slice(6)
-  try {
-  data = await fetchJson(`https://tobz-api.herokuapp.com/api/kbbi?kata=${tels}&apikey=BotWeA`)
-  if (data.error) return reply(data.error)
-  hasil = `Diccionario\n\n${data.result}`
-  reply(hasil)
-  
-  } catch {
-    reply(mess.ferr)
-  }
-  break
 
-
-  case 'chatprank':
+  case 'readmore':
 samu330.updatePresence(from, Presence.composing)
 if (!isRegister) return reply(mess.only.daftarB)
 
-if (args.length < 1) return reply(`Escribe el texto\nEjemplo : ${prefix}chatprank p/unten`)
+if (args.length < 1) return reply(`Escribe el texto\nEjemplo : ${prefix}readmore te amo/rdido un perro?`)
 tels = body.slice(11)
 var teks1 = tels.split("/")[0];
 var teks2 = tels.split("/")[1];
@@ -1853,43 +1369,7 @@ method: 'get'
   }
   break
 
-//*********jadwaltv now
-case 'jadwaltvnow':
-  if (!isRegister) return reply(mess.only.daftarB)
-    
-  samu330.updatePresence(from, Presence.composing)
-  reply(mess.wait)
-  try {
-  anu = await fetchJson(`http://api-melodicxt-2.herokuapp.com/api/jadwaltvnow?&apiKey=administrator`, {
-method: 'get'
-  })
-  reply(anu.result.jadwalTV)
-  
-  } catch {
-    reply(mess.ferr)
-  }
-  break
 
-//*********jadwaltv ch
-case 'jadwaltv':
-  if (!isRegister) return reply(mess.only.daftarB)
-  
-  ch = body.slice(10)
-  if (args.length < 1) return reply('Escribe el nombre del canal')
-  samu330.updatePresence(from, Presence.composing)
-  reply(mess.wait)
-  try {
-  anu = await fetchJson(`https://mhankbarbar.tech/api/jdtv?ch=${ch}&apiKey=${BarBarKey}`, {
-method: 'get'
-  })
-  n = JSON.parse(JSON.stringify(anu.result));
-  hasil = `*Nombre Tv* : ${ch} Horario \n${n}`
-  reply(hasil)
-  
-  } catch {
-    reply(mess.ferr)
-  }
-  break
 
 //*********mini map
 case 'map':
@@ -1910,32 +1390,7 @@ quoted: mek, caption: `Resultado *${daerah}i*`, contextInfo: {"forwardingScore":
   }
   break
 
-//*********pencarian surah Al-Qur'an
-case 'alquran':
-  samu330.updatePresence(from, Presence.composing)
-  if (!isRegister) return reply(mess.only.daftarB)
-  
-  if (args.length < 1) return reply('Escribe el número del área 1-114')
-  if (isNaN(args.length < 1)) return await reply('Gunakan nomor surah')
-  tels = body.slice(9)
-  try {
-  data = await fetchJson(`https://api.zeks.xyz/api/quran?no=${tels}&apikey=${viKey}`, {
-method: 'get'
-  })
-  teks = `
-  〘  *${data.surah}*  〙
-  Es ${data.no} número de versos (${data.jumlah_ayat} párrafo)
-  ──────────────────────
-  `
-  for (let i of data.ayat) {
-teks += `*(${i.number})* ${i.text}\n*(${i.number})* ${i.translation_id}\n••••••••••••••••••••••••••••••••••••••••••••••\n`
-  }
-  reply(teks.trim())
-  
-  } catch {
-    reply(mess.ferr)
-  }
-  break
+
 
 //*********Cerpen
 case 'cerpen':
@@ -1981,83 +1436,9 @@ quoted: mek
   }
   break
 
-//*********tafsir Alquran
-case 'tafsir':
-  if (!isRegister) return reply(mess.only.daftarB)
-  
-  if (args.length < 1) return reply('Ingresa lo que quieres buscar')
-  teks = body.slice(8)
-  try {
-  samu330.updatePresence(from, Presence.composing)
-  data = await fetchJson(`http://api-melodicxt-2.herokuapp.com/api/tafsir-quran?query=${teks}&apiKey=${Mkey}`)
-  hasil = `*${data.result.query}*\n\n${data.result.ayat}\n\n*Traducir* :\n${data.result.terjemahan_ayat}\n\n*Interpretación* : ${data.result.tafsir_jalalayn}`
-  reply(hasil)
-  
-  } catch {
-    reply(mess.ferr)
-  }
-  break
 
-//*********-Jadwal solat
-case 'sholat':
-  loc = body.slice(7)
-  if (!isRegister) return reply(mess.only.daftarB)
-  
-  if (args.length < 1) return reply('Ingresa número de área')
-  try {
-  anu = await fetchJson(`https://mhankbarbar.tech/api/jadwalshalat?daerah=${loc}&apiKey=${BarBarKey}`, {
-method: 'get'
-  })
-  mbteks = `*SHALAT*\nÁrea : ${loc}\n‣ *Ashar* : ${anu.Ashar}\n‣ *Dhuha* : ${anu.Dhuha}\n‣ *Dzuhur* : ${anu.Dzuhur}\n‣ *Imsyak* : ${anu.Imsyak}\n‣ *Isya* : ${anu.Isya}\n‣ *Maghrib* : ${anu.Maghrib}\n‣ *Subuh* : ${anu.Subuh}`
-  samu330.sendMessage(from, mbteks, text, {
-quoted: mek
-  })
-  
-  } catch {
-    reply(mess.ferr)
-  }
-  break
 
-//*********info cuaca
-case 'cuaca':
-  if (!isRegister) return reply(mess.only.daftarB)
-  
-  if (args.length < 1) return reply('Ingrese el nombre del área')
-  tels = body.slice(7)
-  try {
-  anu = await fetchJson(`https://freerestapi.herokuapp.com/api/v1/cuaca?p=${tels}`, {
-method: 'get'
-  })
-  hasil = `‣ *El lugar* : ${anu.hasil.Nama}\n‣ *Cuaca* : ${anu.hasil.Cuaca}\n‣ *Viento* : ${anu.hasil.Angin}\n‣ *Suhu* : ${anu.hasil.Suhu}\n‣ *Humedad* : ${anu.hasil.Kelembaban}\n‣ *Información* : ${anu.hasil.Keterangan}`
-  samu330.sendMessage(from, hasil, text, {
-quoted: mek
-  })
-  
-  } catch {
-    reply(mess.ferr)
-  }
-  break
 
-//*********info gempa
-//informasi gempa terkini
-case 'infogempa':
-  if (!isRegister) return reply(mess.only.daftarB)
-  
-  samu330.updatePresence(from, Presence.composing)
-  try {
-  anu = await fetchJson(`https://docs-jojo.herokuapp.com/api/infogempa`, {
-method: 'get'
-  })
-  hasil = `‣ *Profundidad* : ${anu.kedalaman}\n‣ *Coordinar* : ${anu.koordinat}\n‣ *Ubicación* : ${anu.lokasi}\n‣ *Magnitude* : ${anu.magnitude}\n‣ *Potensia* : ${anu.potensi}\n‣ *Hora* : ${anu.waktu}`
-  buffer = await getBuffer(anu.map)
-  samu330.sendMessage(from, buffer, image, {
-caption: hasil, quoted: mek
-  })
-  
-  } catch {
-    reply(mess.ferr)
-  }
-  break
 
 case 'itsme':
   if (!isRegister) return reply(mess.only.daftarB)
@@ -2188,25 +1569,6 @@ mimetype: 'video/mp4', filename: `${anu.result}.mp4`, quoted: mek
   }
   break
 
-case 'fb':
-  if (!isRegister) return reply(mess.only.daftarB)
-  
-  reply(mess.wait)
-  if(!isUrl(args[0]) && !args[0].includes('facebook')) return reply('Formato de link incorrecto')
-  play = body.slice(4)
-  try {
-  anu = await fetchJson(`https://mhankbarbar.tech/api/epbe?url=${play}&apiKey=${BarbarKey}`)
-  if (anu.error) return reply(anu.error)
-  infomp3 = `*Video*\n‣ *Nombre* : ${anu.title}\n‣ *Publicación* : ${anu.published}\n‣ *Tamaño* : ${anu.filesize}\n\n_El video se esta enviando, si no llega descargue por el link_\n‣ *link* : ${anu.result}`
-  lagu = await getBuffer(anu.result)
-  samu330.sendMessage(from, lagu, video, {
-mimetype: 'video/mp4', filename: `${anu.result.title}.mp4`, quoted: mek
-  })
-  
-  } catch {
-    reply(mess.ferr)
-  }
-  break
 
 case 'ig':
   if (!isRegister) return reply(mess.only.daftarB)
@@ -2227,30 +1589,6 @@ mimetype: 'video/mp4', filename: `Imlexa.mp4`, quoted: mek
   break
 
 
-//joox download
-case 'joox':
-  if (!isRegister) return reply(mess.only.daftarB)
-  
-  if (args.length < 1) return reply('Ingresa el nombre de la canción')
-  tels = body.slice(6)
-  try {
-  data = await fetchJson(`https://tobz-api.herokuapp.com/api/joox?q=${tels}&apikey=BotWeA`, {
-method: 'get'
-  })
-  infomp3 = `*Encontrado!!*\nNombre : ${data.result.judul}\nAlbúm : ${data.result.album}\nPublicado: ${data.result.dipublikasi}`
-  buffer = await getBuffer(data.result.thumb)
-  lagu = await getBuffer(data.result.mp3)
-  samu330.sendMessage(from, buffer, image, {
-quoted: mek, caption: infomp3
-  })
-  samu330.sendMessage(from, lagu, audio, {
-mimetype: 'audio/mp4', filename: `${data.result.title}.mp3`, quoted: mek
-  })
-  
-  } catch {
-    reply(mess.ferr)
-  }
-  break
 
 case 'scdl':
     if (!isRegister) return reply(mess.only.daftarB)
@@ -2339,69 +1677,6 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 					}
 					break
 
-//*********-textpro
-				case 'textpro':
-					if (args.length < 1) {
-						return reply('Elije un número del, 1 - 162')
-					} else if (args[0].toLowerCase() === 'list') {
-						teks = await fetchText('https://mhankbarbar.tech/api/textpro/listtheme')
-						teks = teks.replace(/<br>/g, '\n')
-						return reply(teks)
-					} else if (args.length < 2) {
-						return reply('Escribe bien el texto')
-					}
-					reply(mess.wait)
-					anu = `https://mhankbarbar.tech/api/textpro?pack=${args[0]}&text=${body.slice(1+args[0].length+1)}&apiKey=${BarBarKey}`
-					voss = await fetc(anu)	
-					ftype = require('file-type')	
-					vuss = await ftype.fromStream(voss.body)
-					if (vuss !== undefined) {
-						samu330.sendMessage(from, await getBuffer(anu), image, { caption: mess.success, quoted: mek })
-					} else {
-						reply('No se encontro elije otro tema')
-					}
-					break
-
-//ephoto
-				case 'ephoto':
-					if (args.length < 1) {
-						return reply('Elije un número del, 1 - 216')
-					} else if (args[0].toLowerCase() === 'list') {
-						teks = await fetchText('https://mhankbarbar.tech/api/ephoto/listtheme')
-						teks = teks.replace(/<br>/g, '\n')
-						return reply(teks)
-					} else if (args.length < 2) {
-						return reply('a')
-					}
-					reply(mess.wait)
-					anu = `https://mhankbarbar.tech/api/ephoto?pack=${args[0]}&text=${body.slice(2+args[0].length+1)}&apiKey=${BarBarKey}`
-					voss = await fetc(anu)
-					ftype = require('file-type')
-					vuss = await ftype.fromStream(voss.body)
-					//console.log(vuss)
-					if (vuss !== undefined) {
-						samu330.sendMessage(from, await getBuffer(anu), image, { caption: mess.success, quoted: mek })
-					} else {
-						reply('No se encontro elije otro tema')
-					}
-					break
-
-//*********harta tahta
-				case 'tahta':
-					if (args.length < 1) return reply('Escribe un texto')
-					anu = `https://mhankbarbar.tech/api/htahta?text=${args.join(' ')}&apiKey=${BarBarKey}`
-					voss = await fetc(anu)
-					teks = body.slice(7)
-					ftype = require('file-type')
-					vuss = await ftype.fromStream(voss.body)
-					if (vuss !== undefined) {
-						samu330.sendMessage(from, await getBuffer(anu), image, { quoted: mek, caption: `*Texto Tahta ${teks}*` })
-					} else {
-						reply('Hay un error')
-					}
-					break
-
-//*********stiker maker
 				case 'stiker':
 				case 'sticker':
 				  case 's':
@@ -2773,38 +2048,6 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 					}
 					break
 					
-//*********--caklontong
-  case 'caklontong':
-
-anu = await fetchJson(`https://api.vhtear.com/funkuis&apikey=${vKey}`,
-  {
-method: 'get'
-  })
-if (!isRegister) return reply(mess.only.daftarB)
-yup = anu.result.soal
-jawab = anu.result.jawaban
-alasam = anu.result.desk
-setTimeout(() => {
-  samu330.sendMessage(from, `‣ *Respuesta* : ${jawab}\n‣ *Keterangn* : ${alasam}`, text, {
-quoted: mek
-  }) // ur cods
-}, 30000) // 1000 = 1s,
-setTimeout(() => {
-  samu330.sendMessage(from, '_10 Otro segundo_', text) // ur cods
-}, 20000) // 1000 = 1s,
-setTimeout(() => {
-  samu330.sendMessage(from, '_20 Otro segundo_…', text) // ur cods
-}, 10000) // 1000 = 1s,
-setTimeout(() => {
-  samu330.sendMessage(from, text) // ur cods
-}, 1000) // 1000 = 1s,
-setTimeout(() => {
-
-  samu330.sendMessage(from, yup, text, {
-quoted: mek
-  }) // ur cods
-}, 0) // 1000 = 1s,
-break
 
 //*********stiker to video
   case 'tovid':
@@ -2815,13 +2058,13 @@ if (!isQuotedSticker) return reply('Responde un sticker')
 reply(mess.wait)
 anumedia = JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo
 anum = await samu330.downloadAndSaveMediaMessage(anumedia)
-ran = getRandom('.webp')
+ran = getRandom('.mp4')
 exec(`ffmpeg -i ${anum} ${ran}`, (err) => {
   fs.unlinkSync(anum)
   if (err) return reply('Error al convertir el sticker en vídeo')
   buffer = fs.readFileSync(ran)
   samu330.sendMessage(from, buffer, video, {
-quoted: mek, caption: 'Satan'
+quoted: mek, caption: ':D'
   })
   fs.unlinkSync(ran)
 })
@@ -2848,49 +2091,7 @@ mimetype: 'audio/mp4', quoted: mek
 })
 break
 
-//*********-random fakta
-case 'fakta':
-fakta = body.slice(1)
-if (!isRegister) return reply(mess.only.daftarB)
-if (isLimit(sender)) return reply(ind.limitend(pushname))
-const keh = fak[Math.floor(Math.random() * fak.length)]
-samu330.sendMessage(from, 'Fakta : '+ keh, text, {
-  quoted: mek
-})
-break
-
-//*********Tebak gambar
-  case 'tebakgambar':
-
-anu = await fetchJson(`https://api.vhtear.com/tebakgambar&apikey=${vKey}`, {
-  method: 'get'
-})
-if (!isRegister) return reply(mess.only.daftarB)
-buffer = await getBuffer(anu.result.soalImg)
-jawab = anu.result.jawaban
-setTimeout(() => {
-  samu330.sendMessage(from, `*➸ Responder :* ${jawab}`, text, {
-quoted: mek
-  }) // ur cods
-}, 30000) // 1000 = 1s,
-setTimeout(() => {
-  samu330.sendMessage(from, '_10 segundos_', text) // ur cods
-}, 20000) // 1000 = 1s,
-setTimeout(() => {
-  samu330.sendMessage(from, '_20 segundos_…', text) // ur cods
-}, 10000) // 1000 = 1s,
-setTimeout(() => {
-  samu330.sendMessage(from, text) // ur cods
-}, 1000) // 1000 = 1s,
-setTimeout(() => {
-
-  samu330.sendMessage(from, buffer, image, {
-quoted: mek, caption: 'APA HAYOO'
-  }) // ur cods
-}, 0) // 1000 = 1s,
-break
-
-
+ 
 //*********google voice
 				case 'tts':
 					if (args.length < 1) return samu330.sendMessage(from, 'Escribe el código', text, {quoted: mek})
@@ -2936,16 +2137,7 @@ case 'unblock':
   break
 
 
-//*********Hilih maker
-				case 'hilih':
-					if (args.length < 1) return reply('Introduce el texto')
-					try {
-					anu = await fetchJson(`https://mhankbarbars.herokuapp.com/api/hilih?teks=${body.slice(7)}`, {method: 'get'})
-					reply(anu.result)
-					} catch {
-					  reply(mess.ferr)
-					}
-					break
+//*********
 
 				case 'tiktokstalk':
 					try {
@@ -2960,16 +2152,7 @@ case 'unblock':
 						reply('Nombre de usuario invalido')
 					}
 					break
-				case 'nulis':
-				case 'tulis':
-					if (args.length < 1) return reply('Escribe el texto')
-					teks = body.slice(7)
-					reply(mess.wait)
-					anu = await fetchJson(`https://mhankbarbar.tech/nulis?text=${teks}&apiKey=${BarBarKey}`, {method: 'get'})
-					if (anu.error) return reply(anu.error)
-					buff = await getBuffer(anu.result)
-					samu330.sendMessage(from, buff, image, {quoted: mek, caption: mess.success})
-					break
+			
 				case 'url2img':
 					tipelist = ['desktop','tablet','mobile']
 					if (args.length < 1) return reply('Escribe bien el comando')
@@ -3007,6 +2190,7 @@ case 'unblock':
 
 //*********-Tagall member
 				case 'tagall':
+					case 'all':
 samu330.updatePresence(from, Presence.composing)
 if (!isGroup) return reply(mess.only.group)
 if (!isRegister) return reply(mess.only.daftarB)
@@ -3155,7 +2339,7 @@ break
 				  case 'listadmin':
 				    case 'adminlist':
 					if (!isGroup) return reply(mess.only.group)
-					teks = `Lista admin de admins facheros *${groupMetadata.subject}*\nTotal : ${groupAdmins.length}\n\n`
+					teks = `Lista de administradores de *${groupMetadata.subject}*\nTotal : ${groupAdmins.length}\n\n`
 					no = 0
 					for (let admon of groupAdmins) {
 						no += 1
@@ -3212,21 +2396,7 @@ case 'setppbot':
 					break
 
 
-//*********arti mimpi
-  case 'artimimpi':
-aruga = body.slice(11)
-if (!isRegister) return reply(mess.only.daftarB)
-if (args.length < 1) return reply(`Que sueño es ?\nEjemplo: ${prefix}artimimpi`)
-try {
-anu = await fetchJson(`https://videfikri.com/api/primbon/artimimpi/?mimpi=${aruga}`, {
-  method: 'get'
-})
-reply(anu.result.artimimpi)
 
-} catch {
-  reply('Lo siento hubo un error')
-}
-break
 
 //*********Simsimi talk
 				case 'simi':
@@ -3285,7 +2455,7 @@ tm = `verificación completa usa ${prefix}Menu para ver la lista`
 reply(tm)
 break
 
-//*********grup semua peserta
+//*********
 case 'closegc':
   samu330.updatePresence(from, Presence.composing)
   if (!isGroup) return reply(mess.only.group)
@@ -3302,7 +2472,7 @@ contextInfo: {
   reply(close)
   break
 
-//*********grup hanya admin
+//*********
 case 'opengc':
   case 'bukagc':
 samu330.updatePresence(from, Presence.composing)
