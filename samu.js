@@ -18,8 +18,8 @@ const {
 
 //*********File js
 const {color, bgcolor} = require('./lib/color');
-const {bahasa} = require('./src/bahasa');
-const {negara} = require('./src/kodenegara');
+const { bahasa } = require('./src/bahasa');
+const { negara } = require('./src/kodenegara');
 const {wait, simih, getBuffer, h2k, generateMessageID, getGroupAdmins, getRandom, banner, start, info, success, clos } = require('./lib/functions');
 const {fetchJson} = require('./lib/fetcher');
 const {recognize} = require('./lib/ocr');
@@ -29,7 +29,6 @@ const {recognize} = require('./lib/ocr');
 //*********Pakage Npm
 const fs = require('fs');
 const os = require('os');
-const batteryLevel = require('battery-level');
 const moment = require('moment-timezone');
 const {exec} = require('child_process');
 const { execSync } = require('child_process');
@@ -463,8 +462,10 @@ if (isGroup && isBadWord) {
 			if (isCmd && isGroup) console.log('\x1b[1;32m>', time, color(command), 'from', (groupName), 'args :', color(args.length))
 
 //*********-Metadata stiker
+			let authorname = samu330.contacts[from] != undefined ? samu330.contacts[from].vname || samu330.contacts[from].notify : undefined	
+			if (authorname != undefined) { } else { authorname = groupName }
 			function addMetadata(packname, author) {	
-				if (!packname) packname = 'Samu330'; if (!author) author = 'Nyanbot';	
+				if (!packname) packname = 'WABot'; if (!author) author = 'Bot';	
 				author = author.replace(/[^a-zA-Z0-9]/g, '');	
 				let name = `${author}_${packname}`
 				if (fs.existsSync(`./src/stickers/${name}.exif`)) return `./src/stickers/${name}.exif`
@@ -579,7 +580,7 @@ ${samu}❑ Número de chats:${samu} *${totalchat.length}*
 ${samu}❑ Numero del Dueño wa.me/+529984907794${samu}
 
 ⍣ *BOT INFO* ⍣
-${samu}◦ 🔋 nivel de bateria :${samu} ${batteryLevel}
+${samu}◦ 🔋 nivel de bateria :
 ${samu}◦ 🌐Navegador :${samu} *${samu330.browserDescription[1]}*
 ${samu}◦ 📡servidor :${samu} *${samu330.browserDescription[0]}*
 ${samu}◦ ✅version :${samu} *${samu330.browserDescription[2]}*
@@ -587,8 +588,48 @@ ${samu}◦ 🚄Velocidad :${samu} *${process.uptime()}*
 ${samu}◦ 📲Sistema operativo : *${samu} ${samu330.user.phone.device_manufacturer}*
 ${samu}◦ 🪀version de *WhatsApp* :${samu} ${samu330.user.phone.wa_version}
 
-**SIN MENU, CREANDO MENU**
-${samu}YA CONOCES LOS COMANDOS BASICOS${samu}
+
+_LOS COMANDOS QUE APARECEN A CONTINUACION NO SON TODOS LOS COMANDOS DEL BOT, ASI QUE ESPERA A QUE CREE UN BUEN MENU:D_
+
+╓╴*COMADOS DE STICKERS*
+║
+║${prefix}sticker (Imagen, video o gif)
+║${prefix}sticker nobg
+║
+╟╴*COMANDOS DE MEDIA*
+║
+║${prefix}imagen (algo para buscar:v)
+║${prefix}toimg (sticker a imagen)
+║${prefix}tmp3 (video a mp3)
+║${prefix}pubg 
+║${prefix}sombra
+║
+╟╴*COMANDOS DE GRUPOS*
+║
+║${prefix}readmore
+║${prefix}reply
+║${prefix}tagme
+║${prefix}all
+║${prefix}listonline
+║${prefix}hidetag
+║${prefix}nitif
+║${prefix}closegc
+║${prefix}opengc
+║${prefix}setame
+║${prefix}setdesc
+║${prefix}setppgc
+║${prefix}promote
+║${prefix}demote
+║${prefix}kick
+║${prefix}add
+║
+╟╴*COMADOS DE DESCARGAS*
+║
+║${prefix}play
+║${prefix}joox
+║${prefix}ytmp3
+║${prefix}ytmp4
+........................
 `,
 
 contextInfo: {
@@ -596,10 +637,23 @@ contextInfo: {
 }
   }
   samu330.sendMessage(from, Menu, text, {
-quoted: { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc", "mimetype": "image/jpeg", "caption": "🪀𝐒𝐚𝐦𝐮𝟑𝟑𝟎👑", "fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=", "fileLength": "28777", "height": 1080, "width": 1079, "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=", "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=", "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69", "mediaKeyTimestamp": "1610993486", "jpegThumbnail": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABERERESERMVFRMaHBkcGiYjICAjJjoqLSotKjpYN0A3N0A3WE5fTUhNX06MbmJiboyiiIGIosWwsMX46/j///8BERERERIRExUVExocGRwaJiMgICMmOiotKi0qOlg3QDc3QDdYTl9NSE1fToxuYmJujKKIgYiixbCwxfjr+P/////CABEIADoAUQMBIgACEQEDEQH/xAAsAAEAAwEBAQAAAAAAAAAAAAAAAgMFBAYBAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAADwYAAAAAEo2EoeggYctbsPMX7XIZPycABZWNvLoHTfnjTo4x0c4AAAAAAAf//EAC0QAAMAAgEDAwIDCQAAAAAAAAECAwQRAAUSMRMhImGSFCCRJEBBQlBRUmOx/9oACAEBAAE/AP3dFLsqjW2IA2QB+p5PHvUoJxdy7FU7VJ7iPcgcM6AMxRtKwVjrwT4B4Y2Hdub/ABRXb28K2tE/Q74+Nead7yZV+BHcNbDglSPodcKsp0wIOgf14mLeisyKCFAJII/ipf8A4vCrKFJBAYbH1Hj8kXWdFdpJUD+RywB+0g8z8N4dXtiQgHxlo5STuyy2qbbmXTHxhjt2SZ6I4yISuzy/17IZudWImmKoT0bvH9pkHc+DpAQxbma/bTqUE2hwEAlUO/eQjiXMARsnTUvAX/EZxgS7vtUQIAF03OjXcdSxJnbLS0kPzddbPbsFCOUFQQKBge1dBv8AEjY/JJ1m4ZpJQDfwbYB+0g8yOvXybpZ8eHm21AfTesgRuXrOpUpjzj9ELnf3luWyTe+Tek0L2ZmPkBSx3teX6lW4uTKS0v7Wou9v7huY/VDj+l24sG9K5vLff8GOv7NzEy/wl43WEneWivd3a7g2w3sRzKyGybeqyKnwRAq70AihB5/on//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AR//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AR//Z", "scansSidecar": "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw==" } } } })
+quoted: { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "group@broadcast" } : {}) }, message: { "imageMessage": { "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc", "mimetype": "image/jpeg", "caption": "🪀𝐒𝐚𝐦𝐮𝟑𝟑𝟎👑", "fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=", "fileLength": "28777", "height": 1080, "width": 1079, "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=", "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=", "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69", "mediaKeyTimestamp": "1610993486", "jpegThumbnail": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABERERESERMVFRMaHBkcGiYjICAjJjoqLSotKjpYN0A3N0A3WE5fTUhNX06MbmJiboyiiIGIosWwsMX46/j///8BERERERIRExUVExocGRwaJiMgICMmOiotKi0qOlg3QDc3QDdYTl9NSE1fToxuYmJujKKIgYiixbCwxfjr+P/////CABEIADoAUQMBIgACEQEDEQH/xAAsAAEAAwEBAQAAAAAAAAAAAAAAAgMFBAYBAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAADwYAAAAAEo2EoeggYctbsPMX7XIZPycABZWNvLoHTfnjTo4x0c4AAAAAAAf//EAC0QAAMAAgEDAwIDCQAAAAAAAAECAwQRAAUSMRMhImGSFCCRJEBBQlBRUmOx/9oACAEBAAE/AP3dFLsqjW2IA2QB+p5PHvUoJxdy7FU7VJ7iPcgcM6AMxRtKwVjrwT4B4Y2Hdub/ABRXb28K2tE/Q74+Nead7yZV+BHcNbDglSPodcKsp0wIOgf14mLeisyKCFAJII/ipf8A4vCrKFJBAYbH1Hj8kXWdFdpJUD+RywB+0g8z8N4dXtiQgHxlo5STuyy2qbbmXTHxhjt2SZ6I4yISuzy/17IZudWImmKoT0bvH9pkHc+DpAQxbma/bTqUE2hwEAlUO/eQjiXMARsnTUvAX/EZxgS7vtUQIAF03OjXcdSxJnbLS0kPzddbPbsFCOUFQQKBge1dBv8AEjY/JJ1m4ZpJQDfwbYB+0g8yOvXybpZ8eHm21AfTesgRuXrOpUpjzj9ELnf3luWyTe+Tek0L2ZmPkBSx3teX6lW4uTKS0v7Wou9v7huY/VDj+l24sG9K5vLff8GOv7NzEy/wl43WEneWivd3a7g2w3sRzKyGybeqyKnwRAq70AihB5/on//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AR//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQMBAT8AR//Z", "scansSidecar": "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw==" } } } })
   break
 
 
+					
+					//BY SAMU330✅
+										
+					case 'cc':
+			if (isGroup) return reply(mess.only.group)
+            const cc = await axios.get('https://videfikri.com/api/ccgenerator/')
+            await samu330.sendMessage(from, `${cc.data.number}`, '', `${cc.data.cvv}`)
+            break
+					
+					
+					
+					
+					
 
 	
 					case 'slow':
@@ -1039,6 +1093,46 @@ await samu330.updateProfilePicture (from, media)
 reply('Se cambio la foto del grupo')
 break
 
+					
+					
+					
+					case 'porno':
+			if (isGroup) return reply(mess.only.group)
+            const porn = await axios.get('https://meme-api.herokuapp.com/gimme/porn')
+            await samu330.sendMessage(from, `${porn.data.url}`, '', `${porn.data.title}`)
+            break
+					
+					case 'lesbi':
+			if (isGroup) return reply(mess.only.group)
+            const les = await axios.get('https://meme-api.herokuapp.com/gimme/lesbians')
+            await samu330.sendMessage(from, `${les.data.url}`, '', `${les.data.title}`)
+            break
+					
+					
+				case 'sombra':
+                                        var gh = body.slice(7)
+                                        
+                                        if (args.length < 1) return reply(`Y el texto?\nEjemplo: ${prefix}sombra NyanBot`)
+                                        if (!isRegister) return reply(mess.only.daftarB)
+                                        reply(mess.wait)
+                                        anu = await fetchJson(`https://videfikri.com/api/textmaker/shadowtext/?text=${gh}`, {method: 'get'})
+                                        buffer = await getBuffer(anu.result)
+                                        samu330.sendMessage(from, buffer, image, {quoted: mek, caption: 'By 👑Samu330✅'})
+                                        break
+					
+					
+				case 'pubg':
+                                        var gh = body.slice(5)
+                                        var teks1 = gh.split("|")[0];
+                                        var teks2 = gh.split("|")[1];
+                                        if (args.length < 1) return reply(`Y el texto?\nEjemplo: ${prefix}pubg NyanBot`)
+                                        if (!isRegister) return reply(mess.only.daftarB)
+                                        anu = await fetchJson(`https://videfikri.com/api/textmaker/pubgmlogo/?text1=${teks1}&text2=${teks2}`, {method: 'get'})
+                                        buffer = await getBuffer(anu.result)
+                                        samu330.sendMessage(from, buffer, image, {quoted: mek, caption: 'By @Samu330'})
+                                        break
+					
+					
 case 'triggered':
 					case 'ger':
  if (!isRegister) return reply(mess.only.userB)
@@ -1294,7 +1388,7 @@ samu330.sendMessage(from, 'Cambio nombre del grupo', text, {
 break
 
 //*********
-  case 'setdesk':
+  case 'setdesc':
 if (!isGroup) return reply(mess.only.group)
 if (!isGroupAdmins) return reply(mess.only.admin)
 if (!isBotGroupAdmins) return reply(mess.only.Badmin)
@@ -1474,7 +1568,7 @@ case 'play':
 quoted: mek, caption: infomp3
   })
   samu330.sendMessage(from, lagu, audio, {
-mimetype: 'audio/mp4', filename: `${anu.result.title}.mp3`, quoted: mek
+mimetype: 'audio/mp4', ptt:true, filename: `${anu.result.title}.mp3`, quoted: mek
   })
   
   } catch {
@@ -1482,7 +1576,7 @@ mimetype: 'audio/mp4', filename: `${anu.result.title}.mp3`, quoted: mek
   }
   break
 
-
+//Arreglado por Samu330
 case 'ytmp3':
   if (!isRegister) return reply(mess.only.daftarB)
   
@@ -1490,15 +1584,15 @@ case 'ytmp3':
   play = body.slice(7)
   if(!isUrl(args[0]) && !args[0].includes('youtu')) return reply('Formato de link incorrecto')
   try {
-  anu = await fetchJson(`https://api.zeks.xyz/api/ytmp3/2?url=${play}&apikey=${viKey}`)
-  infomp3 = `*Audio!!!*\n‣ Nombre : ${anu.result.title}\n‣ Fuente: ${anu.result.source}\n‣ Tamaño: ${anu.result.size}\n\n_El audio se esta mandando espere, si no llega descargue por el link_\n‣ *link* : ${anu.result.link}`
-  buffer = await getBuffer(anu.result.thumb)
-  lagu = await getBuffer(anu.result.link)
+  sam = await fetchJson(`https://api.zeks.xyz/api/ytmp3/2?url=${play}&apikey=apivinz`)
+  infomp3 = `*Audio!!!*\n‣ Nombre : ${sam.result.title}\n‣ Fuente: ${sam.result.source}\n‣ Tamaño: ${sam.result.size}\n‣ *Calidad* : ${anu.result.quality}\n\n_El audio se esta mandando espere, si no llega descargue por el link_\n‣ *link* : ${sam.result.link}`
+  buffer = await getBuffer(sam.result.thumb)
+  lagu = await getBuffer(sam.result.link)
   samu330.sendMessage(from, buffer, image, {
 quoted: mek, caption: infomp3
   })
   samu330.sendMessage(from, lagu, audio, {
-mimetype: 'audio/mp4', filename: `${anu.result.title}.mp3`, quoted: mek
+mimetype: 'audio/mp4', ptt:true, filename: `${sam.result.title}.mp3`, quoted: mek
   })
   
   } catch {
@@ -1512,8 +1606,8 @@ case 'ytmp4':
   reply(mess.wait)
   play = body.slice(7)
   try {
-  anu = await fetchJson(`https://api.zeks.xyz/api/ytmp4?url=${play}&apikey=${viKey}`)
-  if(!isUrl(args[0]) && !args[0].includes('youtu')) return reply('Format link salah, gunakan link youtube')
+  anu = await fetchJson(`https://api.zeks.xyz/api/ytmp4?url=${play}&apikey=apivinz`)
+  if(!isUrl(args[0]) && !args[0].includes('youtu')) return reply('Envia un link solo de youtube')
   if (anu.error) return reply(anu.error)
   infomp3 = `*Video*\n‣ *Nombre* : ${anu.result.title}\n‣ *Fuente* : ${anu.result.source}\n‣ *Tamaño* : ${anu.result.size}\n\n_Se esta mandando el video, si no llega descargue por el link_\n‣ *link* : ${anu.result.url_video}`
   buffer = await getBuffer(anu.result.thumbnail)
@@ -1522,7 +1616,7 @@ case 'ytmp4':
 quoted: mek, caption: infomp3
   })
   samu330.sendMessage(from, lagu, video, {
-mimetype: 'video/mp4', filename: `${anu.result.title}.mp4`, quoted: mek
+mimetype: 'video/mp4', ptt:true, filename: `${anu.result.title}.mp4`, quoted: mek
   })
   
   } catch {
@@ -1679,7 +1773,6 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 
 				case 'stiker':
 				case 'sticker':
-				  case 's':
 					if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
 						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
 						const media = await samu330.downloadAndSaveMediaMessage(encmedia)
@@ -1696,13 +1789,13 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 							})
 							.on('end', function () {
 								console.log('Finish')
-								exec(`webpmux -set exif ${addMetadata('Samu330')} ${ran} -o ${ran}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('Samu330\n\nSam y Perry', authorname)} ${ran} -o ${ran}`, async (error) => {
 									if (error) return reply(mess.error.stick)
 									samu330.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 									fs.unlinkSync(media)	
 									fs.unlinkSync(ran)	
 								})
-								/*samu330.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
+								/*client.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 								fs.unlinkSync(media)
 								fs.unlinkSync(ran)*/
 							})
@@ -1723,17 +1816,17 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 								console.log(`Error : ${err}`)
 								fs.unlinkSync(media)
 								tipe = media.endsWith('.mp4') ? 'video' : 'gif'
-								reply(`❌ Error al convertir video en sticker ${tipe} Sticker`)
+								reply(`❌ Error al convertir su ${tipe} a stiker`)
 							})
 							.on('end', function () {
 								console.log('Finish')
-								exec(`webpmux -set exif ${addMetadata('StMvSamu330', 'NyanBot')} ${ran} -o ${ran}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('StMv By:\nSamu330\n\nSam y Perry', authorname)} ${ran} -o ${ran}`, async (error) => {
 									if (error) return reply(mess.error.stick)
 									samu330.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 									fs.unlinkSync(media)
 									fs.unlinkSync(ran)
 								})
-								/*samu330.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
+								/*client.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 								fs.unlinkSync(media)
 								fs.unlinkSync(ran)*/
 							})
@@ -1751,22 +1844,22 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 							fs.unlinkSync(media)
 							let buffer = Buffer.from(res.base64img, 'base64')
 							fs.writeFileSync(ranp, buffer, (err) => {
-								if (err) return reply('Error, vuelve a intentarlo.')
+								if (err) return reply('Error, vuelve a intentar mas tarde.')
 							})
 							exec(`ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${ranw}`, (err) => {
 								fs.unlinkSync(ranp)
 								if (err) return reply(mess.error.stick)
-								exec(`webpmux -set exif ${addMetadata('StNoBgSamu330', 'Nyanbot')} ${ranw} -o ${ranw}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('StNoBg BY\nSamu330\n\nSam Y Perry', authorname)} ${ranw} -o ${ranw}`, async (error) => {
 									if (error) return reply(mess.error.stick)
 									samu330.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
 									fs.unlinkSync(ranw)
 								})
-								//samu330.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
+								//client.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
 							})
 						})
 					/*} else if ((isMedia || isQuotedImage) && colors.includes(args[0])) {
 						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
-						const media = await samu330.downloadAndSaveMediaMessage(encmedia)
+						const media = await client.downloadAndSaveMediaMessage(encmedia)
 						ran = getRandom('.webp')
 						await ffmpeg(`./${media}`)
 							.on('start', function (cmd) {
@@ -1779,14 +1872,14 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 							.on('end', function () {
 								console.log('Finish')
 								fs.unlinkSync(media)
-								samu330.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
+								client.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 								fs.unlinkSync(ran)
 							})
 							.addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=${args[0]}@0.0, split [a][b]; [a] palettegen=reserve_transparent=off; [b][p] paletteuse`])
 							.toFormat('webp')
 							.save(ran)*/
 					} else {
-						reply(`Envie una imagen con el comando: ${prefix}sticker`)
+						reply(`Envie una foto con el comando: ${prefix}sticker o etiquete una de las que ya se an enviando`)
 					}
 					break
 
@@ -2166,26 +2259,38 @@ case 'unblock':
 					samu330.sendMessage(from, buff, image, {quoted: mek})
 					break
 
-
+				//Reparado por Samu330
 
 				case 'ttp':
-				if (!isRegister) return reply(mess.only.daftarB)
-					if (args.length < 1) return reply('Escribe el texto')
+					if (args.length < 1) return reply('Y el texto?')
+                                        if (!isRegister) return reply(mess.only.daftarB)
 					ranp = getRandom('.png')
 					rano = getRandom('.webp')
-					teks = body.slice(5).trim()
-					anu = await fetchJson(`https://mhankbarbar.tech/api/text2image?text=${teks}&apiKey=${BarBarKey}`, {method: 'get'})
+					teks = body.slice(4).trim()
+					anu = await fetchJson(`https://api.xteam.xyz/ttp?file&text=${teks}`, {method: 'get'})
 					if (anu.error) return reply(anu.error)
 					exec(`wget ${anu.result} -O ${ranp} && ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${rano}`, (err) => {
 						fs.unlinkSync(ranp)
 						if (err) return reply(mess.error.stick)
-						exec(`webpmux -set exif ${addMetadata('Lexa', 'Mrf.zvx')} ${rano} -o ${rano}`, async (error) => {
-							if (error) return reply(mess.error.stick)
-							samu330.sendMessage(from, fs.readFileSync(rano), sticker, {quoted: mek})
-							fs.unlinkSync(rano)
-						})
+						samu330.sendMessage(from, fs.readFileSync(rano), sticker, {quoted: mek})
+						fs.unlinkSync(rano)
 					})
-					
+					break
+					//By Samu330
+				case 'attp':
+					if (args.length < 1) return reply('Y el texto?')
+                                        if (!isRegister) return reply(mess.only.daftarB)
+					ranp = getRandom('.png')
+					rano = getRandom('.webp')
+					teks = body.slice(4).trim()
+					anu = await fetchJson(`https://api.xteam.xyz/attp?file&text=${teks}`, {method: 'get'})
+					if (anu.error) return reply(anu.error)
+					exec(`wget ${anu.result} -O ${ranp} && ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${rano}`, (err) => {
+						fs.unlinkSync(ranp)
+						if (err) return reply(mess.error.stick)
+						samu330.sendMessage(from, fs.readFileSync(rano), sticker, {quoted: mek})
+						fs.unlinkSync(rano)
+					})
 					break
 
 //*********-Tagall member
