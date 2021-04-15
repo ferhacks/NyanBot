@@ -98,7 +98,7 @@ const vcard = 'BEGIN:VCARD\n'
 + 'VERSION:3.0\n'
 + 'FN:-·👑Samu330🏆·-\n'
 + 'ORG:🐬NyanBot;\n'
-+ 'TEL;type=CELL;type=VOICE;waid=14694222222:+1 (469) 422 2222\n' // Nomor bot
++ 'TEL;type=CELL;type=VOICE;waid=50062108:+500 62108\n' 
 + 'END:VCARD' 
 
 
@@ -232,7 +232,7 @@ Usa *${prefix}reg* para registrarte y usar a *NyanBot*.`
   ferr: 'Intentalo de nuevo mas tarde',
   limitend: 'El tiempo se agoto',
   error: {
-  stick: '[❗] 𝙀𝙍𝙍𝙊𝙍 𝙖𝙨𝙚𝙜𝙪𝙧𝙖𝙩𝙚 𝙙𝙚 𝙦𝙪𝙚 𝙚𝙡 𝙫𝙞𝙙𝙚𝙤 𝙨𝙚𝙖 𝙢𝙚𝙣𝙤𝙨 𝙙𝙚 𝟭𝟬 𝙨𝙚𝙜  ❌',
+  stick: '[❗] 𝙀𝙍𝙍𝙊𝙍 intentalo de nuevo, da error a la primera:D  ❌',
   Iv: '❌ Link invalido ❌'
   },
   only: {
@@ -462,16 +462,13 @@ if (isGroup && isBadWord) {
 			if (isCmd && isGroup) console.log('\x1b[1;32m>', time, color(command), 'from', (groupName), 'args :', color(args.length))
 
 //*********-Metadata stiker
-			let authorname = samu330.contacts[from] != undefined ? samu330.contacts[from].vname || samu330.contacts[from].notify : undefined	
-			if (authorname != undefined) { } else { authorname = groupName }
+			
 			function addMetadata(packname, author) {	
-				if (!packname) packname = 'WABot'; if (!author) author = 'Bot';	
-				author = author.replace(/[^a-zA-Z0-9]/g, '');	
-				let name = `${author}_${packname}`
+				if (!packname) packname = 'WABot';	
+				let name = `${packname}`
 				if (fs.existsSync(`./src/stickers/${name}.exif`)) return `./src/stickers/${name}.exif`
 				const json = {	
 					"sticker-pack-name": packname,
-					"sticker-pack-publisher": author,
 				}
 				const littleEndian = Buffer.from([0x49, 0x49, 0x2A, 0x00, 0x08, 0x00, 0x00, 0x00, 0x01, 0x00, 0x41, 0x57, 0x07, 0x00])	
 				const bytes = [0x00, 0x00, 0x16, 0x00, 0x00, 0x00]	
@@ -1772,6 +1769,7 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 
 				case 'stiker':
 				case 'sticker':
+				  case 's':
 					if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
 						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
 						const media = await samu330.downloadAndSaveMediaMessage(encmedia)
@@ -1788,13 +1786,13 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 							})
 							.on('end', function () {
 								console.log('Finish')
-								exec(`webpmux -set exif ${addMetadata('Samu330\n\nSam y Perry', authorname)} ${ran} -o ${ran}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('Samu330\n\nSam y Perry')} ${ran} -o ${ran}`, async (error) => {
 									if (error) return reply(mess.error.stick)
-									samu330.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
+									Lxa.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 									fs.unlinkSync(media)	
 									fs.unlinkSync(ran)	
 								})
-								/*client.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
+								/*samu330.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 								fs.unlinkSync(media)
 								fs.unlinkSync(ran)*/
 							})
@@ -1815,17 +1813,17 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 								console.log(`Error : ${err}`)
 								fs.unlinkSync(media)
 								tipe = media.endsWith('.mp4') ? 'video' : 'gif'
-								reply(`❌ Error al convertir su ${tipe} a stiker`)
+								reply(`❌ Error al convertir ${tipe} a Sticker`)
 							})
 							.on('end', function () {
 								console.log('Finish')
-								exec(`webpmux -set exif ${addMetadata('StMv By:\nSamu330\n\nSam y Perry', authorname)} ${ran} -o ${ran}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('St Mv By:\nSamu\n\nSam y Perry')} ${ran} -o ${ran}`, async (error) => {
 									if (error) return reply(mess.error.stick)
 									samu330.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 									fs.unlinkSync(media)
 									fs.unlinkSync(ran)
 								})
-								/*client.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
+								/*samu330.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 								fs.unlinkSync(media)
 								fs.unlinkSync(ran)*/
 							})
@@ -1843,22 +1841,22 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 							fs.unlinkSync(media)
 							let buffer = Buffer.from(res.base64img, 'base64')
 							fs.writeFileSync(ranp, buffer, (err) => {
-								if (err) return reply('Error, vuelve a intentar mas tarde.')
+								if (err) return reply('Intenta de nuevo.')
 							})
 							exec(`ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${ranw}`, (err) => {
 								fs.unlinkSync(ranp)
 								if (err) return reply(mess.error.stick)
-								exec(`webpmux -set exif ${addMetadata('StNoBg BY\nSamu330\n\nSam Y Perry', authorname)} ${ranw} -o ${ranw}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('StNbg By:\nSamu\n\nSam y Perry')} ${ranw} -o ${ranw}`, async (error) => {
 									if (error) return reply(mess.error.stick)
 									samu330.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
 									fs.unlinkSync(ranw)
 								})
-								//client.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
+								//Lxa.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
 							})
 						})
 					/*} else if ((isMedia || isQuotedImage) && colors.includes(args[0])) {
 						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
-						const media = await client.downloadAndSaveMediaMessage(encmedia)
+						const media = await samu330.downloadAndSaveMediaMessage(encmedia)
 						ran = getRandom('.webp')
 						await ffmpeg(`./${media}`)
 							.on('start', function (cmd) {
@@ -1871,7 +1869,7 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 							.on('end', function () {
 								console.log('Finish')
 								fs.unlinkSync(media)
-								client.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
+								samu330.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 								fs.unlinkSync(ran)
 							})
 							.addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=${args[0]}@0.0, split [a][b]; [a] palettegen=reserve_transparent=off; [b][p] paletteuse`])
