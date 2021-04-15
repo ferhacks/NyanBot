@@ -565,6 +565,7 @@ reply(hasil)
 case 'help':
   case 'menu':
 case '?':
+   samu330.updatePresence(from, Presence.composing)
   if (!isRegister) return reply(mess.only.daftarB)
   uptime = process.uptime()
 const Menu = {
