@@ -1716,7 +1716,7 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 								exec(`webpmux -set exif ${addMetadata('By-Sam-y-Perry')} ${ran} -o ${ran}`, async (error) => {
 									if (error) return reply(mess.error.stick)
 									samu330.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
-                                                                        reply(mess.susses)
+                                                                        reply(mess.success)
 									fs.unlinkSync(media)	
 									fs.unlinkSync(ran)	
 								})
@@ -1748,7 +1748,7 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 								exec(`webpmux -set exif ${addMetadata('StMv-By:-Samu-y-Perry')} ${ran} -o ${ran}`, async (error) => {
 									if (error) return reply(mess.error.stick)
 									samu330.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
-                                                                        reply(mess.susses)
+                                                                        reply(mess.success)
 									fs.unlinkSync(media)
 									fs.unlinkSync(ran)
 								})
