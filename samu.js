@@ -704,7 +704,7 @@ break
 
 
 //*********
-case 'img':
+case 'imagen':
 if (!isRegister) return reply(mess.only.daftarB)
 
 if (args.length < 1) return reply('Ingresa algo para buscar en imágenes🔐')
