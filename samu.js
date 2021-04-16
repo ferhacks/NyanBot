@@ -302,10 +302,8 @@ if (isGroup && isBadWord) {
                         if (bad.includes(messagesC)) {
                                 if (!isGroupAdmins) {
                                         return reply("😠")
-                                        .then(() => {
                                                 samu330.sendMessage(from, `*「 ANTI BADWORD 」*\nEliminado por grocero:v`, text, {quoted: mek})
 						samu330.groupRemove(from, sender)
-                                        }).catch(() => samu330.sendMessage(from, `Te salvaste xq no soy admin si no te saco a patadas!`, text , {quoted : mek}))
                                 } else {
                                         return reply( "Cuidado 😇")
                                 }
@@ -512,8 +510,8 @@ ${samu}◦ 🌐Navegador :${samu} *${samu330.browserDescription[1]}*
 ${samu}◦ 📡servidor :${samu} *${samu330.browserDescription[0]}*
 ${samu}◦ ✅version :${samu} *${samu330.browserDescription[2]}*
 ${samu}◦ 🚄Velocidad :${samu} *${process.uptime()}*
-${samu}◦ 📲Sistema operativo : *${samu} ${samu330.user.phone.device_manufacturer}*
-${samu}◦ 🪀version de *WhatsApp* :${samu} ${samu330.user.phone.wa_version}
+${samu}◦ 📲Sistema operativo :*${samu} *${samu330.user.phone.device_manufacturer}*
+${samu}◦ 🪀version de *WhatsApp* :${samu} *${samu330.user.phone.wa_version}*
 
 _LOS COMANDOS QUE APARECEN A CONTINUACION NO SON TODOS LOS COMANDOS DEL BOT, ASI QUE ESPERA A QUE CREE UN BUEN MENU:D_
 
@@ -578,7 +576,7 @@ quoted: { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { re
 					
 				case 'vcard':
 				case 'contacto':
-					args = arg.split(' ')
+					args = arg.split('-')
 					if (!args) return reply(`Ejemplo: *${prefix}contacto* @tag nombre | *${prefix}contacto* @Samu330 👑Samu👑`)
 					if (mek.message.extendedTextMessage != undefined){
 						mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
@@ -683,7 +681,7 @@ const latensi = speed() - timestamp
 samu330.updatePresence(from, Presence.composing)
 uptime = process.uptime()
 samu330.sendMessage(from, `*Pong.... xD*\n‣ *Speed* : ${latensi.toFixed(4)} _Segundos_\n\n*Info bot*\n‣ *Total de chats* : ${totalchat.length}\n‣ *Total de usuarios* : ${_registered.length}\n‣ *Bloqueados* : ${blocked.length}\n‣ *Tiempo activo* : ${kyun(uptime)}`, text, {
-	quoted: mek, contextInfo: {"forwardingScore": 9999, "isForwarded": true}, key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "mimetype": "image/jpeg", "caption": "🔋𝙄𝙣𝙛𝙤 𝘽𝙤𝙩🔋", "jpegThumbnail": fs.readFileSync(`./NyanBot.jpg`)}}       
+	quoted: mek, "forwardingScore": 9999, "isForwarded": true, key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "mimetype": "image/jpeg", "caption": "🔋𝙄𝙣𝙛𝙤 𝘽𝙤𝙩🔋", "jpegThumbnail": fs.readFileSync(`./NyanBot.jpg`)}}       
 })
 break
 
@@ -710,7 +708,7 @@ case 'img':
 if (!isRegister) return reply(mess.only.daftarB)
 
 if (args.length < 1) return reply('Ingresa algo para buscar en imágenes🔐')
-tels = body.slice(5)
+tels = body.slice(8)
 samu330.updatePresence(from, Presence.composing)
 reply(mess.wait)
 try {
@@ -1020,11 +1018,29 @@ break
 					
 					
 					
+				
+					
 					case 'porno':
-			if (isGroup) return reply(mess.only.group)
-            const porn = await axios.get('https://meme-api.herokuapp.com/gimme/porn')
-            await samu330.sendMessage(from, `${porn.data.url}`, '', `${porn.data.title}`)
-            break
+  if (!isRegister) return reply(mess.only.daftarB)
+  
+  samu330.updatePresence(from, Presence.composing)
+  try {
+  data = await fetchJson(`https://meme-api.herokuapp.com/gimme/porn`, {
+method: 'get'
+  })
+  reply(mess.wait)
+  n = JSON.parse(JSON.stringify(data));
+  porn = n[Math.floor(Math.random() * n.length)];
+  sam = await getBuffer(porn)
+  samu330.sendMessage(from, sam, image, {
+quoted: mek, caption: `.....`
+  })
+  
+  } catch {
+    reply(mess.ferr)
+  }
+  break
+					
 					
 					case 'lesbi':
 			if (isGroup) return reply(mess.only.group)
