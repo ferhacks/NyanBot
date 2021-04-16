@@ -1713,9 +1713,10 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 							})
 							.on('end', function () {
 								console.log('Finish')
-								exec(`webpmux -set exif ${addMetadata('St By Sam y Perry')} ${ran} -o ${ran}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('By-Sam-y-Perry')} ${ran} -o ${ran}`, async (error) => {
 									if (error) return reply(mess.error.stick)
 									samu330.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
+                                                                        reply(mess.susses)
 									fs.unlinkSync(media)	
 									fs.unlinkSync(ran)	
 								})
@@ -1744,9 +1745,10 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 							})
 							.on('end', function () {
 								console.log('Finish')
-								exec(`webpmux -set exif ${addMetadata('StMv By: Sam y Perry')} ${ran} -o ${ran}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('StMv-By:-Samu-y-Perry')} ${ran} -o ${ran}`, async (error) => {
 									if (error) return reply(mess.error.stick)
 									samu330.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
+                                                                        reply(mess.susses)
 									fs.unlinkSync(media)
 									fs.unlinkSync(ran)
 								})
@@ -1773,7 +1775,7 @@ mimetype: 'video/mp4', filename: `${anu.nameInfo}.mp4`, quoted: mek
 							exec(`ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${ranw}`, (err) => {
 								fs.unlinkSync(ranp)
 								if (err) return reply(mess.error.stick)
-								exec(`webpmux -set exif ${addMetadata('StNoBg By: Sam y Perry')} ${ranw} -o ${ranw}`, async (error) => {
+								exec(`webpmux -set exif ${addMetadata('StNoBg-By:-Sam-y-Perry')} ${ranw} -o ${ranw}`, async (error) => {
 									if (error) return reply(mess.error.stick)
 									samu330.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
 									fs.unlinkSync(ranw)
