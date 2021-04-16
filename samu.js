@@ -706,22 +706,22 @@ break
 
 
 //*********
-case 'imagen':
-tels = body.slice(11)
+case 'img':
 if (!isRegister) return reply(mess.only.daftarB)
 
-if (args.length < 1) return reply('Ingresa lo que quieres buscar')
+if (args.length < 1) return reply('Ingresa algo para buscar en imágenes🔐')
+tels = body.slice(5)
 samu330.updatePresence(from, Presence.composing)
+reply(mess.wait)
 try {
 data = await fetchJson(`https://api.fdci.se/sosmed/rep.php?gambar=${tels}`, {
   method: 'get'
 })
-reply(mess.wait)
 n = JSON.parse(JSON.stringify(data));
 nimek = n[Math.floor(Math.random() * n.length)];
 pok = await getBuffer(nimek)
 samu330.sendMessage(from, pok, image, {
-  quoted: mek, caption: `Resultado de: *${tels}*`, key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "mimetype": "image/jpeg", "caption": "💟𝐈𝐦𝐚𝐠𝐞𝐧💟", "jpegThumbnail": fs.readFileSync(`./NyanBot.jpg`)}}       
+  quoted: mek, forwardingScore: 9999, isForwarded: true, caption: `Resultado  de: *${tels}*`
 })
 
 } catch {
