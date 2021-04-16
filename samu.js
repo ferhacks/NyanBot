@@ -580,9 +580,8 @@ quoted: { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { re
 				case 'contacto':
 					argz = arg.split(' ')
 					if (!argz) return reply(`Ejemplo: *${prefix}contacto* @tag nombre | *${prefix}contacto* @Samu330 👑Samu👑`)
-					if mek.message.extendedTextMessage != undefined){
-						mentioned = 
-					mek.message.extendedTextMessage.contextInfo.mentionedjid
+					if (mek.message.extendedTextMessage != undefined){
+						mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
 						samu330.sendkontak(from, mentioned[0].split('@')[0], argz[1])
 								   }else{
 								   samu330.sendKontaK(from, argz[0], argz[1])
@@ -684,7 +683,7 @@ const latensi = speed() - timestamp
 samu330.updatePresence(from, Presence.composing)
 uptime = process.uptime()
 samu330.sendMessage(from, `*Pong.... xD*\n‣ *Speed* : ${latensi.toFixed(4)} _Segundos_\n\n*Info bot*\n‣ *Total de chats* : ${totalchat.length}\n‣ *Total de usuarios* : ${_registered.length}\n‣ *Bloqueados* : ${blocked.length}\n‣ *Tiempo activo* : ${kyun(uptime)}`, text, {
-	quoted: mek, contextInfo: {"forwardingScore": 9999, "isForwarded": true}, key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "mimetype": "image/jpeg", "caption": "🔋𝙄𝙣𝙛𝙤 𝘽𝙤𝙩🔋", "jpegThumbnail": fs.readFileSync(`./NyanBot.jpg`)}}}       
+	quoted: mek, contextInfo: {"forwardingScore": 9999, "isForwarded": true}, key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "mimetype": "image/jpeg", "caption": "🔋𝙄𝙣𝙛𝙤 𝘽𝙤𝙩🔋", "jpegThumbnail": fs.readFileSync(`./NyanBot.jpg`)}}       
 })
 break
 
@@ -722,7 +721,7 @@ n = JSON.parse(JSON.stringify(data));
 nimek = n[Math.floor(Math.random() * n.length)];
 pok = await getBuffer(nimek)
 samu330.sendMessage(from, pok, image, {
-  quoted: mek, caption: `Resultado de: *${tels}*`, key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "mimetype": "image/jpeg", "caption": "💟𝐈𝐦𝐚𝐠𝐞𝐧💟", "jpegThumbnail": fs.readFileSync(`./NyanBot.jpg`)}}}       
+  quoted: mek, caption: `Resultado de: *${tels}*`, key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "mimetype": "image/jpeg", "caption": "💟𝐈𝐦𝐚𝐠𝐞𝐧💟", "jpegThumbnail": fs.readFileSync(`./NyanBot.jpg`)}}       
 })
 
 } catch {
@@ -2422,7 +2421,7 @@ case 'setppbot':
 						fs.unlinkSync(medimg)
 						if (err) return reply('No se pudo hacer :(')
 						buffer = fs.readFileSync(ran)
-						samu330.sendMessage(from, buffer, image, {quoted: mek, caption: 'NyanBot', key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "mimetype": "image/jpeg", "caption": "❣Sam y Perry❣", "jpegThumbnail": fs.readFileSync(`./NyanBot.jpg`)}}}       })
+						samu330.sendMessage(from, buffer, image, {quoted: mek, caption: 'NyanBot', key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "mimetype": "image/jpeg", "caption": "❣Sam y Perry❣", "jpegThumbnail": fs.readFileSync(`./NyanBot.jpg`)}}       })
 						fs.unlinkSync(ran)
 					})
 					break
