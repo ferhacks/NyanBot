@@ -578,13 +578,13 @@ quoted: { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { re
 					
 				case 'vcard':
 				case 'contacto':
-					argz = arg.split(' ')
-					if (!argz) return reply(`Ejemplo: *${prefix}contacto* @tag nombre | *${prefix}contacto* @Samu330 👑Samu👑`)
+					args = arg.split(' ')
+					if (!args) return reply(`Ejemplo: *${prefix}contacto* @tag nombre | *${prefix}contacto* @Samu330 👑Samu👑`)
 					if (mek.message.extendedTextMessage != undefined){
 						mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
-						samu330.sendkontak(from, mentioned[0].split('@')[0], argz[1])
+						samu330.sendkontak(from, mentioned[0].split('@')[0], args[1])
 								   }else{
-								   samu330.sendKontaK(from, argz[0], argz[1])
+								   samu330.sendKontaK(from, args[0], args[1])
 						}
 					break
 					
@@ -592,7 +592,7 @@ quoted: { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { re
 					
 					
 					//case creado por Samu330
-					case 'cambiar cuerpo de menu a':
+					case 'cambiar':
 					if (args.length < 1) return
 					if (!isOwner) return reply(mess.only.ownerB)
 				  bodyM = args[0]
