@@ -85,6 +85,7 @@ const Wa1 = samu.Wa1;
 const Wa2 = samu.Wa2;
 const blocked = [];
 const ownerNumber = samu.ownerNumber;
+public = true
 //*********
 
 //*********Apikey
@@ -204,7 +205,6 @@ _*Ojala y le baya bien, y mas despues..... que lo atropelle un tren!!🚉🤣*_
             mek = mek.messages.all()[0]
 			if (!mek.message) return
 			if (mek.key && mek.key.remoteJid == 'status@broadcast') return
-			if (mek.key.fromMe) return
 			global.prefix
 			global.blocked
 			const content = JSON.stringify(mek.message)
@@ -214,6 +214,7 @@ _*Ojala y le baya bien, y mas despues..... que lo atropelle un tren!!🚉🤣*_
 			const time = moment.tz('Asia/Jakarta').format('DD/MM HH:mm:ss')
 			body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption.startsWith(prefix) ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text.startsWith(prefix) ? mek.message.extendedTextMessage.text : ''
 			budy = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : ''
+			chats = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : ''
 			var pes = (type === 'conversation' && mek.message.conversation) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text ? mek.message.extendedTextMessage.text : ''
 			const messagesC = pes.slice(0).trim().split(/ +/).shift().toLowerCase()
 			const command = body.slice(1).trim().split(/ +/).shift().toLowerCase()
@@ -244,7 +245,7 @@ _*Ojala y le baya bien, y mas despues..... que lo atropelle un tren!!🚉🤣*_
 			const samu = '```'
 			const ownerNumber = [`${samu.ownerNumber}@s.whatsapp.net`]
 			const isGroup = from.endsWith('@g.us')
-			const sender = isGroup ? mek.participant : mek.key.remoteJid
+			const sender =  mek.key.fromMe ? samu330.user.jid : isGroup ? mek.participant : mek.key.remoteJid
 			const groupMetadata = isGroup ? await samu330.groupMetadata(from) : ''
 			const groupName = isGroup ? groupMetadata.subject : ''
 			const groupId = isGroup ? groupMetadata.jid : ''
@@ -259,6 +260,7 @@ _*Ojala y le baya bien, y mas despues..... que lo atropelle un tren!!🚉🤣*_
 			const isAntiLink = isGroup ? antilink.includes(from) : false
 			const isAntiMedia = isGroup ? antimedia.includes(from) : false
       const isRegister = checkRegisteredUser(sender)
+     	const itsMe = sender === botNumber ? true : false
       const q = args.join(' ')
       const tescuk = ["0@s.whatsapp.net"]
 			let pushname = samu330.contacts[sender] != undefined ? samu330.contacts[sender].vname || samu330.contacts[sender].notify: undefined
@@ -485,13 +487,24 @@ console.error(err)
 
 
 //*********Auto respon
+						if (itsMe){
+							if (chats.toLowerCase() === `${prefix}publico`){
+								public = true
+								samu330.sendMessage(from, 'Entendido, Modo publico Activado', text)
+							}}
+							
+							if (!public){
+							if (!mek.key.fromMe) return
+}
+
 if(budy.match('bot')){
 result = fs.readFileSync(`./temp/stick/Samu.webp`)
   samu330.sendMessage(from, result, sticker, {
 quoted: mek, "forwardingScore": 9999, "isForwarded": true
   })
 }
-			
+
+
 /*if(budy.match('bot')){
 	reply('Eh, Aqui estoy🐬')*/
 	
@@ -538,6 +551,13 @@ reply(hasil)
 }
 
 			switch(command) {
+			  
+			  case 'privado':
+			    if (itsMe) {
+          public = false
+          await samu330.sendMessage(from, 'Entendido, Modo privado Activado', text)
+			  break
+			  
 case 'help':
   case 'menu':
 case '?':
