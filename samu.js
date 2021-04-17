@@ -245,7 +245,7 @@ _*Ojala y le baya bien, y mas despues..... que lo atropelle un tren!!🚉🤣*_
 			const samu = '```'
 			const ownerNumber = [`${samu.ownerNumber}@s.whatsapp.net`]
 			const isGroup = from.endsWith('@g.us')
-			const sender =  mek.key.fromMe ? samu330.user.jid : isGroup ? mek.participant : mek.key.remoteJid
+			const sender = mek.key.fromMe ? samu330.user.jid : isGroup ? mek.participant : mek.key.remoteJid
 			const groupMetadata = isGroup ? await samu330.groupMetadata(from) : ''
 			const groupName = isGroup ? groupMetadata.subject : ''
 			const groupId = isGroup ? groupMetadata.jid : ''
@@ -260,6 +260,7 @@ _*Ojala y le baya bien, y mas despues..... que lo atropelle un tren!!🚉🤣*_
 			const isAntiLink = isGroup ? antilink.includes(from) : false
 			const isAntiMedia = isGroup ? antimedia.includes(from) : false
       const isRegister = checkRegisteredUser(sender)
+      // self bot by : aiden (iamferhacks)
      	const itsMe = sender === botNumber ? true : false
       const q = args.join(' ')
       const tescuk = ["0@s.whatsapp.net"]
@@ -487,6 +488,7 @@ console.error(err)
 
 
 //*********Auto respon
+      // self bot by : aiden (iamferhacks)
 						if (itsMe){
 							if (chats.toLowerCase() === `${prefix}publico`){
 								public = true
@@ -551,13 +553,17 @@ reply(hasil)
 }
 
 			switch(command) {
-			  
+			        // self bot by : aiden (iamferhacks)
 			  case 'privado':
 			    if (itsMe) {
           public = false
           await samu330.sendMessage(from, 'Entendido, Modo privado Activado', text)
 			    }
 			  break
+			        // self bot by : aiden (iamferhacks)
+			  case 'publico' :
+			   //evita decir "el comando no existe"
+			    break
 			  
 case 'help':
   case 'menu':
