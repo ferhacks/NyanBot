@@ -556,6 +556,7 @@ reply(hasil)
 			    if (itsMe) {
           public = false
           await samu330.sendMessage(from, 'Entendido, Modo privado Activado', text)
+			    }
 			  break
 			  
 case 'help':
